@@ -6,23 +6,26 @@
   <title>Reset Gears – Before You Set New Goals, Choose the Right Gear</title>
   <meta name="description" content="A reset for mid-career professionals who don't need more motivation — just clarity, pace, and alignment." />
 
-  <!-- Plausible Analytics — update domain if you use a custom URL -->
   <script defer data-domain="anny320.github.io" src="https://plausible.io/js/script.js"></script>
 
   <style>
-    /* ── tokens ── */
     :root {
-      --bg:       #0f1117;
-      --surface:  #1a1d27;
-      --border:   #2a2d3a;
-      --text:     #e8eaf0;
-      --muted:    #8890a4;
-      --accent:   #4a9eff;
-      --green:    #3ecf8e;
-      --yellow:   #f6c94e;
-      --orange:   #ff8c42;
-      --blue:     #4a9eff;
+      --bg:       #ffffff;
+      --surface:  #f8f6ff;
+      --border:   #e8e2f8;
+      --text:     #1a1235;
+      --muted:    #6b6585;
+      --accent:   #6c3ff4;
+      --accent2:  #a855f7;
+      --accent3:  #ec4899;
       --max:      720px;
+
+      /* gear colours */
+      --recovery:      #ef4444;
+      --stabilisation: #f97316;
+      --exploration:   #eab308;
+      --execution:     #22c55e;
+      --expansion:     #3b82f6;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,17 +47,17 @@
       justify-content: space-between;
       align-items: center;
       padding: 0.9rem 1.5rem;
-      background: rgba(15,17,23,0.92);
+      background: rgba(255,255,255,0.92);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
-    nav .logo { font-weight: 700; font-size: 1rem; letter-spacing: -0.3px; }
+    nav .logo { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.5px; color: var(--text); }
     nav .logo span { color: var(--accent); }
     nav a.nav-cta {
       font-size: 0.85rem;
-      font-weight: 600;
-      padding: 0.4rem 1rem;
-      border-radius: 6px;
+      font-weight: 700;
+      padding: 0.45rem 1.1rem;
+      border-radius: 8px;
       background: var(--accent);
       color: #fff;
       text-decoration: none;
@@ -71,14 +74,15 @@
       text-align: center;
       padding-top: 6rem;
       padding-bottom: 5rem;
-      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(74,158,255,0.08) 0%, transparent 70%);
+      background: linear-gradient(135deg, #f0ebff 0%, #fef3e2 50%, #e8f5ff 100%);
     }
     #hero .eyebrow {
       display: inline-block;
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--accent);
+      font-weight: 700;
       margin-bottom: 1.2rem;
     }
     #hero h1 {
@@ -87,6 +91,7 @@
       line-height: 1.15;
       letter-spacing: -1px;
       margin-bottom: 1.2rem;
+      color: var(--text);
     }
     #hero h1 em { font-style: normal; color: var(--accent); }
     #hero p.sub {
@@ -98,8 +103,8 @@
     .btn-primary {
       display: inline-block;
       padding: 0.85rem 2rem;
-      border-radius: 10px;
-      background: var(--accent);
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
       color: #fff;
       font-size: 1rem;
       font-weight: 700;
@@ -107,13 +112,14 @@
       transition: opacity 0.2s, transform 0.1s;
       cursor: pointer;
       border: none;
+      box-shadow: 0 4px 20px rgba(108,63,244,0.3);
     }
     .btn-primary:hover { opacity: 0.88; }
     .btn-primary:active { transform: scale(0.97); }
 
     /* ── problem ── */
     #problem { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    #problem h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; }
+    #problem h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 1rem; }
     #problem .lead { font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem; max-width: 520px; }
     .feel-list {
       list-style: none;
@@ -133,25 +139,16 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       flex-shrink: 0;
     }
     #problem .closer { color: var(--muted); font-size: 0.95rem; }
 
     /* ── solution ── */
     #solution { text-align: center; }
-    #solution h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; }
-    #solution .question {
-      font-size: 1rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-    #solution .answer {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 2rem;
-    }
+    #solution h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 1rem; }
+    #solution .question { font-size: 1rem; color: var(--muted); margin-bottom: 0.5rem; }
+    #solution .answer { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 2rem; }
     .no-list {
       list-style: none;
       display: flex;
@@ -164,7 +161,7 @@
 
     /* ── products ── */
     #products { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    #products h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: 2rem; text-align: center; }
+    #products h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; margin-bottom: 2rem; text-align: center; }
 
     .product-grid {
       display: grid;
@@ -174,17 +171,18 @@
 
     .product-card {
       background: var(--bg);
-      border: 1px solid var(--border);
+      border: 1.5px solid var(--border);
       border-radius: 16px;
       padding: 1.6rem;
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
-      transition: border-color 0.25s, box-shadow 0.25s;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
     }
     .product-card:hover {
       border-color: var(--card-color);
-      box-shadow: 0 0 0 1px var(--card-color), 0 8px 28px rgba(0,0,0,0.35);
+      box-shadow: 0 8px 32px rgba(108,63,244,0.12);
+      transform: translateY(-2px);
     }
     .product-card .tier {
       font-size: 0.68rem;
@@ -193,7 +191,7 @@
       color: var(--card-color);
       font-weight: 700;
     }
-    .product-card h3 { font-size: 1.1rem; font-weight: 700; }
+    .product-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
     .product-card .desc { font-size: 0.9rem; color: var(--muted); flex: 1; }
     .product-card ul {
       list-style: none;
@@ -203,18 +201,18 @@
     }
     .product-card ul li {
       font-size: 0.85rem;
-      color: #c8ccd8;
+      color: var(--muted);
       display: flex;
       align-items: flex-start;
       gap: 0.5rem;
     }
-    .product-card ul li::before { content: '✓'; color: var(--card-color); flex-shrink: 0; }
+    .product-card ul li::before { content: '✓'; color: var(--card-color); flex-shrink: 0; font-weight: 700; }
 
     .btn-card {
       display: block;
       text-align: center;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
+      padding: 0.65rem 1.2rem;
+      border-radius: 10px;
       background: var(--card-color);
       color: #fff;
       font-size: 0.9rem;
@@ -228,159 +226,283 @@
     .btn-card:hover { opacity: 0.85; }
 
     /* ── simulator ── */
-    #simulator { padding-top: 5rem; padding-bottom: 0; }
-    #simulator .inner { text-align: center; margin-bottom: 2.5rem; }
-    #simulator h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: 0.6rem; }
-    #simulator p { color: var(--muted); font-size: 0.95rem; max-width: 480px; margin: 0 auto; }
-
-    #progress-wrap {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 1rem 1.5rem 2rem;
+    #simulator {
+      background: linear-gradient(160deg, #faf8ff 0%, #fff8f0 100%);
+      border-top: 1px solid var(--border);
+      padding: 5rem 1.5rem;
     }
-    .pip {
-      width: 32px;
-      height: 6px;
+
+    .sim-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .sim-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 0.6rem; }
+    .sim-header p { color: var(--muted); font-size: 0.95rem; max-width: 480px; margin: 0 auto; }
+
+    .sim-shell {
+      max-width: var(--max);
+      margin: 0 auto;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(108,63,244,0.08);
+    }
+
+    /* step progress bar */
+    .step-bar {
+      display: flex;
+      gap: 4px;
+      padding: 1rem 1.5rem 0;
+    }
+    .step-pip {
+      flex: 1;
+      height: 5px;
       border-radius: 3px;
       background: var(--border);
       transition: background 0.4s;
     }
-    .pip.done { background: var(--active-color, var(--accent)); }
+    .step-pip.active { background: var(--accent); }
+    .step-pip.done { background: var(--accent2); }
 
-    #gear-track {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 0 1.5rem 2rem;
-    }
-
-    .gear-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-    }
-    .gear-card:hover { border-color: var(--color); }
-    .gear-card.active {
-      border-color: var(--color);
-      box-shadow: 0 0 0 1px var(--color), 0 8px 32px rgba(0,0,0,0.4);
-    }
-    .gear-card.completed .card-header::after {
-      content: '✓';
-      margin-left: auto;
-      font-size: 1rem;
-      color: var(--color);
-    }
-    .card-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.1rem 1.4rem;
-      user-select: none;
-    }
-    .gear-icon { width: 44px; height: 44px; flex-shrink: 0; }
-    .gear-icon svg { width: 44px; height: 44px; }
-    .gear-icon.spinning svg { animation: spin 3s linear infinite; }
-    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-    .card-title { flex: 1; }
-    .card-title .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
-    .card-title h3 { font-size: 1.05rem; font-weight: 600; }
-
-    .chevron { color: var(--muted); font-size: 1.1rem; transition: transform 0.3s; margin-left: auto; }
-    .gear-card.active .chevron { transform: rotate(180deg); }
-    .gear-card.completed .chevron { display: none; }
-
-    .card-body { display: none; padding: 0 1.4rem 1.4rem; border-top: 1px solid var(--border); }
-    .gear-card.active .card-body { display: block; }
-
-    .card-body .slabel {
-      margin: 1rem 0 0.4rem;
+    .step-label {
+      padding: 0.6rem 1.5rem 1.2rem;
       font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       color: var(--muted);
+      font-weight: 700;
     }
-    .card-body p { line-height: 1.6; color: var(--text); margin-bottom: 1rem; }
 
-    .try-list { list-style: none; margin-bottom: 1.2rem; }
-    .try-list li {
+    /* step panels */
+    .step-panel { display: none; padding: 0 1.5rem 1.5rem; }
+    .step-panel.visible { display: block; }
+
+    .step-panel h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .step-panel .step-intro {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.65;
+      font-style: italic;
+      border-left: 3px solid var(--accent);
+      padding-left: 0.85rem;
+      background: var(--surface);
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* gear option cards */
+    .gear-options { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.5rem; }
+
+    .gear-option {
       display: flex;
       align-items: flex-start;
-      gap: 0.6rem;
-      padding: 0.35rem 0;
-      font-size: 0.92rem;
-      color: #c8ccd8;
+      gap: 0.9rem;
+      padding: 0.9rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      background: #fff;
     }
-    .try-list li::before { content: '→'; color: var(--color); flex-shrink: 0; margin-top: 1px; }
+    .gear-option:hover { border-color: var(--go-color); background: #faf8ff; }
+    .gear-option.selected {
+      border-color: var(--go-color);
+      background: color-mix(in srgb, var(--go-color) 8%, #fff);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--go-color) 20%, transparent);
+    }
+    .gear-option input[type=radio], .gear-option input[type=checkbox] { display: none; }
+    .gear-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--go-color);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .gear-option-text strong { font-weight: 700; font-size: 0.95rem; display: block; }
+    .gear-option-text span { font-size: 0.85rem; color: var(--muted); }
 
-    .reflection-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
+    /* checkboxes for clarity/commitment */
+    .check-options { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .check-option {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
       border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1.2rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: #fff;
     }
-    .reflection-box .rlabel { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 0.5rem; }
-    .reflection-box p { font-size: 0.88rem; color: var(--muted); margin: 0 0 0.7rem; }
-    textarea {
+    .check-option:hover { border-color: var(--accent); background: #faf8ff; }
+    .check-option.checked {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 7%, #fff);
+    }
+    .check-option input[type=checkbox] { display: none; }
+    .custom-cb {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s, background 0.2s;
+      font-size: 11px;
+      color: #fff;
+    }
+    .check-option.checked .custom-cb {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+    .check-option.checked .custom-cb::after { content: '✓'; }
+    .check-option-label { font-size: 0.92rem; color: var(--text); }
+
+    /* journal */
+    .journal-q {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+      font-style: italic;
+    }
+    textarea.sim-ta {
       width: 100%;
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
       color: var(--text);
       font-family: inherit;
-      font-size: 0.9rem;
-      padding: 0.6rem 0.8rem;
+      font-size: 0.92rem;
+      padding: 0.8rem 1rem;
       resize: vertical;
-      min-height: 72px;
+      min-height: 100px;
       outline: none;
       transition: border-color 0.2s;
+      margin-bottom: 1.5rem;
     }
-    textarea:focus { border-color: var(--color); }
+    textarea.sim-ta:focus { border-color: var(--accent); }
 
-    .btn-complete {
-      padding: 0.6rem 1.4rem;
-      border-radius: 8px;
+    /* signature */
+    .sig-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      margin-top: 1.2rem;
+    }
+    .sig-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      flex: 1;
+      min-width: 140px;
+    }
+    .sig-field label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; }
+    .sig-field input {
       border: none;
-      background: var(--color);
-      color: #fff;
-      font-size: 0.9rem;
+      border-bottom: 2px solid var(--border);
+      outline: none;
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.3rem 0;
+      background: transparent;
+      color: var(--text);
+      transition: border-color 0.2s;
+    }
+    .sig-field input:focus { border-color: var(--accent); }
+
+    /* nav buttons */
+    .step-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .btn-back {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 1.1rem;
+      font-size: 0.88rem;
       font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-back:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-next {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      border: none;
+      border-radius: 8px;
+      padding: 0.55rem 1.4rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff;
       cursor: pointer;
       transition: opacity 0.2s, transform 0.1s;
+      box-shadow: 0 2px 12px rgba(108,63,244,0.25);
     }
-    .btn-complete:hover { opacity: 0.85; }
-    .btn-complete:active { transform: scale(0.97); }
+    .btn-next:hover { opacity: 0.88; }
+    .btn-next:active { transform: scale(0.97); }
 
-    /* ── done banner ── */
-    #done-banner {
+    /* completion */
+    #sim-complete {
       display: none;
       text-align: center;
       padding: 3rem 1.5rem;
-      max-width: 520px;
-      margin: 0 auto;
     }
-    #done-banner h2 { font-size: 1.8rem; margin-bottom: 0.6rem; }
-    #done-banner p { color: var(--muted); margin-bottom: 1.6rem; }
-    .gear-row { display: flex; justify-content: center; gap: 6px; margin: 1.2rem 0; }
-    .gear-row svg { animation: spin 2s linear infinite; }
+    .gear-row { display: flex; justify-content: center; gap: 8px; margin: 1.2rem 0; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .gear-row svg { animation: spin 2.5s linear infinite; }
     .gear-row svg:nth-child(2) { animation-direction: reverse; }
-    .gear-row svg:nth-child(3) { animation-delay: 0.3s; }
+    .gear-row svg:nth-child(3) { animation-delay: 0.4s; }
+    #sim-complete h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.6rem; }
+    #sim-complete p { color: var(--muted); max-width: 380px; margin: 0 auto 1.8rem; font-size: 0.95rem; }
+
+    /* summary card shown in completion */
+    .summary-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 1.2rem 1.4rem;
+      text-align: left;
+      margin-bottom: 1.6rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .summary-card .sc-row { display: flex; justify-content: space-between; font-size: 0.88rem; padding: 0.35rem 0; border-bottom: 1px solid var(--border); }
+    .summary-card .sc-row:last-child { border-bottom: none; }
+    .summary-card .sc-label { color: var(--muted); }
+    .summary-card .sc-val { font-weight: 700; }
 
     /* ── closing ── */
     #closing {
       text-align: center;
       padding: 5rem 1.5rem 6rem;
-      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(74,158,255,0.07) 0%, transparent 70%);
+      background: linear-gradient(135deg, #6c3ff4 0%, #a855f7 50%, #ec4899 100%);
+      color: #fff;
     }
-    #closing h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.6rem; }
-    #closing p { color: var(--muted); max-width: 400px; margin: 0 auto 2rem; }
+    #closing h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.6rem; color: #fff; }
+    #closing p { color: rgba(255,255,255,0.8); max-width: 400px; margin: 0 auto 2rem; }
+    #closing .btn-primary {
+      background: #fff;
+      color: var(--accent);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    #closing .btn-primary:hover { opacity: 0.9; }
 
     footer {
       text-align: center;
@@ -390,10 +512,11 @@
       border-top: 1px solid var(--border);
     }
 
-    /* ── responsive ── */
     @media (max-width: 480px) {
       section { padding: 3.5rem 1rem; }
       #hero { padding-top: 4rem; }
+      .sim-shell { border-radius: 14px; }
+      .step-panel, .step-nav { padding-left: 1rem; padding-right: 1rem; }
     }
   </style>
 </head>
@@ -451,7 +574,7 @@
     <h2>Choose Your Reset</h2>
     <div class="product-grid">
 
-      <div class="product-card" style="--card-color: var(--green)">
+      <div class="product-card" style="--card-color:#6c3ff4">
         <div class="tier">🟢 Free</div>
         <h3>Choose Your Next Gear</h3>
         <p class="desc">A one-page reflection to help you identify your current operating gear.</p>
@@ -460,10 +583,10 @@
           <li>Immediate clarity</li>
           <li>No pressure, no cost</li>
         </ul>
-        <button class="btn-card" onclick="plausible('product_click',{props:{product:'free'}}); document.getElementById('simulator').scrollIntoView({behavior:'smooth'})">👉 Download Free</button>
+        <button class="btn-card" onclick="plausible('product_click',{props:{product:'free'}}); document.getElementById('simulator').scrollIntoView({behavior:'smooth'})">👉 Start Free Reflection</button>
       </div>
 
-      <div class="product-card" style="--card-color: var(--yellow)">
+      <div class="product-card" style="--card-color:#f59e0b">
         <div class="tier">🟡 Core</div>
         <h3>The 30-Day Reset + Gears</h3>
         <p class="desc">A structured reset to slow down, reflect, and realign — without falling behind.</p>
@@ -475,7 +598,7 @@
         <button class="btn-card" onclick="plausible('product_click',{props:{product:'30day'}})">👉 Begin the 30-Day Reset</button>
       </div>
 
-      <div class="product-card" style="--card-color: var(--yellow)">
+      <div class="product-card" style="--card-color:#f97316">
         <div class="tier">🟡 Light</div>
         <h3>The One-Day Reset</h3>
         <p class="desc">A focused 60–90 minute reset for moments when you need clarity now.</p>
@@ -487,7 +610,7 @@
         <button class="btn-card" onclick="plausible('product_click',{props:{product:'oneday'}})">👉 Do the One-Day Reset</button>
       </div>
 
-      <div class="product-card" style="--card-color: var(--blue)">
+      <div class="product-card" style="--card-color:#3b82f6">
         <div class="tier">🔵 Premium</div>
         <h3>Guided Reset</h3>
         <p class="desc">For professionals who want gentle accountability and guided reflection.</p>
@@ -505,31 +628,208 @@
 
 <!-- ── SIMULATOR ── -->
 <section id="simulator">
-  <div class="inner">
-    <h2>⚙️ Free Gear Reflection</h2>
-    <p>Work through each gear below. Write your reflections — they're saved locally in your browser.</p>
+  <div class="sim-header">
+    <h2>⚙️ Choose Your Next Gear</h2>
+    <p>A 10–15 minute reflection to identify where you are — and the gear you actually need right now.</p>
+  </div>
+
+  <div class="sim-shell" style="max-width:var(--max);margin:0 auto;">
+
+    <!-- progress pips -->
+    <div class="step-bar" id="step-bar">
+      <div class="step-pip active" id="pip-0"></div>
+      <div class="step-pip" id="pip-1"></div>
+      <div class="step-pip" id="pip-2"></div>
+      <div class="step-pip" id="pip-3"></div>
+      <div class="step-pip" id="pip-4"></div>
+    </div>
+    <div class="step-label" id="step-label">Step 1 of 5</div>
+
+    <!-- ── STEP 1: Pause & Check In ── -->
+    <div class="step-panel visible" id="step-0">
+      <h3>Pause &amp; Check In</h3>
+      <p class="step-intro">Before setting new goals, take a moment to identify the gear you are currently operating in — and the gear you actually need for this season. There is no right or wrong gear. Alignment matters more than speed.</p>
+
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem;">Which gear are you currently operating in?</p>
+      <div class="gear-options" id="current-gear-opts">
+        <label class="gear-option" style="--go-color:var(--recovery)">
+          <input type="radio" name="current-gear" value="Recovery">
+          <div class="gear-dot"></div>
+          <div class="gear-option-text">
+            <strong>🟥 Recovery</strong>
+            <span>I need rest, simplification, and space to restore energy.</span>
+          </div>
+        </label>
+        <label class="gear-option" style="--go-color:var(--stabilisation)">
+          <input type="radio" name="current-gear" value="Stabilisation">
+          <div class="gear-dot"></div>
+          <div class="gear-option-text">
+            <strong>🟧 Stabilisation</strong>
+            <span>I need consistency, rhythm, and fewer decisions.</span>
+          </div>
+        </label>
+        <label class="gear-option" style="--go-color:var(--exploration)">
+          <input type="radio" name="current-gear" value="Exploration">
+          <div class="gear-dot"></div>
+          <div class="gear-option-text">
+            <strong>🟨 Exploration</strong>
+            <span>I need clarity, learning, and low-pressure experimentation.</span>
+          </div>
+        </label>
+        <label class="gear-option" style="--go-color:var(--execution)">
+          <input type="radio" name="current-gear" value="Execution">
+          <div class="gear-dot"></div>
+          <div class="gear-option-text">
+            <strong>🟩 Execution</strong>
+            <span>I need focus, momentum, and disciplined delivery.</span>
+          </div>
+        </label>
+        <label class="gear-option" style="--go-color:var(--expansion)">
+          <input type="radio" name="current-gear" value="Expansion">
+          <div class="gear-dot"></div>
+          <div class="gear-option-text">
+            <strong>🟦 Expansion</strong>
+            <span>I need to scale impact, lead others, and multiply results.</span>
+          </div>
+        </label>
+        <label class="gear-option" style="--go-color:var(--muted)">
+          <input type="radio" name="current-gear" value="Unsure">
+          <div class="gear-dot" style="background:var(--muted)"></div>
+          <div class="gear-option-text">
+            <strong>☐ Other / Unsure</strong>
+            <span>I'm not sure yet — and that's okay.</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: Aligned Gear ── -->
+    <div class="step-panel" id="step-1">
+      <h3>Reflection Prompts</h3>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem;">Which gear feels most aligned for the <strong>next 30–90 days</strong>?</p>
+      <div class="gear-options" id="aligned-gear-opts">
+        <label class="gear-option" style="--go-color:var(--recovery)">
+          <input type="radio" name="aligned-gear" value="Recovery">
+          <div class="gear-dot"></div>
+          <div class="gear-option-text">
+            <strong>🟥 Recovery</strong>
+            <span>Rest, simplification, restoring energy</span>
+          </div>
+        </label>
+        <label class="gear-option" style="--go-color:var(--stabilisation)">
+          <input type="radio" name="aligned-gear" value="Stabilisation">
+          <div class="gear-dot"></div>
+          <div class="gear-option-text">
+            <strong>🟧 Stabilisation</strong>
+            <span>Consistency, rhythm, fewer decisions</span>
+          </div>
+        </label>
+        <label class="gear-option" style="--go-color:var(--exploration)">
+          <input type="radio" name="aligned-gear" value="Exploration">
+          <div class="gear-dot"></div>
+          <div class="gear-option-text">
+            <strong>🟨 Exploration</strong>
+            <span>Clarity, learning, low-pressure experimentation</span>
+          </div>
+        </label>
+        <label class="gear-option" style="--go-color:var(--execution)">
+          <input type="radio" name="aligned-gear" value="Execution">
+          <div class="gear-dot"></div>
+          <div class="gear-option-text">
+            <strong>🟩 Execution</strong>
+            <span>Focus, momentum, disciplined delivery</span>
+          </div>
+        </label>
+        <label class="gear-option" style="--go-color:var(--expansion)">
+          <input type="radio" name="aligned-gear" value="Expansion">
+          <div class="gear-dot"></div>
+          <div class="gear-option-text">
+            <strong>🟦 Expansion</strong>
+            <span>Scale impact, lead others, multiply results</span>
+          </div>
+        </label>
+        <label class="gear-option" style="--go-color:var(--muted)">
+          <input type="radio" name="aligned-gear" value="Unsure">
+          <div class="gear-dot" style="background:var(--muted)"></div>
+          <div class="gear-option-text">
+            <strong>☐ Still figuring it out</strong>
+            <span>That's fine — this exercise will help</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: Guided Clarity Check ── -->
+    <div class="step-panel" id="step-2">
+      <h3>Guided Clarity Check</h3>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem;">This season, I feel: <em style="font-size:0.82rem">(select all that apply)</em></p>
+      <div class="check-options" id="clarity-opts">
+        <label class="check-option"><input type="checkbox" value="Energised but scattered"><div class="custom-cb"></div><span class="check-option-label">Energised but scattered</span></label>
+        <label class="check-option"><input type="checkbox" value="Capable but overwhelmed"><div class="custom-cb"></div><span class="check-option-label">Capable but overwhelmed</span></label>
+        <label class="check-option"><input type="checkbox" value="Motivated but unclear"><div class="custom-cb"></div><span class="check-option-label">Motivated but unclear</span></label>
+        <label class="check-option"><input type="checkbox" value="Clear but overextended"><div class="custom-cb"></div><span class="check-option-label">Clear but overextended</span></label>
+        <label class="check-option"><input type="checkbox" value="Ready for more responsibility"><div class="custom-cb"></div><span class="check-option-label">Ready for more responsibility</span></label>
+        <label class="check-option"><input type="checkbox" value="Other"><div class="custom-cb"></div><span class="check-option-label">Other</span></label>
+      </div>
+    </div>
+
+    <!-- ── STEP 4: Journal Reflection ── -->
+    <div class="step-panel" id="step-3">
+      <h3>Journal Reflection</h3>
+      <p class="journal-q">What would change if you allowed yourself to operate in the right gear — instead of the most impressive one?</p>
+      <textarea class="sim-ta" id="journal-text" placeholder="Write freely. There are no wrong answers…" rows="6"></textarea>
+    </div>
+
+    <!-- ── STEP 5: Micro-Commitment ── -->
+    <div class="step-panel" id="step-4">
+      <h3>Micro-Commitment</h3>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem;">For this season, I commit to: <em style="font-size:0.82rem">(select all that apply)</em></p>
+      <div class="check-options" id="commitment-opts">
+        <label class="check-option"><input type="checkbox" value="Rest &amp; recovery"><div class="custom-cb"></div><span class="check-option-label">Rest &amp; recovery</span></label>
+        <label class="check-option"><input type="checkbox" value="Consistency &amp; rhythm"><div class="custom-cb"></div><span class="check-option-label">Consistency &amp; rhythm</span></label>
+        <label class="check-option"><input type="checkbox" value="Learning &amp; reflection"><div class="custom-cb"></div><span class="check-option-label">Learning &amp; reflection</span></label>
+        <label class="check-option"><input type="checkbox" value="Focused execution"><div class="custom-cb"></div><span class="check-option-label">Focused execution</span></label>
+        <label class="check-option"><input type="checkbox" value="Scaled leadership"><div class="custom-cb"></div><span class="check-option-label">Scaled leadership</span></label>
+      </div>
+      <div class="sig-row">
+        <div class="sig-field">
+          <label>Signed</label>
+          <input type="text" id="sig-name" placeholder="Your name">
+        </div>
+        <div class="sig-field">
+          <label>Date</label>
+          <input type="text" id="sig-date" placeholder="Today's date">
+        </div>
+      </div>
+    </div>
+
+    <!-- completion -->
+    <div id="sim-complete">
+      <div class="gear-row">
+        <svg width="34" height="34" viewBox="0 0 36 36" fill="#6c3ff4"><use href="#gear-svg"/></svg>
+        <svg width="26" height="26" viewBox="0 0 36 36" style="margin-top:4px" fill="#a855f7"><use href="#gear-svg"/></svg>
+        <svg width="34" height="34" viewBox="0 0 36 36" fill="#ec4899"><use href="#gear-svg"/></svg>
+      </div>
+      <h3>Reflection Complete 🎉</h3>
+      <p>You now have a clearer sense of your current pace and the gear that best fits this season. Trust the alignment over the speed.</p>
+      <div class="summary-card" id="summary-card"></div>
+      <a class="btn-primary" href="#products" onclick="plausible('completion_upsell_click')">Explore the Full Reset →</a>
+    </div>
+
+    <!-- nav controls -->
+    <div class="step-nav" id="step-nav">
+      <button class="btn-back" id="btn-back" onclick="prevStep()" style="visibility:hidden">← Back</button>
+      <button class="btn-next" id="btn-next" onclick="nextStep()">Next →</button>
+    </div>
+
   </div>
 </section>
-
-<div id="progress-wrap"></div>
-<div id="gear-track"></div>
-
-<div id="done-banner">
-  <div class="gear-row">
-    <svg width="36" height="36" viewBox="0 0 36 36"><use href="#gear-svg" fill="#4a9eff"/></svg>
-    <svg width="28" height="28" viewBox="0 0 36 36" style="margin-top:4px"><use href="#gear-svg" fill="#3ecf8e"/></svg>
-    <svg width="36" height="36" viewBox="0 0 36 36"><use href="#gear-svg" fill="#f6c94e"/></svg>
-  </div>
-  <h2>All gears turning! 🎉</h2>
-  <p>You've completed the free reflection. You now have a clearer sense of your current pace, focus, and alignment — and where to move next.</p>
-  <a class="btn-primary" href="#products" onclick="plausible('completion_upsell_click')">Explore the Full Reset →</a>
-</div>
 
 <!-- ── CLOSING ── -->
 <section id="closing">
   <div class="inner">
     <h2>This Is Not About Doing More.</h2>
-    <p>It's about choosing the right way to move — sustainably.</p>
+    <p>It's about choosing the right way to move — sustainably, with intention.</p>
     <a class="btn-primary" href="#simulator" onclick="plausible('closing_cta_click')">Start the Free Reflection</a>
   </div>
 </section>
@@ -546,135 +846,105 @@
 </svg>
 
 <script>
-/* ── safe plausible wrapper so it works even if the script hasn't loaded ── */
 window.plausible = window.plausible || function() {
   (window.plausible.q = window.plausible.q || []).push(arguments);
 };
 
-const gears = [
-  { id:1, color:'#4a9eff', title:'Awareness',
-    goal:'See that digital products are not magic — they are systems built by people.',
-    tries:['Explore a live app','Click through its features','Identify the problem being solved'],
-    reflection:'What is one problem in your life, church, school, or work that could be solved digitally?' },
-  { id:2, color:'#3ecf8e', title:'Skills',
-    goal:'Understand that apps are built from small, practical features.',
-    tries:['Bookmark an item in an app','Add a reminder','Test the app on mobile'],
-    reflection:'Which feature felt most useful and why?' },
-  { id:3, color:'#f6c94e', title:'Systems',
-    goal:'Demystify GitHub and deployment.',
-    tries:['Open a public repository','Review the files and commit history','Understand what version control means'],
-    reflection:'What would change if your ideas were saved and visible?' },
-  { id:4, color:'#ff8c42', title:'Monetization',
-    goal:'Understand ethical digital monetization.',
-    tries:['Review an affiliate disclosure','Explore a monetized digital product','Compare free vs paid tiers of a tool'],
-    reflection:'How could a tool you build sustain itself?' },
-  { id:5, color:'#e05c5c', title:'AI',
-    goal:'Learn to collaborate with AI responsibly.',
-    tries:['Enter a prompt into an AI tool','Generate a recommendation','Review the output critically'],
-    reflection:'Where could AI assist you without replacing your judgement?' },
-];
+const TOTAL = 5;
+let current = 0;
 
-const track       = document.getElementById('gear-track');
-const progressWrap = document.getElementById('progress-wrap');
-const doneBanner  = document.getElementById('done-banner');
-const saved       = JSON.parse(localStorage.getItem('gears-progress') || '{}');
-
-function saveState() { localStorage.setItem('gears-progress', JSON.stringify(saved)); }
-function gearSVG(color, size=40) {
-  return `<svg width="${size}" height="${size}" viewBox="0 0 36 36" fill="${color}"><use href="#gear-svg"/></svg>`;
-}
-
-gears.forEach(g => {
-  const pip = document.createElement('div');
-  pip.className = 'pip' + (saved[g.id] ? ' done' : '');
-  pip.style.setProperty('--active-color', g.color);
-  pip.id = `pip-${g.id}`;
-  progressWrap.appendChild(pip);
-});
-
-gears.forEach((g, idx) => {
-  const card = document.createElement('div');
-  card.className = 'gear-card' + (saved[g.id] ? ' completed' : '');
-  card.style.setProperty('--color', g.color);
-  card.id = `card-${g.id}`;
-  const triesHTML = g.tries.map(t => `<li>${t}</li>`).join('');
-  const savedRef  = saved[g.id]?.reflection || '';
-  card.innerHTML = `
-    <div class="card-header">
-      <div class="gear-icon${saved[g.id] ? '' : idx===0?' spinning':''}" id="icon-${g.id}">${gearSVG(g.color)}</div>
-      <div class="card-title">
-        <div class="label">Gear ${g.id} of ${gears.length}</div>
-        <h3>${g.title}</h3>
-      </div>
-      <span class="chevron">▾</span>
-    </div>
-    <div class="card-body">
-      <div class="slabel">Goal</div>
-      <p>${g.goal}</p>
-      <div class="slabel">Try This</div>
-      <ul class="try-list">${triesHTML}</ul>
-      <div class="reflection-box">
-        <div class="rlabel">Reflection</div>
-        <p>${g.reflection}</p>
-        <textarea id="ref-${g.id}" placeholder="Write your thoughts here…">${savedRef}</textarea>
-      </div>
-      <button class="btn-complete" onclick="completeGear(${g.id},event)">
-        ${saved[g.id]?'Completed ✓':'Mark Complete'}
-      </button>
-    </div>`;
-  card.querySelector('.card-header').addEventListener('click', () => toggleCard(g.id));
-  track.appendChild(card);
-});
-
-const firstOpen = gears.find(g => !saved[g.id]);
-if (firstOpen) toggleCard(firstOpen.id);
-
-function toggleCard(id) {
-  document.querySelectorAll('.gear-card').forEach(c => {
-    if (!c.classList.contains('completed')) c.classList.remove('active');
-    c.querySelector('.gear-icon')?.classList.remove('spinning');
+/* gear option interactivity */
+document.querySelectorAll('.gear-option').forEach(el => {
+  el.addEventListener('click', () => {
+    const radio = el.querySelector('input[type=radio]');
+    if (!radio) return;
+    const name = radio.name;
+    document.querySelectorAll(`.gear-option input[name="${name}"]`).forEach(r => {
+      r.closest('.gear-option').classList.remove('selected');
+    });
+    radio.checked = true;
+    el.classList.add('selected');
   });
-  const card = document.getElementById(`card-${id}`);
-  if (card.classList.contains('completed')) return;
-  card.classList.add('active');
-  card.querySelector('.gear-icon').classList.add('spinning');
-  plausible('gear_opened', {props:{gear: id}});
-}
-
-function completeGear(id, e) {
-  e.stopPropagation();
-  const reflection = document.getElementById(`ref-${id}`).value;
-  saved[id] = { reflection, completedAt: new Date().toISOString() };
-  saveState();
-
-  const card = document.getElementById(`card-${id}`);
-  card.classList.remove('active');
-  card.classList.add('completed');
-  card.querySelector('.card-body').style.display = 'none';
-  card.querySelector('.btn-complete').textContent = 'Completed ✓';
-  card.querySelector('.gear-icon').classList.remove('spinning');
-  card.querySelector('.chevron').style.display = 'none';
-  document.getElementById(`pip-${id}`).classList.add('done');
-
-  plausible('gear_completed', {props:{gear: id}});
-
-  const next = gears.find(g => !saved[g.id]);
-  if (next) { toggleCard(next.id); }
-  else {
-    plausible('reflection_fully_completed');
-    doneBanner.style.display = 'block';
-    doneBanner.scrollIntoView({behavior:'smooth'});
-  }
-}
-
-gears.forEach(g => {
-  if (saved[g.id]) {
-    const card = document.getElementById(`card-${g.id}`);
-    card.querySelector('.btn-complete').textContent = 'Completed ✓';
-    card.querySelector('.chevron').style.display = 'none';
-  }
 });
-if (gears.every(g => saved[g.id])) doneBanner.style.display = 'block';
+
+document.querySelectorAll('.check-option').forEach(el => {
+  el.addEventListener('click', () => {
+    const cb = el.querySelector('input[type=checkbox]');
+    cb.checked = !cb.checked;
+    el.classList.toggle('checked', cb.checked);
+  });
+});
+
+function updateUI() {
+  document.querySelectorAll('.step-panel').forEach((p, i) => {
+    p.classList.toggle('visible', i === current);
+  });
+  document.querySelectorAll('.step-pip').forEach((p, i) => {
+    p.classList.remove('active', 'done');
+    if (i < current) p.classList.add('done');
+    else if (i === current) p.classList.add('active');
+  });
+  document.getElementById('step-label').textContent = `Step ${current + 1} of ${TOTAL}`;
+  document.getElementById('btn-back').style.visibility = current === 0 ? 'hidden' : 'visible';
+  document.getElementById('btn-next').textContent = current === TOTAL - 1 ? 'Complete ✓' : 'Next →';
+}
+
+function nextStep() {
+  if (current < TOTAL - 1) {
+    current++;
+    updateUI();
+    plausible('gear_step', {props:{step: current + 1}});
+    document.querySelector('.sim-shell').scrollIntoView({behavior:'smooth', block:'start'});
+  } else {
+    completeReflection();
+  }
+}
+
+function prevStep() {
+  if (current > 0) {
+    current--;
+    updateUI();
+  }
+}
+
+function getChecked(containerSelector) {
+  return [...document.querySelectorAll(`${containerSelector} input[type=checkbox]`)]
+    .filter(c => c.checked).map(c => c.value);
+}
+
+function completeReflection() {
+  const currentGear  = document.querySelector('input[name="current-gear"]:checked')?.value || '—';
+  const alignedGear  = document.querySelector('input[name="aligned-gear"]:checked')?.value || '—';
+  const clarity      = getChecked('#clarity-opts');
+  const commitments  = getChecked('#commitment-opts');
+  const journal      = document.getElementById('journal-text').value.trim();
+  const name         = document.getElementById('sig-name').value.trim();
+  const date         = document.getElementById('sig-date').value.trim();
+
+  localStorage.setItem('resetgears-reflection', JSON.stringify({
+    currentGear, alignedGear, clarity, commitments, journal, name, date,
+    completedAt: new Date().toISOString()
+  }));
+
+  document.getElementById('summary-card').innerHTML = `
+    <div class="sc-row"><span class="sc-label">Current gear</span><span class="sc-val">${currentGear}</span></div>
+    <div class="sc-row"><span class="sc-label">Aligned gear (next 30–90 days)</span><span class="sc-val">${alignedGear}</span></div>
+    <div class="sc-row"><span class="sc-label">This season I feel</span><span class="sc-val">${clarity.join(', ') || '—'}</span></div>
+    <div class="sc-row"><span class="sc-label">I commit to</span><span class="sc-val">${commitments.join(', ') || '—'}</span></div>
+    ${name ? `<div class="sc-row"><span class="sc-label">Signed</span><span class="sc-val">${name}${date ? ' · ' + date : ''}</span></div>` : ''}
+  `;
+
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('visible'));
+  document.getElementById('step-nav').style.display = 'none';
+  document.querySelector('.step-bar').style.display = 'none';
+  document.getElementById('step-label').style.display = 'none';
+  document.getElementById('sim-complete').style.display = 'block';
+
+  plausible('reflection_fully_completed');
+}
+
+/* pre-fill date */
+document.getElementById('sig-date').value = new Date().toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
 </script>
 </body>
 </html>
