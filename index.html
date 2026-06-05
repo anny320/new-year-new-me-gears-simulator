@@ -3,55 +3,241 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>New Year, New Me – Gears Simulator</title>
+  <title>Reset Gears – Before You Set New Goals, Choose the Right Gear</title>
+  <meta name="description" content="A reset for mid-career professionals who don't need more motivation — just clarity, pace, and alignment." />
+
+  <!-- Plausible Analytics — update domain if you use a custom URL -->
+  <script defer data-domain="anny320.github.io" src="https://plausible.io/js/script.js"></script>
+
   <style>
+    /* ── tokens ── */
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --border: #2a2d3a;
-      --text: #e8eaf0;
-      --muted: #8890a4;
-      --g1: #4a9eff;
-      --g2: #3ecf8e;
-      --g3: #f6c94e;
-      --g4: #ff8c42;
-      --g5: #e05c5c;
+      --bg:       #0f1117;
+      --surface:  #1a1d27;
+      --border:   #2a2d3a;
+      --text:     #e8eaf0;
+      --muted:    #8890a4;
+      --accent:   #4a9eff;
+      --green:    #3ecf8e;
+      --yellow:   #f6c94e;
+      --orange:   #ff8c42;
+      --blue:     #4a9eff;
+      --max:      720px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
+      line-height: 1.7;
     }
 
-    header {
+    /* ── nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 1.5rem;
+      background: rgba(15,17,23,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .logo { font-weight: 700; font-size: 1rem; letter-spacing: -0.3px; }
+    nav .logo span { color: var(--accent); }
+    nav a.nav-cta {
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    nav a.nav-cta:hover { opacity: 0.85; }
+
+    /* ── section shells ── */
+    section { padding: 5rem 1.5rem; }
+    .inner { max-width: var(--max); margin: 0 auto; }
+
+    /* ── hero ── */
+    #hero {
       text-align: center;
-      padding: 3rem 1rem 1.5rem;
+      padding-top: 6rem;
+      padding-bottom: 5rem;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(74,158,255,0.08) 0%, transparent 70%);
     }
-    header h1 {
-      font-size: clamp(1.6rem, 4vw, 2.6rem);
-      font-weight: 700;
-      letter-spacing: -0.5px;
+    #hero .eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
     }
-    header p {
-      margin-top: 0.6rem;
+    #hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 1.2rem;
+    }
+    #hero h1 em { font-style: normal; color: var(--accent); }
+    #hero p.sub {
+      font-size: 1.1rem;
       color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.4rem;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
       font-size: 1rem;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
+      font-weight: 700;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.1s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:active { transform: scale(0.97); }
+
+    /* ── problem ── */
+    #problem { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    #problem h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; }
+    #problem .lead { font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem; max-width: 520px; }
+    .feel-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .feel-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1rem;
+    }
+    .feel-list li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+    #problem .closer { color: var(--muted); font-size: 0.95rem; }
+
+    /* ── solution ── */
+    #solution { text-align: center; }
+    #solution h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; margin-bottom: 1rem; }
+    #solution .question {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    #solution .answer {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
+    .no-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0;
+    }
+    .no-list li { color: var(--muted); font-size: 0.95rem; }
+    .no-list li::before { content: '— '; }
+
+    /* ── products ── */
+    #products { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    #products h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: 2rem; text-align: center; }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
     }
 
-    /* ── progress bar ── */
+    .product-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .product-card:hover {
+      border-color: var(--card-color);
+      box-shadow: 0 0 0 1px var(--card-color), 0 8px 28px rgba(0,0,0,0.35);
+    }
+    .product-card .tier {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--card-color);
+      font-weight: 700;
+    }
+    .product-card h3 { font-size: 1.1rem; font-weight: 700; }
+    .product-card .desc { font-size: 0.9rem; color: var(--muted); flex: 1; }
+    .product-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .product-card ul li {
+      font-size: 0.85rem;
+      color: #c8ccd8;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .product-card ul li::before { content: '✓'; color: var(--card-color); flex-shrink: 0; }
+
+    .btn-card {
+      display: block;
+      text-align: center;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      background: var(--card-color);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.2s;
+      margin-top: auto;
+    }
+    .btn-card:hover { opacity: 0.85; }
+
+    /* ── simulator ── */
+    #simulator { padding-top: 5rem; padding-bottom: 0; }
+    #simulator .inner { text-align: center; margin-bottom: 2.5rem; }
+    #simulator h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 700; margin-bottom: 0.6rem; }
+    #simulator p { color: var(--muted); font-size: 0.95rem; max-width: 480px; margin: 0 auto; }
+
     #progress-wrap {
       display: flex;
       justify-content: center;
       gap: 8px;
-      padding: 1rem 1rem 2rem;
+      padding: 1rem 1.5rem 2rem;
     }
     .pip {
       width: 32px;
@@ -60,16 +246,15 @@
       background: var(--border);
       transition: background 0.4s;
     }
-    .pip.done { background: var(--active-color, #4a9eff); }
+    .pip.done { background: var(--active-color, var(--accent)); }
 
-    /* ── gear track ── */
     #gear-track {
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
-      max-width: 680px;
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 0 1rem 4rem;
+      padding: 0 1.5rem 2rem;
     }
 
     .gear-card {
@@ -91,7 +276,6 @@
       font-size: 1rem;
       color: var(--color);
     }
-
     .card-header {
       display: flex;
       align-items: center;
@@ -99,84 +283,41 @@
       padding: 1.1rem 1.4rem;
       user-select: none;
     }
-
-    .gear-icon {
-      width: 44px;
-      height: 44px;
-      flex-shrink: 0;
-    }
-    .gear-icon svg {
-      width: 44px;
-      height: 44px;
-    }
-    .gear-icon.spinning svg {
-      animation: spin 3s linear infinite;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
+    .gear-icon { width: 44px; height: 44px; flex-shrink: 0; }
+    .gear-icon svg { width: 44px; height: 44px; }
+    .gear-icon.spinning svg { animation: spin 3s linear infinite; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
     .card-title { flex: 1; }
-    .card-title .label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--muted);
-    }
-    .card-title h2 {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
+    .card-title .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+    .card-title h3 { font-size: 1.05rem; font-weight: 600; }
 
-    .chevron {
-      color: var(--muted);
-      font-size: 1.1rem;
-      transition: transform 0.3s;
-      margin-left: auto;
-    }
+    .chevron { color: var(--muted); font-size: 1.1rem; transition: transform 0.3s; margin-left: auto; }
     .gear-card.active .chevron { transform: rotate(180deg); }
     .gear-card.completed .chevron { display: none; }
 
-    .card-body {
-      display: none;
-      padding: 0 1.4rem 1.4rem;
-      border-top: 1px solid var(--border);
-    }
+    .card-body { display: none; padding: 0 1.4rem 1.4rem; border-top: 1px solid var(--border); }
     .gear-card.active .card-body { display: block; }
 
-    .card-body .goal {
+    .card-body .slabel {
       margin: 1rem 0 0.4rem;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--muted);
     }
-    .card-body p {
-      line-height: 1.6;
-      color: var(--text);
-      margin-bottom: 1rem;
-    }
+    .card-body p { line-height: 1.6; color: var(--text); margin-bottom: 1rem; }
 
-    .try-list {
-      list-style: none;
-      margin-bottom: 1.2rem;
-    }
+    .try-list { list-style: none; margin-bottom: 1.2rem; }
     .try-list li {
       display: flex;
       align-items: flex-start;
       gap: 0.6rem;
-      padding: 0.4rem 0;
-      font-size: 0.95rem;
+      padding: 0.35rem 0;
+      font-size: 0.92rem;
       color: #c8ccd8;
     }
-    .try-list li::before {
-      content: '→';
-      color: var(--color);
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
+    .try-list li::before { content: '→'; color: var(--color); flex-shrink: 0; margin-top: 1px; }
 
     .reflection-box {
       background: var(--bg);
@@ -185,18 +326,8 @@
       padding: 1rem;
       margin-bottom: 1.2rem;
     }
-    .reflection-box .rlabel {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-    }
-    .reflection-box p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      margin: 0 0 0.7rem;
-    }
+    .reflection-box .rlabel { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 0.5rem; }
+    .reflection-box p { font-size: 0.88rem; color: var(--muted); margin: 0 0 0.7rem; }
     textarea {
       width: 100%;
       background: var(--surface);
@@ -214,7 +345,6 @@
     textarea:focus { border-color: var(--color); }
 
     .btn-complete {
-      display: inline-block;
       padding: 0.6rem 1.4rem;
       border-radius: 8px;
       border: none;
@@ -228,36 +358,160 @@
     .btn-complete:hover { opacity: 0.85; }
     .btn-complete:active { transform: scale(0.97); }
 
-    /* ── completion banner ── */
+    /* ── done banner ── */
     #done-banner {
       display: none;
       text-align: center;
-      padding: 2rem 1rem 3rem;
+      padding: 3rem 1.5rem;
       max-width: 520px;
       margin: 0 auto;
     }
     #done-banner h2 { font-size: 1.8rem; margin-bottom: 0.6rem; }
-    #done-banner p { color: var(--muted); line-height: 1.6; }
-    .gear-row {
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-      margin: 1.4rem 0;
-    }
+    #done-banner p { color: var(--muted); margin-bottom: 1.6rem; }
+    .gear-row { display: flex; justify-content: center; gap: 6px; margin: 1.2rem 0; }
     .gear-row svg { animation: spin 2s linear infinite; }
     .gear-row svg:nth-child(2) { animation-direction: reverse; }
     .gear-row svg:nth-child(3) { animation-delay: 0.3s; }
+
+    /* ── closing ── */
+    #closing {
+      text-align: center;
+      padding: 5rem 1.5rem 6rem;
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(74,158,255,0.07) 0%, transparent 70%);
+    }
+    #closing h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.6rem; }
+    #closing p { color: var(--muted); max-width: 400px; margin: 0 auto 2rem; }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── responsive ── */
+    @media (max-width: 480px) {
+      section { padding: 3.5rem 1rem; }
+      #hero { padding-top: 4rem; }
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>⚙️ New Year, New Me</h1>
-  <p>You don't need to become a developer.<br>You need to understand the <em>gears</em> that make digital tools work.</p>
-</header>
+<!-- ── NAV ── -->
+<nav>
+  <div class="logo">Reset<span>Gears</span></div>
+  <a class="nav-cta" href="#simulator" onclick="plausible('nav_cta_click')">Start Free Reflection</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="inner">
+    <span class="eyebrow">⚙️ The Reset Gears Framework</span>
+    <h1>Before You Set New Goals,<br>Choose the <em>Right Gear</em></h1>
+    <p class="sub">A reset for mid-career professionals who don't need more motivation — just clarity, pace, and alignment.</p>
+    <a class="btn-primary" href="#simulator" onclick="plausible('hero_cta_click')">👉 Start with the Free Gear Reflection</a>
+  </div>
+</section>
+
+<!-- ── PROBLEM ── -->
+<section id="problem">
+  <div class="inner">
+    <h2>You're Not Stuck.<br>You're Overextended.</h2>
+    <p class="lead">You've built skill, credibility, and responsibility. But somewhere along the way, momentum turned into pressure.</p>
+    <p style="color:var(--muted);margin-bottom:1rem;font-size:0.9rem;">This reset is for professionals who feel:</p>
+    <ul class="feel-list">
+      <li>Capable, but tired</li>
+      <li>Busy, but unclear</li>
+      <li>Motivated, but misaligned</li>
+    </ul>
+    <p class="closer">You don't need to reinvent yourself.<br>You need to recalibrate how you're moving.</p>
+  </div>
+</section>
+
+<!-- ── SOLUTION ── -->
+<section id="solution">
+  <div class="inner">
+    <h2>The Reset Gears Framework</h2>
+    <p class="question">Instead of asking <em>"What should I do next?"</em>, this reset helps you answer:</p>
+    <p class="answer">"What pace, focus, and operating mode best fits this season of my life?"</p>
+    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:0.95rem;">The Gears help you choose <strong>how to move</strong> — before deciding where to go.</p>
+    <ul class="no-list">
+      <li>No diagnostics</li>
+      <li>No hustle culture</li>
+      <li>Just honest reflection</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── PRODUCTS ── -->
+<section id="products">
+  <div class="inner">
+    <h2>Choose Your Reset</h2>
+    <div class="product-grid">
+
+      <div class="product-card" style="--card-color: var(--green)">
+        <div class="tier">🟢 Free</div>
+        <h3>Choose Your Next Gear</h3>
+        <p class="desc">A one-page reflection to help you identify your current operating gear.</p>
+        <ul>
+          <li>Takes 10–15 minutes</li>
+          <li>Immediate clarity</li>
+          <li>No pressure, no cost</li>
+        </ul>
+        <button class="btn-card" onclick="plausible('product_click',{props:{product:'free'}}); document.getElementById('simulator').scrollIntoView({behavior:'smooth'})">👉 Download Free</button>
+      </div>
+
+      <div class="product-card" style="--card-color: var(--yellow)">
+        <div class="tier">🟡 Core</div>
+        <h3>The 30-Day Reset + Gears</h3>
+        <p class="desc">A structured reset to slow down, reflect, and realign — without falling behind.</p>
+        <ul>
+          <li>Guided 30-day reflection journal</li>
+          <li>The Gears framework</li>
+          <li>Optional calendar reminders</li>
+        </ul>
+        <button class="btn-card" onclick="plausible('product_click',{props:{product:'30day'}})">👉 Begin the 30-Day Reset</button>
+      </div>
+
+      <div class="product-card" style="--card-color: var(--yellow)">
+        <div class="tier">🟡 Light</div>
+        <h3>The One-Day Reset</h3>
+        <p class="desc">A focused 60–90 minute reset for moments when you need clarity now.</p>
+        <ul>
+          <li>Perfect before goal-setting</li>
+          <li>Career decisions</li>
+          <li>Major commitments</li>
+        </ul>
+        <button class="btn-card" onclick="plausible('product_click',{props:{product:'oneday'}})">👉 Do the One-Day Reset</button>
+      </div>
+
+      <div class="product-card" style="--card-color: var(--blue)">
+        <div class="tier">🔵 Premium</div>
+        <h3>Guided Reset</h3>
+        <p class="desc">For professionals who want gentle accountability and guided reflection.</p>
+        <ul>
+          <li>Everything in the 30-Day Reset</li>
+          <li>Weekly guidance</li>
+          <li>End-of-reset integration</li>
+        </ul>
+        <button class="btn-card" onclick="plausible('product_click',{props:{product:'guided'}})">👉 Join the Guided Reset</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SIMULATOR ── -->
+<section id="simulator">
+  <div class="inner">
+    <h2>⚙️ Free Gear Reflection</h2>
+    <p>Work through each gear below. Write your reflections — they're saved locally in your browser.</p>
+  </div>
+</section>
 
 <div id="progress-wrap"></div>
-
 <div id="gear-track"></div>
 
 <div id="done-banner">
@@ -267,10 +521,24 @@
     <svg width="36" height="36" viewBox="0 0 36 36"><use href="#gear-svg" fill="#f6c94e"/></svg>
   </div>
   <h2>All gears turning! 🎉</h2>
-  <p>You've completed all five gears. You now have a clearer map of how digital tools are built, shared, and sustained — and where you fit in that world.</p>
+  <p>You've completed the free reflection. You now have a clearer sense of your current pace, focus, and alignment — and where to move next.</p>
+  <a class="btn-primary" href="#products" onclick="plausible('completion_upsell_click')">Explore the Full Reset →</a>
 </div>
 
-<!-- reusable gear path -->
+<!-- ── CLOSING ── -->
+<section id="closing">
+  <div class="inner">
+    <h2>This Is Not About Doing More.</h2>
+    <p>It's about choosing the right way to move — sustainably.</p>
+    <a class="btn-primary" href="#simulator" onclick="plausible('closing_cta_click')">Start the Free Reflection</a>
+  </div>
+</section>
+
+<footer>
+  © 2026 Reset Gears. Built for clarity, not hustle.
+</footer>
+
+<!-- reusable gear SVG -->
 <svg style="display:none">
   <symbol id="gear-svg" viewBox="0 0 36 36">
     <path d="M18 22a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm10.2-5.4-.1-.6 2-1.6-1.9-3.3-2.4.8-.5-.4-.4-.5.8-2.4-3.3-1.9-1.6 2-.6-.1-.6.1-1.6-2-3.3 1.9.8 2.4-.5.4-.4.5-2.4-.8-1.9 3.3 2 1.6-.1.6.1.6-2 1.6 1.9 3.3 2.4-.8.4.5.5.4-.8 2.4 3.3 1.9 1.6-2 .6.1.6-.1 1.6 2 3.3-1.9-.8-2.4.5-.4.4-.5 2.4.8 1.9-3.3-2-1.6.1-.6-.1-.6z"/>
@@ -278,92 +546,44 @@
 </svg>
 
 <script>
+/* ── safe plausible wrapper so it works even if the script hasn't loaded ── */
+window.plausible = window.plausible || function() {
+  (window.plausible.q = window.plausible.q || []).push(arguments);
+};
+
 const gears = [
-  {
-    id: 1,
-    color: '#4a9eff',
-    emoji: '🔵',
-    title: 'Awareness',
-    goal: 'See that digital products are not magic — they are systems built by people.',
-    tries: [
-      'Explore a live app',
-      'Click through its features',
-      'Identify the problem being solved',
-    ],
-    reflection: 'What is one problem in your life, church, school, or work that could be solved digitally?',
-  },
-  {
-    id: 2,
-    color: '#3ecf8e',
-    emoji: '🟢',
-    title: 'Skills',
-    goal: 'Understand that apps are built from small, practical features.',
-    tries: [
-      'Bookmark an item in an app',
-      'Add a reminder',
-      'Test the app on mobile',
-    ],
-    reflection: 'Which feature felt most useful and why?',
-  },
-  {
-    id: 3,
-    color: '#f6c94e',
-    emoji: '🟡',
-    title: 'Systems',
-    goal: 'Demystify GitHub and deployment.',
-    tries: [
-      'Open a public repository',
-      'Review the files and commit history',
-      'Understand what version control means',
-    ],
-    reflection: 'What would change if your ideas were saved and visible?',
-  },
-  {
-    id: 4,
-    color: '#ff8c42',
-    emoji: '🟠',
-    title: 'Monetization',
-    goal: 'Understand ethical digital monetization.',
-    tries: [
-      'Review an affiliate disclosure',
-      'Explore a monetized digital product',
-      'Compare free vs paid tiers of a tool',
-    ],
-    reflection: 'How could a tool you build sustain itself?',
-  },
-  {
-    id: 5,
-    color: '#e05c5c',
-    emoji: '🔴',
-    title: 'AI',
-    goal: 'Learn to collaborate with AI responsibly.',
-    tries: [
-      'Enter a prompt into an AI tool',
-      'Generate a recommendation',
-      'Review the output critically',
-    ],
-    reflection: 'Where could AI assist you without replacing your judgement?',
-  },
+  { id:1, color:'#4a9eff', title:'Awareness',
+    goal:'See that digital products are not magic — they are systems built by people.',
+    tries:['Explore a live app','Click through its features','Identify the problem being solved'],
+    reflection:'What is one problem in your life, church, school, or work that could be solved digitally?' },
+  { id:2, color:'#3ecf8e', title:'Skills',
+    goal:'Understand that apps are built from small, practical features.',
+    tries:['Bookmark an item in an app','Add a reminder','Test the app on mobile'],
+    reflection:'Which feature felt most useful and why?' },
+  { id:3, color:'#f6c94e', title:'Systems',
+    goal:'Demystify GitHub and deployment.',
+    tries:['Open a public repository','Review the files and commit history','Understand what version control means'],
+    reflection:'What would change if your ideas were saved and visible?' },
+  { id:4, color:'#ff8c42', title:'Monetization',
+    goal:'Understand ethical digital monetization.',
+    tries:['Review an affiliate disclosure','Explore a monetized digital product','Compare free vs paid tiers of a tool'],
+    reflection:'How could a tool you build sustain itself?' },
+  { id:5, color:'#e05c5c', title:'AI',
+    goal:'Learn to collaborate with AI responsibly.',
+    tries:['Enter a prompt into an AI tool','Generate a recommendation','Review the output critically'],
+    reflection:'Where could AI assist you without replacing your judgement?' },
 ];
 
-const track = document.getElementById('gear-track');
+const track       = document.getElementById('gear-track');
 const progressWrap = document.getElementById('progress-wrap');
-const doneBanner = document.getElementById('done-banner');
+const doneBanner  = document.getElementById('done-banner');
+const saved       = JSON.parse(localStorage.getItem('gears-progress') || '{}');
 
-// load saved state
-const saved = JSON.parse(localStorage.getItem('gears-progress') || '{}');
-
-function saveState() {
-  localStorage.setItem('gears-progress', JSON.stringify(saved));
+function saveState() { localStorage.setItem('gears-progress', JSON.stringify(saved)); }
+function gearSVG(color, size=40) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 36 36" fill="${color}"><use href="#gear-svg"/></svg>`;
 }
 
-function gearSVG(color, size = 40) {
-  return `<svg width="${size}" height="${size}" viewBox="0 0 36 36" fill="${color}">
-    <use href="#gear-svg"/>
-  </svg>`;
-}
-
-// build pips
 gears.forEach(g => {
   const pip = document.createElement('div');
   pip.className = 'pip' + (saved[g.id] ? ' done' : '');
@@ -372,48 +592,40 @@ gears.forEach(g => {
   progressWrap.appendChild(pip);
 });
 
-// build cards
 gears.forEach((g, idx) => {
   const card = document.createElement('div');
   card.className = 'gear-card' + (saved[g.id] ? ' completed' : '');
   card.style.setProperty('--color', g.color);
   card.id = `card-${g.id}`;
-
   const triesHTML = g.tries.map(t => `<li>${t}</li>`).join('');
-  const savedReflection = saved[g.id]?.reflection || '';
-
+  const savedRef  = saved[g.id]?.reflection || '';
   card.innerHTML = `
     <div class="card-header">
-      <div class="gear-icon${saved[g.id] ? '' : (idx === 0 ? ' spinning' : '')}" id="icon-${g.id}">
-        ${gearSVG(g.color)}
-      </div>
+      <div class="gear-icon${saved[g.id] ? '' : idx===0?' spinning':''}" id="icon-${g.id}">${gearSVG(g.color)}</div>
       <div class="card-title">
-        <div class="label">Gear ${g.id}</div>
-        <h2>${g.title}</h2>
+        <div class="label">Gear ${g.id} of ${gears.length}</div>
+        <h3>${g.title}</h3>
       </div>
       <span class="chevron">▾</span>
     </div>
     <div class="card-body">
-      <div class="goal">Goal</div>
+      <div class="slabel">Goal</div>
       <p>${g.goal}</p>
-      <div class="goal">Try This</div>
+      <div class="slabel">Try This</div>
       <ul class="try-list">${triesHTML}</ul>
       <div class="reflection-box">
         <div class="rlabel">Reflection</div>
         <p>${g.reflection}</p>
-        <textarea id="ref-${g.id}" placeholder="Write your thoughts here…">${savedReflection}</textarea>
+        <textarea id="ref-${g.id}" placeholder="Write your thoughts here…">${savedRef}</textarea>
       </div>
-      <button class="btn-complete" onclick="completeGear(${g.id}, event)">
-        ${saved[g.id] ? 'Completed ✓' : 'Mark Complete'}
+      <button class="btn-complete" onclick="completeGear(${g.id},event)">
+        ${saved[g.id]?'Completed ✓':'Mark Complete'}
       </button>
-    </div>
-  `;
-
+    </div>`;
   card.querySelector('.card-header').addEventListener('click', () => toggleCard(g.id));
   track.appendChild(card);
 });
 
-// open first incomplete gear
 const firstOpen = gears.find(g => !saved[g.id]);
 if (firstOpen) toggleCard(firstOpen.id);
 
@@ -426,6 +638,7 @@ function toggleCard(id) {
   if (card.classList.contains('completed')) return;
   card.classList.add('active');
   card.querySelector('.gear-icon').classList.add('spinning');
+  plausible('gear_opened', {props:{gear: id}});
 }
 
 function completeGear(id, e) {
@@ -441,21 +654,19 @@ function completeGear(id, e) {
   card.querySelector('.btn-complete').textContent = 'Completed ✓';
   card.querySelector('.gear-icon').classList.remove('spinning');
   card.querySelector('.chevron').style.display = 'none';
+  document.getElementById(`pip-${id}`).classList.add('done');
 
-  const pip = document.getElementById(`pip-${id}`);
-  pip.classList.add('done');
+  plausible('gear_completed', {props:{gear: id}});
 
-  // open next
   const next = gears.find(g => !saved[g.id]);
-  if (next) {
-    toggleCard(next.id);
-  } else {
+  if (next) { toggleCard(next.id); }
+  else {
+    plausible('reflection_fully_completed');
     doneBanner.style.display = 'block';
-    doneBanner.scrollIntoView({ behavior: 'smooth' });
+    doneBanner.scrollIntoView({behavior:'smooth'});
   }
 }
 
-// mark already-completed cards
 gears.forEach(g => {
   if (saved[g.id]) {
     const card = document.getElementById(`card-${g.id}`);
@@ -463,10 +674,7 @@ gears.forEach(g => {
     card.querySelector('.chevron').style.display = 'none';
   }
 });
-
-if (gears.every(g => saved[g.id])) {
-  doneBanner.style.display = 'block';
-}
+if (gears.every(g => saved[g.id])) doneBanner.style.display = 'block';
 </script>
 </body>
 </html>
