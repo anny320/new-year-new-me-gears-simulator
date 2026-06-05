@@ -5,222 +5,131 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>30-Day Reset – Reset Gears</title>
   <meta name="description" content="A 4-week guided exercise to help you choose the right gear for this season." />
-
   <script defer data-domain="anny320.github.io" src="https://plausible.io/js/script.js"></script>
-
   <style>
-    :root {
-      --bg:       #ffffff;
-      --surface:  #f8f6ff;
-      --border:   #e8e2f8;
-      --text:     #1a1235;
-      --muted:    #6b6585;
-      --accent:   #6c3ff4;
-      --accent2:  #a855f7;
-      --accent3:  #ec4899;
-      --max:      760px;
-      --recovery:      #ef4444;
-      --stabilisation: #f97316;
-      --exploration:   #eab308;
-      --execution:     #22c55e;
-      --expansion:     #3b82f6;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
-
-    /* nav */
-    nav {
-      position: sticky; top: 0; z-index: 200;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0.9rem 1.5rem;
-      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-    }
-    nav .logo { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.5px; color: var(--text); text-decoration: none; }
-    nav .logo span { color: var(--accent); }
-    nav a.back-link { font-size: 0.85rem; font-weight: 600; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.3rem; transition: color 0.2s; }
-    nav a.back-link:hover { color: var(--accent); }
-
-    /* gate */
-    #gate {
-      position: fixed; inset: 0; z-index: 999;
-      background: linear-gradient(135deg, #f0ebff 0%, #fef3e2 50%, #e8f5ff 100%);
-      display: flex; align-items: center; justify-content: center; padding: 1.5rem;
-    }
-    .gate-card {
-      background: #fff; border: 1.5px solid var(--border); border-radius: 24px;
-      padding: 2.5rem 2rem; max-width: 440px; width: 100%; text-align: center;
-      box-shadow: 0 16px 60px rgba(108,63,244,0.12);
-    }
-    .gate-card .gate-icon { font-size: 2.8rem; margin-bottom: 1rem; }
-    .gate-card h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; }
-    .gate-card p { font-size: 0.92rem; color: var(--muted); margin-bottom: 1.6rem; line-height: 1.6; }
-    .gate-card .what-you-get { background: var(--surface); border-radius: 12px; padding: 1rem 1.2rem; text-align: left; margin-bottom: 1.6rem; display: flex; flex-direction: column; gap: 0.4rem; }
-    .gate-card .what-you-get span { font-size: 0.85rem; color: var(--text); display: flex; align-items: center; gap: 0.6rem; }
-    .gate-card .what-you-get span::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
-    #gate-form { display: flex; flex-direction: column; gap: 0.8rem; }
-    #gate-email { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; font-family: inherit; font-size: 0.95rem; color: var(--text); outline: none; transition: border-color 0.2s; }
-    #gate-email:focus { border-color: var(--accent); }
-    #gate-submit { width: 100%; padding: 0.85rem; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); color: #fff; font-size: 1rem; font-weight: 700; cursor: pointer; transition: opacity 0.2s; box-shadow: 0 4px 20px rgba(108,63,244,0.3); }
-    #gate-submit:hover { opacity: 0.88; }
-    #gate-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-    .gate-note { font-size: 0.75rem; color: var(--muted); margin-top: 0.4rem; }
-    #gate-error { font-size: 0.82rem; color: #ef4444; display: none; margin-top: 0.2rem; }
-
-    /* layout */
-    .page-wrap { max-width: var(--max); margin: 0 auto; padding: 2rem 1.5rem 5rem; }
-
-    /* calendar banner */
-    .cal-banner {
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
-      background: linear-gradient(135deg, #f0ebff 0%, #e8f5ff 100%);
-      border: 1.5px solid var(--border); border-radius: 16px;
-      padding: 1.2rem 1.5rem; margin-bottom: 2rem;
-    }
-    .cal-banner-text strong { font-size: 0.95rem; font-weight: 700; display: block; }
-    .cal-banner-text span { font-size: 0.82rem; color: var(--muted); }
-    .btn-cal {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.55rem 1.2rem; border-radius: 10px; border: none;
-      background: var(--accent); color: #fff; font-size: 0.88rem; font-weight: 700;
-      cursor: pointer; font-family: inherit; transition: opacity 0.2s;
-      text-decoration: none; white-space: nowrap;
-    }
-    .btn-cal:hover { opacity: 0.87; }
-
-    /* personal note */
-    .personal-note { background: linear-gradient(135deg, #f0ebff 0%, #fef3e2 100%); border-radius: 16px; padding: 1.8rem 2rem; margin-bottom: 2.5rem; border-left: 4px solid var(--accent); }
-    .personal-note .note-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-weight: 700; margin-bottom: 0.8rem; }
-    .personal-note p { font-style: italic; color: var(--text); font-size: 0.95rem; margin-bottom: 0.6rem; line-height: 1.7; }
-    .personal-note .sig { font-style: normal; font-weight: 700; color: var(--accent); font-size: 0.95rem; }
-
-    /* framework intro */
-    .framework-intro { background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px; padding: 1.8rem; margin-bottom: 2.5rem; }
-    .framework-intro h2 { font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; }
-    .framework-intro .fi-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-    @media (max-width: 520px) { .framework-intro .fi-cols { grid-template-columns: 1fr; } }
-    .fi-col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; margin-bottom: 0.5rem; }
-    .fi-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
-    .fi-col ul li { font-size: 0.88rem; color: var(--text); }
-    .fi-col ul li::before { content: '✅ '; }
-    .fi-col.no ul li::before { content: '❌ '; }
-    .framework-intro .reminder { font-size: 0.88rem; color: var(--muted); font-style: italic; border-top: 1px solid var(--border); padding-top: 0.8rem; margin-top: 0.5rem; }
-
-    /* week tabs */
-    .week-tabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
-    .week-tab { padding: 0.45rem 1rem; border-radius: 20px; border: 1.5px solid var(--border); font-size: 0.82rem; font-weight: 600; cursor: pointer; background: #fff; color: var(--muted); transition: all 0.2s; font-family: inherit; }
-    .week-tab:hover { border-color: var(--accent); color: var(--accent); }
-    .week-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-
-    /* week panels */
-    .week-panel { display: none; }
-    .week-panel.visible { display: block; }
-    .week-header { margin-bottom: 1.8rem; }
-    .week-header .week-eyebrow { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-weight: 700; margin-bottom: 0.4rem; }
-    .week-header h2 { font-size: 1.4rem; font-weight: 800; }
-    .week-header .week-sub { font-size: 0.9rem; color: var(--muted); font-style: italic; }
-
-    /* question blocks */
-    .q-block { background: #fff; border: 1.5px solid var(--border); border-radius: 16px; padding: 1.4rem 1.5rem; margin-bottom: 1.2rem; }
-    .q-block .q-text { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--text); }
-    .cb-list { display: flex; flex-direction: column; gap: 0.5rem; }
-    .cb-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0.8rem; border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: #fff; user-select: none; }
-    .cb-item:hover { border-color: var(--accent); background: #faf8ff; }
-    .cb-item.checked { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, #fff); }
-    .cb-item input { display: none; }
-    .custom-cb { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; transition: all 0.2s; }
-    .cb-item.checked .custom-cb { border-color: var(--accent); background: var(--accent); }
-    .cb-item.checked .custom-cb::after { content: '✓'; }
-    .cb-label { font-size: 0.88rem; color: var(--text); }
-    .other-input { width: 100%; margin-top: 0.5rem; padding: 0.5rem 0.75rem; border: 1.5px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.88rem; color: var(--text); background: var(--surface); outline: none; display: none; transition: border-color 0.2s; }
-    .other-input:focus { border-color: var(--accent); }
-
-    /* gear picker */
-    .gear-pick { display: flex; flex-direction: column; gap: 0.6rem; }
-    .gear-pick-item { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; background: #fff; user-select: none; }
-    .gear-pick-item:hover { border-color: var(--gp-color); background: color-mix(in srgb, var(--gp-color) 5%, #fff); }
-    .gear-pick-item.checked { border-color: var(--gp-color); background: color-mix(in srgb, var(--gp-color) 8%, #fff); }
-    .gear-pick-item input { display: none; }
-    .gear-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--gp-color); flex-shrink: 0; margin-top: 5px; }
-
-    /* textarea */
-    textarea.q-ta { width: 100%; background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.9rem; padding: 0.75rem 1rem; resize: vertical; min-height: 90px; outline: none; transition: border-color 0.2s; }
-    textarea.q-ta:focus { border-color: var(--accent); }
-
-    /* summary tables */
-    .summary-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 1.2rem; }
-    .summary-table th { background: var(--surface); padding: 0.6rem 0.8rem; text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; border-bottom: 1.5px solid var(--border); }
-    .summary-table td { padding: 0.7rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-    .summary-table tr:last-child td { border-bottom: none; }
-    .summary-table .row-label { font-weight: 700; font-size: 0.85rem; white-space: nowrap; }
-    .summary-table .check-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .summary-table .check-row label { display: flex; align-items: center; gap: 0.35rem; font-size: 0.82rem; color: var(--muted); cursor: pointer; white-space: nowrap; }
-    .summary-table .check-row input[type=checkbox] { accent-color: var(--accent); }
-    .summary-table td textarea { width: 100%; min-height: 50px; resize: vertical; border: 1.5px solid var(--border); border-radius: 6px; font-family: inherit; font-size: 0.82rem; padding: 0.4rem 0.6rem; color: var(--text); background: var(--surface); outline: none; }
-    .summary-table td textarea:focus { border-color: var(--accent); }
-
-    /* done list */
-    .done-section { margin-bottom: 1.5rem; }
-    .done-section h4 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--accent); font-weight: 700; margin-bottom: 0.8rem; padding-bottom: 0.4rem; border-bottom: 1.5px solid var(--border); }
-    .done-list { display: flex; flex-direction: column; gap: 0.4rem; }
-    .done-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0.7rem; border-radius: 8px; cursor: pointer; transition: background 0.15s; user-select: none; }
-    .done-item:hover { background: var(--surface); }
-    .done-item input { display: none; }
-    .done-cb { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; transition: all 0.2s; }
-    .done-item.checked .done-cb { border-color: var(--execution); background: var(--execution); }
-    .done-item.checked .done-cb::after { content: '✓'; }
-    .done-item .done-label { font-size: 0.88rem; color: var(--text); transition: color 0.2s; }
-    .done-item.checked .done-label { color: var(--muted); text-decoration: line-through; }
-
-    /* sig row */
-    .sig-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.2rem; }
-    .sig-field { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; min-width: 140px; }
-    .sig-field label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; }
-    .sig-field input { border: none; border-bottom: 2px solid var(--border); outline: none; font-family: inherit; font-size: 0.95rem; padding: 0.3rem 0; background: transparent; color: var(--text); transition: border-color 0.2s; }
-    .sig-field input:focus { border-color: var(--accent); }
-
-    /* micro-commitment */
-    .micro-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
-    .micro-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.9rem; border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer; transition: all 0.2s; background: #fff; user-select: none; }
-    .micro-item:hover { border-color: var(--accent); background: #faf8ff; }
-    .micro-item.checked { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 7%, #fff); }
-    .micro-item input { display: none; }
-    .micro-item .custom-cb { border-radius: 50%; }
-
-    /* week nav */
-    .week-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
-    .btn-back { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 0.55rem 1.2rem; font-size: 0.88rem; font-weight: 600; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.2s; }
-    .btn-back:hover { border-color: var(--accent); color: var(--accent); }
-    .btn-next { background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); border: none; border-radius: 10px; padding: 0.65rem 1.6rem; font-size: 0.95rem; font-weight: 700; color: #fff; cursor: pointer; font-family: inherit; transition: opacity 0.2s, transform 0.1s; box-shadow: 0 3px 14px rgba(108,63,244,0.28); }
-    .btn-next:hover { opacity: 0.88; }
-    .btn-next:active { transform: scale(0.97); }
-
-    /* completion */
-    #complete-banner { display: none; text-align: center; padding: 4rem 1.5rem; max-width: var(--max); margin: 0 auto; }
-    #complete-banner .cb-icon { font-size: 3.5rem; margin-bottom: 1rem; }
-    #complete-banner h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 0.6rem; }
-    #complete-banner p { color: var(--muted); max-width: 380px; margin: 0 auto 1.8rem; }
-    .btn-primary { display: inline-block; padding: 0.85rem 2rem; border-radius: 12px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); color: #fff; font-size: 1rem; font-weight: 700; text-decoration: none; cursor: pointer; border: none; box-shadow: 0 4px 20px rgba(108,63,244,0.3); transition: opacity 0.2s; }
-    .btn-primary:hover { opacity: 0.88; }
-
-    @media (max-width: 500px) {
-      .page-wrap { padding: 1.2rem 1rem 4rem; }
-      .gate-card { padding: 2rem 1.2rem; }
-      .q-block { padding: 1.1rem 1rem; }
-      .cal-banner { flex-direction: column; align-items: flex-start; }
-    }
+    :root{--bg:#ffffff;--surface:#f8f6ff;--border:#e8e2f8;--text:#1a1235;--muted:#6b6585;--accent:#6c3ff4;--accent2:#a855f7;--accent3:#ec4899;--max:760px;--recovery:#ef4444;--stabilisation:#f97316;--exploration:#eab308;--execution:#22c55e;--expansion:#3b82f6}
+    *{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+    nav{position:sticky;top:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:.9rem 1.5rem;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    nav .logo{font-weight:800;font-size:1.05rem;letter-spacing:-.5px;color:var(--text);text-decoration:none}
+    nav .logo span{color:var(--accent)}
+    nav a.back-link{font-size:.85rem;font-weight:600;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.3rem;transition:color .2s}
+    nav a.back-link:hover{color:var(--accent)}
+    #gate{position:fixed;inset:0;z-index:999;background:linear-gradient(135deg,#f0ebff 0%,#fef3e2 50%,#e8f5ff 100%);display:flex;align-items:center;justify-content:center;padding:1.5rem}
+    .gate-card{background:#fff;border:1.5px solid var(--border);border-radius:24px;padding:2.5rem 2rem;max-width:440px;width:100%;text-align:center;box-shadow:0 16px 60px rgba(108,63,244,.12)}
+    .gate-card .gate-icon{font-size:2.8rem;margin-bottom:1rem}
+    .gate-card h2{font-size:1.4rem;font-weight:800;margin-bottom:.5rem}
+    .gate-card p{font-size:.92rem;color:var(--muted);margin-bottom:1.6rem;line-height:1.6}
+    .gate-card .what-you-get{background:var(--surface);border-radius:12px;padding:1rem 1.2rem;text-align:left;margin-bottom:1.6rem;display:flex;flex-direction:column;gap:.4rem}
+    .gate-card .what-you-get span{font-size:.85rem;color:var(--text);display:flex;align-items:center;gap:.6rem}
+    .gate-card .what-you-get span::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0}
+    #gate-form{display:flex;flex-direction:column;gap:.8rem}
+    #gate-email{width:100%;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:.95rem;color:var(--text);outline:none;transition:border-color .2s}
+    #gate-email:focus{border-color:var(--accent)}
+    #gate-submit{width:100%;padding:.85rem;border-radius:12px;border:none;background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);color:#fff;font-size:1rem;font-weight:700;cursor:pointer;transition:opacity .2s;box-shadow:0 4px 20px rgba(108,63,244,.3);font-family:inherit}
+    #gate-submit:hover{opacity:.88}#gate-submit:disabled{opacity:.6;cursor:not-allowed}
+    .gate-note{font-size:.75rem;color:var(--muted);margin-top:.4rem}
+    #gate-error{font-size:.82rem;color:#ef4444;display:none;margin-top:.2rem}
+    .page-wrap{max-width:var(--max);margin:0 auto;padding:2rem 1.5rem 5rem}
+    .cal-banner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;background:linear-gradient(135deg,#f0ebff 0%,#e8f5ff 100%);border:1.5px solid var(--border);border-radius:16px;padding:1.2rem 1.5rem;margin-bottom:2rem}
+    .cal-banner-text strong{font-size:.95rem;font-weight:700;display:block}
+    .cal-banner-text span{font-size:.82rem;color:var(--muted)}
+    .btn-cal{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.2rem;border-radius:10px;border:none;background:var(--accent);color:#fff;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .2s;white-space:nowrap}
+    .btn-cal:hover{opacity:.87}
+    .personal-note{background:linear-gradient(135deg,#f0ebff 0%,#fef3e2 100%);border-radius:16px;padding:1.8rem 2rem;margin-bottom:2.5rem;border-left:4px solid var(--accent)}
+    .personal-note .note-label{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:700;margin-bottom:.8rem}
+    .personal-note p{font-style:italic;color:var(--text);font-size:.95rem;margin-bottom:.6rem;line-height:1.7}
+    .personal-note .sig{font-style:normal;font-weight:700;color:var(--accent);font-size:.95rem}
+    .framework-intro{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:1.8rem;margin-bottom:2.5rem}
+    .framework-intro h2{font-size:1.1rem;font-weight:800;margin-bottom:1rem}
+    .fi-cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+    @media(max-width:520px){.fi-cols{grid-template-columns:1fr}}
+    .fi-col h4{font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;margin-bottom:.5rem}
+    .fi-col ul{list-style:none;display:flex;flex-direction:column;gap:.3rem}
+    .fi-col ul li{font-size:.88rem;color:var(--text)}
+    .fi-col ul li::before{content:'✅ '}.fi-col.no ul li::before{content:'❌ '}
+    .framework-intro .reminder{font-size:.88rem;color:var(--muted);font-style:italic;border-top:1px solid var(--border);padding-top:.8rem;margin-top:.5rem}
+    .week-tabs{display:flex;gap:.5rem;margin-bottom:2rem;flex-wrap:wrap}
+    .week-tab{padding:.45rem 1rem;border-radius:20px;border:1.5px solid var(--border);font-size:.82rem;font-weight:600;cursor:pointer;background:#fff;color:var(--muted);transition:all .2s;font-family:inherit}
+    .week-tab:hover{border-color:var(--accent);color:var(--accent)}
+    .week-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+    .week-panel{display:none}.week-panel.visible{display:block}
+    .week-header{margin-bottom:1.8rem}
+    .week-header .week-eyebrow{font-size:.7rem;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:700;margin-bottom:.4rem}
+    .week-header h2{font-size:1.4rem;font-weight:800}
+    .week-header .week-sub{font-size:.9rem;color:var(--muted);font-style:italic}
+    .q-block{background:#fff;border:1.5px solid var(--border);border-radius:16px;padding:1.4rem 1.5rem;margin-bottom:1.2rem}
+    .q-block .q-text{font-size:1rem;font-weight:700;margin-bottom:1rem;color:var(--text)}
+    .cb-list{display:flex;flex-direction:column;gap:.5rem}
+    .cb-item{display:flex;align-items:center;gap:.75rem;padding:.6rem .8rem;border:1.5px solid var(--border);border-radius:9px;cursor:pointer;transition:border-color .2s,background .2s;background:#fff;user-select:none}
+    .cb-item:hover{border-color:var(--accent);background:#faf8ff}
+    .cb-item.checked{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 6%,#fff)}
+    .cb-item input{display:none}
+    .custom-cb{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;transition:all .2s}
+    .cb-item.checked .custom-cb{border-color:var(--accent);background:var(--accent)}
+    .cb-item.checked .custom-cb::after{content:'✓'}
+    .cb-label{font-size:.88rem;color:var(--text)}
+    .other-input{width:100%;margin-top:.5rem;padding:.5rem .75rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:.88rem;color:var(--text);background:var(--surface);outline:none;display:none;transition:border-color .2s}
+    .other-input:focus{border-color:var(--accent)}
+    .gear-pick{display:flex;flex-direction:column;gap:.6rem}
+    .gear-pick-item{display:flex;align-items:flex-start;gap:.8rem;padding:.75rem 1rem;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;background:#fff;user-select:none}
+    .gear-pick-item:hover{border-color:var(--gp-color);background:color-mix(in srgb,var(--gp-color) 5%,#fff)}
+    .gear-pick-item.checked{border-color:var(--gp-color);background:color-mix(in srgb,var(--gp-color) 8%,#fff)}
+    .gear-pick-item input{display:none}
+    .gear-dot{width:12px;height:12px;border-radius:50%;background:var(--gp-color);flex-shrink:0;margin-top:5px}
+    textarea.q-ta{width:100%;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-family:inherit;font-size:.9rem;padding:.75rem 1rem;resize:vertical;min-height:90px;outline:none;transition:border-color .2s}
+    textarea.q-ta:focus{border-color:var(--accent)}
+    .summary-table{width:100%;border-collapse:collapse;font-size:.85rem;margin-bottom:1.2rem}
+    .summary-table th{background:var(--surface);padding:.6rem .8rem;text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;border-bottom:1.5px solid var(--border)}
+    .summary-table td{padding:.7rem .8rem;border-bottom:1px solid var(--border);vertical-align:top}
+    .summary-table tr:last-child td{border-bottom:none}
+    .summary-table .row-label{font-weight:700;font-size:.85rem;white-space:nowrap}
+    .summary-table .check-row{display:flex;flex-wrap:wrap;gap:.4rem}
+    .summary-table .check-row label{display:flex;align-items:center;gap:.35rem;font-size:.82rem;color:var(--muted);cursor:pointer;white-space:nowrap}
+    .summary-table .check-row input[type=checkbox]{accent-color:var(--accent)}
+    .summary-table td textarea{width:100%;min-height:50px;resize:vertical;border:1.5px solid var(--border);border-radius:6px;font-family:inherit;font-size:.82rem;padding:.4rem .6rem;color:var(--text);background:var(--surface);outline:none}
+    .summary-table td textarea:focus{border-color:var(--accent)}
+    .done-section{margin-bottom:1.5rem}
+    .done-section h4{font-size:.75rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);font-weight:700;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1.5px solid var(--border)}
+    .done-list{display:flex;flex-direction:column;gap:.4rem}
+    .done-item{display:flex;align-items:center;gap:.75rem;padding:.5rem .7rem;border-radius:8px;cursor:pointer;transition:background .15s;user-select:none}
+    .done-item:hover{background:var(--surface)}
+    .done-item input{display:none}
+    .done-cb{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;transition:all .2s}
+    .done-item.checked .done-cb{border-color:var(--execution);background:var(--execution)}
+    .done-item.checked .done-cb::after{content:'✓'}
+    .done-item .done-label{font-size:.88rem;color:var(--text);transition:color .2s}
+    .done-item.checked .done-label{color:var(--muted);text-decoration:line-through}
+    .sig-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.2rem}
+    .sig-field{display:flex;flex-direction:column;gap:.3rem;flex:1;min-width:140px}
+    .sig-field label{font-size:.7rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700}
+    .sig-field input{border:none;border-bottom:2px solid var(--border);outline:none;font-family:inherit;font-size:.95rem;padding:.3rem 0;background:transparent;color:var(--text);transition:border-color .2s}
+    .sig-field input:focus{border-color:var(--accent)}
+    .micro-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+    .micro-item{display:flex;align-items:center;gap:.75rem;padding:.65rem .9rem;border:1.5px solid var(--border);border-radius:9px;cursor:pointer;transition:all .2s;background:#fff;user-select:none}
+    .micro-item:hover{border-color:var(--accent);background:#faf8ff}
+    .micro-item.checked{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,#fff)}
+    .micro-item input{display:none}.micro-item .custom-cb{border-radius:50%}
+    .week-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+    .btn-back{background:none;border:1.5px solid var(--border);border-radius:8px;padding:.55rem 1.2rem;font-size:.88rem;font-weight:600;color:var(--muted);cursor:pointer;font-family:inherit;transition:all .2s}
+    .btn-back:hover{border-color:var(--accent);color:var(--accent)}
+    .btn-next{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);border:none;border-radius:10px;padding:.65rem 1.6rem;font-size:.95rem;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;transition:opacity .2s,transform .1s;box-shadow:0 3px 14px rgba(108,63,244,.28)}
+    .btn-next:hover{opacity:.88}.btn-next:active{transform:scale(.97)}
+    #complete-banner{display:none;text-align:center;padding:4rem 1.5rem;max-width:var(--max);margin:0 auto}
+    #complete-banner .cb-icon{font-size:3.5rem;margin-bottom:1rem}
+    #complete-banner h2{font-size:1.8rem;font-weight:800;margin-bottom:.6rem}
+    #complete-banner p{color:var(--muted);max-width:380px;margin:0 auto 1.8rem}
+    .btn-primary{display:inline-block;padding:.85rem 2rem;border-radius:12px;background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);color:#fff;font-size:1rem;font-weight:700;text-decoration:none;cursor:pointer;border:none;box-shadow:0 4px 20px rgba(108,63,244,.3);transition:opacity .2s}
+    .btn-primary:hover{opacity:.88}
+    @media(max-width:500px){.page-wrap{padding:1.2rem 1rem 4rem}.gate-card{padding:2rem 1.2rem}.q-block{padding:1.1rem 1rem}.cal-banner{flex-direction:column;align-items:flex-start}}
   </style>
 </head>
 <body>
-
-<!-- NAV -->
 <nav>
   <a class="logo" href="index.html">Reset<span>Gears</span></a>
   <a class="back-link" href="index.html">← Back to home</a>
 </nav>
 
-<!-- EMAIL GATE -->
 <div id="gate">
   <div class="gate-card">
     <div class="gate-icon">⚙️</div>
@@ -242,10 +151,7 @@
   </div>
 </div>
 
-<!-- MAIN CONTENT -->
 <div class="page-wrap" id="main-content" style="display:none">
-
-  <!-- calendar banner -->
   <div class="cal-banner">
     <div class="cal-banner-text">
       <strong>📅 Add 30-Day Reset to your calendar</strong>
@@ -254,7 +160,6 @@
     <button class="btn-cal" onclick="downloadCalendar()">⬇ Download Calendar</button>
   </div>
 
-  <!-- personal note -->
   <div class="personal-note">
     <div class="note-label">A Personal Note</div>
     <p>I created this exercise for myself. As I began thinking about my goals for 2026, I realised I felt busy and capable, yet unclear about how I was moving. I kept trying to set goals without first checking whether my energy and capacity actually supported them.</p>
@@ -262,32 +167,16 @@
     <div class="sig">— Anne Salim</div>
   </div>
 
-  <!-- framework intro -->
   <div class="framework-intro">
     <h2>⚙️ The Gears — A Brief Introduction</h2>
-    <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;">The gears describe <strong>how you are operating in this season</strong> — your pace, capacity, and focus. Not ambition, performance, or potential. <strong>Alignment with your current reality.</strong></p>
+    <p style="font-size:.9rem;color:var(--muted);margin-bottom:1rem">The gears describe <strong>how you are operating in this season</strong> — your pace, capacity, and focus. Not ambition, performance, or potential. <strong>Alignment with your current reality.</strong></p>
     <div class="fi-cols">
-      <div class="fi-col">
-        <h4>What the gears are</h4>
-        <ul>
-          <li>A situational framework</li>
-          <li>A tool for reflection and clarity</li>
-          <li>A way to notice energy &amp; context</li>
-        </ul>
-      </div>
-      <div class="fi-col no">
-        <h4>What the gears are not</h4>
-        <ul>
-          <li>Not labels or permanent</li>
-          <li>Not a hierarchy</li>
-          <li>Not a measure of success</li>
-        </ul>
-      </div>
+      <div class="fi-col"><h4>What the gears are</h4><ul><li>A situational framework</li><li>A tool for reflection and clarity</li><li>A way to notice energy &amp; context</li></ul></div>
+      <div class="fi-col no"><h4>What the gears are not</h4><ul><li>Not labels or permanent</li><li>Not a hierarchy</li><li>Not a measure of success</li></ul></div>
     </div>
     <div class="reminder">Answer honestly, not aspirationally. Choose what feels true, not impressive. If you feel unsure between gears — that uncertainty is information. Take one breath before you begin. This is about alignment, not optimisation.</div>
   </div>
 
-  <!-- week tabs -->
   <div class="week-tabs" id="week-tabs">
     <button class="week-tab active" onclick="goToWeek(0)">Week 1</button>
     <button class="week-tab" onclick="goToWeek(1)">Week 2</button>
@@ -297,200 +186,82 @@
     <button class="week-tab" onclick="goToWeek(5)">Done List</button>
   </div>
 
-  <!-- WEEK 1 -->
   <div class="week-panel visible" id="week-0">
-    <div class="week-header">
-      <div class="week-eyebrow">Week 1 of 4</div>
-      <h2>Awareness &amp; Decompression</h2>
-      <p class="week-sub">Seeing reality clearly</p>
-    </div>
-    <div class="q-block">
-      <div class="q-text">What currently feels heavy in my life?</div>
-      <div class="cb-list" id="w1q1"></div>
-    </div>
-    <div class="q-block">
-      <div class="q-text">Where am I forcing progress that feels unnatural?</div>
-      <div class="cb-list" id="w1q2"></div>
-    </div>
-    <div class="q-block">
-      <div class="q-text">What is working — but costing me too much?</div>
-      <div class="cb-list" id="w1q3"></div>
-    </div>
-    <div class="week-nav">
-      <span></span>
-      <button class="btn-next" onclick="goToWeek(1)">Week 2 →</button>
-    </div>
+    <div class="week-header"><div class="week-eyebrow">Week 1 of 4</div><h2>Awareness &amp; Decompression</h2><p class="week-sub">Seeing reality clearly</p></div>
+    <div class="q-block"><div class="q-text">What currently feels heavy in my life?</div><div class="cb-list" id="w1q1"></div></div>
+    <div class="q-block"><div class="q-text">Where am I forcing progress that feels unnatural?</div><div class="cb-list" id="w1q2"></div></div>
+    <div class="q-block"><div class="q-text">What is working — but costing me too much?</div><div class="cb-list" id="w1q3"></div></div>
+    <div class="week-nav"><span></span><button class="btn-next" onclick="goToWeek(1)">Week 2 →</button></div>
   </div>
 
-  <!-- WEEK 2 -->
   <div class="week-panel" id="week-1">
-    <div class="week-header">
-      <div class="week-eyebrow">Week 2 of 4</div>
-      <h2>Identity &amp; Constraints</h2>
-      <p class="week-sub">Understanding who I am now</p>
-    </div>
-    <div class="q-block">
-      <div class="q-text">How has my identity changed in the last 12 months?</div>
-      <div class="cb-list" id="w2q1"></div>
-    </div>
-    <div class="q-block">
-      <div class="q-text">What expectations am I still holding onto that no longer serve me?</div>
-      <div class="cb-list" id="w2q2"></div>
-    </div>
-    <div class="q-block">
-      <div class="q-text">What are my non-negotiable constraints right now?</div>
-      <div class="cb-list" id="w2q3"></div>
-    </div>
-    <div class="week-nav">
-      <button class="btn-back" onclick="goToWeek(0)">← Week 1</button>
-      <button class="btn-next" onclick="goToWeek(2)">Week 3 →</button>
-    </div>
+    <div class="week-header"><div class="week-eyebrow">Week 2 of 4</div><h2>Identity &amp; Constraints</h2><p class="week-sub">Understanding who I am now</p></div>
+    <div class="q-block"><div class="q-text">How has my identity changed in the last 12 months?</div><div class="cb-list" id="w2q1"></div></div>
+    <div class="q-block"><div class="q-text">What expectations am I still holding onto that no longer serve me?</div><div class="cb-list" id="w2q2"></div></div>
+    <div class="q-block"><div class="q-text">What are my non-negotiable constraints right now?</div><div class="cb-list" id="w2q3"></div></div>
+    <div class="week-nav"><button class="btn-back" onclick="goToWeek(0)">← Week 1</button><button class="btn-next" onclick="goToWeek(2)">Week 3 →</button></div>
   </div>
 
-  <!-- WEEK 3 -->
   <div class="week-panel" id="week-2">
-    <div class="week-header">
-      <div class="week-eyebrow">Week 3 of 4</div>
-      <h2>Direction &amp; Gear Selection</h2>
-      <p class="week-sub">Choosing how to move</p>
-    </div>
-    <div class="q-block">
-      <div class="q-text">If I could focus on ONE area for the next 90 days, it would be:</div>
-      <div class="cb-list" id="w3q1"></div>
-    </div>
-    <div class="q-block">
-      <div class="q-text">What gear would make my life feel lighter right now?</div>
-      <div class="gear-pick" id="w3q2"></div>
-    </div>
-    <div class="q-block">
-      <div class="q-text">What am I willing to trade off to protect this focus?</div>
-      <div class="cb-list" id="w3q3"></div>
-    </div>
-    <div class="week-nav">
-      <button class="btn-back" onclick="goToWeek(1)">← Week 2</button>
-      <button class="btn-next" onclick="goToWeek(3)">Week 4 →</button>
-    </div>
+    <div class="week-header"><div class="week-eyebrow">Week 3 of 4</div><h2>Direction &amp; Gear Selection</h2><p class="week-sub">Choosing how to move</p></div>
+    <div class="q-block"><div class="q-text">If I could focus on ONE area for the next 90 days, it would be:</div><div class="cb-list" id="w3q1"></div></div>
+    <div class="q-block"><div class="q-text">What gear would make my life feel lighter right now?</div><div class="gear-pick" id="w3q2"></div></div>
+    <div class="q-block"><div class="q-text">What am I willing to trade off to protect this focus?</div><div class="cb-list" id="w3q3"></div></div>
+    <div class="week-nav"><button class="btn-back" onclick="goToWeek(1)">← Week 2</button><button class="btn-next" onclick="goToWeek(3)">Week 4 →</button></div>
   </div>
 
-  <!-- WEEK 4 -->
   <div class="week-panel" id="week-3">
-    <div class="week-header">
-      <div class="week-eyebrow">Week 4 of 4</div>
-      <h2>Integration &amp; Commitment</h2>
-      <p class="week-sub">Sustaining alignment</p>
-    </div>
-    <div class="q-block">
-      <div class="q-text">What habits best support my chosen gear?</div>
-      <div class="cb-list" id="w4q1"></div>
-    </div>
-    <div class="q-block">
-      <div class="q-text">What signals tell me I'm slipping out of alignment?</div>
-      <div class="cb-list" id="w4q2"></div>
-    </div>
-    <div class="q-block">
-      <div class="q-text">What support helps me stay aligned?</div>
-      <div class="cb-list" id="w4q3"></div>
-    </div>
-    <div class="week-nav">
-      <button class="btn-back" onclick="goToWeek(2)">← Week 3</button>
-      <button class="btn-next" onclick="goToWeek(4)">Summary →</button>
-    </div>
+    <div class="week-header"><div class="week-eyebrow">Week 4 of 4</div><h2>Integration &amp; Commitment</h2><p class="week-sub">Sustaining alignment</p></div>
+    <div class="q-block"><div class="q-text">What habits best support my chosen gear?</div><div class="cb-list" id="w4q1"></div></div>
+    <div class="q-block"><div class="q-text">What signals tell me I'm slipping out of alignment?</div><div class="cb-list" id="w4q2"></div></div>
+    <div class="q-block"><div class="q-text">What support helps me stay aligned?</div><div class="cb-list" id="w4q3"></div></div>
+    <div class="week-nav"><button class="btn-back" onclick="goToWeek(2)">← Week 3</button><button class="btn-next" onclick="goToWeek(4)">Summary →</button></div>
   </div>
 
-  <!-- SUMMARY -->
   <div class="week-panel" id="week-4">
-    <div class="week-header">
-      <div class="week-eyebrow">30-Day Reset</div>
-      <h2>🔄 Reflection Summary</h2>
-      <p class="week-sub">Looking back before moving forward — not perfection, only patterns.</p>
-    </div>
-
+    <div class="week-header"><div class="week-eyebrow">30-Day Reset</div><h2>🔄 Reflection Summary</h2><p class="week-sub">Looking back before moving forward — not perfection, only patterns.</p></div>
     <div class="q-block">
       <div class="q-text">🧠 Part 1 — What Showed Up Most Often</div>
-      <div style="overflow-x:auto">
-        <table class="summary-table">
-          <thead><tr><th>Area</th><th>Check what applied</th><th>Notes / Insight</th></tr></thead>
-          <tbody>
-            <tr><td class="row-label">Energy</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-energy-low"> Consistently low</label><label><input type="checkbox" data-save="sum-energy-fluc"> Fluctuating</label><label><input type="checkbox" data-save="sum-energy-imp"> Improving</label><label><input type="checkbox" data-save="sum-energy-str"> Strong</label></div></td><td><textarea data-save="sum-energy-notes" placeholder="Notes…"></textarea></td></tr>
-            <tr><td class="row-label">Focus</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-focus-scat"> Scattered</label><label><input type="checkbox" data-save="sum-focus-reac"> Reactive</label><label><input type="checkbox" data-save="sum-focus-imp"> Improving</label><label><input type="checkbox" data-save="sum-focus-clear"> Clear</label></div></td><td><textarea data-save="sum-focus-notes" placeholder="Notes…"></textarea></td></tr>
-            <tr><td class="row-label">Emotional State</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-emo-over"> Overwhelmed</label><label><input type="checkbox" data-save="sum-emo-anx"> Anxious</label><label><input type="checkbox" data-save="sum-emo-neu"> Neutral</label><label><input type="checkbox" data-save="sum-emo-calm"> Calm</label></div></td><td><textarea data-save="sum-emo-notes" placeholder="Notes…"></textarea></td></tr>
-            <tr><td class="row-label">Clarity</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-clar-conf"> Confused</label><label><input type="checkbox" data-save="sum-clar-unc"> Uncertain</label><label><input type="checkbox" data-save="sum-clar-emer"> Emerging</label><label><input type="checkbox" data-save="sum-clar-clear"> Clear</label></div></td><td><textarea data-save="sum-clar-notes" placeholder="Notes…"></textarea></td></tr>
-            <tr><td class="row-label">Boundaries</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-bnd-weak"> Weak</label><label><input type="checkbox" data-save="sum-bnd-inc"> Inconsistent</label><label><input type="checkbox" data-save="sum-bnd-imp"> Improving</label><label><input type="checkbox" data-save="sum-bnd-str"> Strong</label></div></td><td><textarea data-save="sum-bnd-notes" placeholder="Notes…"></textarea></td></tr>
-            <tr><td class="row-label">Motivation</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-mot-forc"> Forced</label><label><input type="checkbox" data-save="sum-mot-inc"> Inconsistent</label><label><input type="checkbox" data-save="sum-mot-nat"> Natural</label><label><input type="checkbox" data-save="sum-mot-sus"> Sustained</label></div></td><td><textarea data-save="sum-mot-notes" placeholder="Notes…"></textarea></td></tr>
-          </tbody>
-        </table>
-      </div>
+      <div style="overflow-x:auto"><table class="summary-table"><thead><tr><th>Area</th><th>Check what applied</th><th>Notes / Insight</th></tr></thead><tbody>
+        <tr><td class="row-label">Energy</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-energy-low"> Consistently low</label><label><input type="checkbox" data-save="sum-energy-fluc"> Fluctuating</label><label><input type="checkbox" data-save="sum-energy-imp"> Improving</label><label><input type="checkbox" data-save="sum-energy-str"> Strong</label></div></td><td><textarea data-save="sum-energy-notes" placeholder="Notes…"></textarea></td></tr>
+        <tr><td class="row-label">Focus</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-focus-scat"> Scattered</label><label><input type="checkbox" data-save="sum-focus-reac"> Reactive</label><label><input type="checkbox" data-save="sum-focus-imp"> Improving</label><label><input type="checkbox" data-save="sum-focus-clear"> Clear</label></div></td><td><textarea data-save="sum-focus-notes" placeholder="Notes…"></textarea></td></tr>
+        <tr><td class="row-label">Emotional State</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-emo-over"> Overwhelmed</label><label><input type="checkbox" data-save="sum-emo-anx"> Anxious</label><label><input type="checkbox" data-save="sum-emo-neu"> Neutral</label><label><input type="checkbox" data-save="sum-emo-calm"> Calm</label></div></td><td><textarea data-save="sum-emo-notes" placeholder="Notes…"></textarea></td></tr>
+        <tr><td class="row-label">Clarity</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-clar-conf"> Confused</label><label><input type="checkbox" data-save="sum-clar-unc"> Uncertain</label><label><input type="checkbox" data-save="sum-clar-emer"> Emerging</label><label><input type="checkbox" data-save="sum-clar-clear"> Clear</label></div></td><td><textarea data-save="sum-clar-notes" placeholder="Notes…"></textarea></td></tr>
+        <tr><td class="row-label">Boundaries</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-bnd-weak"> Weak</label><label><input type="checkbox" data-save="sum-bnd-inc"> Inconsistent</label><label><input type="checkbox" data-save="sum-bnd-imp"> Improving</label><label><input type="checkbox" data-save="sum-bnd-str"> Strong</label></div></td><td><textarea data-save="sum-bnd-notes" placeholder="Notes…"></textarea></td></tr>
+        <tr><td class="row-label">Motivation</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-mot-forc"> Forced</label><label><input type="checkbox" data-save="sum-mot-inc"> Inconsistent</label><label><input type="checkbox" data-save="sum-mot-nat"> Natural</label><label><input type="checkbox" data-save="sum-mot-sus"> Sustained</label></div></td><td><textarea data-save="sum-mot-notes" placeholder="Notes…"></textarea></td></tr>
+      </tbody></table></div>
     </div>
-
-    <div class="q-block">
-      <div class="q-text">⚙️ Part 2 — Gear Alignment Summary</div>
-      <div style="overflow-x:auto">
-        <table class="summary-table">
-          <thead><tr><th>Reflection</th><th>Tick what applies</th></tr></thead>
-          <tbody id="gear-alignment-table"></tbody>
-        </table>
-      </div>
-    </div>
-
+    <div class="q-block"><div class="q-text">⚙️ Part 2 — Gear Alignment Summary</div><div style="overflow-x:auto"><table class="summary-table"><thead><tr><th>Reflection</th><th>Tick what applies</th></tr></thead><tbody id="gear-alignment-table"></tbody></table></div></div>
     <div class="q-block">
       <div class="q-text">🧩 Part 3 — What Helped vs What Hindered</div>
-      <div style="overflow-x:auto">
-        <table class="summary-table">
-          <thead><tr><th>Category</th><th>Checkboxes</th><th>Notes</th></tr></thead>
-          <tbody>
-            <tr><td class="row-label">What helped most</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-help-rest"> Rest</label><label><input type="checkbox" data-save="sum-help-rout"> Routines</label><label><input type="checkbox" data-save="sum-help-refl"> Reflection</label><label><input type="checkbox" data-save="sum-help-foc"> Focus</label><label><input type="checkbox" data-save="sum-help-sup"> Support</label><label><input type="checkbox" data-save="sum-help-simp"> Simplicity</label></div></td><td><textarea data-save="sum-help-notes" placeholder="Notes…"></textarea></td></tr>
-            <tr><td class="row-label">What drained most</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-drain-over"> Overcommitment</label><label><input type="checkbox" data-save="sum-drain-bnd"> Poor boundaries</label><label><input type="checkbox" data-save="sum-drain-unc"> Unclear priorities</label><label><input type="checkbox" data-save="sum-drain-pres"> Pressure</label><label><input type="checkbox" data-save="sum-drain-dist"> Distractions</label></div></td><td><textarea data-save="sum-drain-notes" placeholder="Notes…"></textarea></td></tr>
-          </tbody>
-        </table>
-      </div>
+      <div style="overflow-x:auto"><table class="summary-table"><thead><tr><th>Category</th><th>Checkboxes</th><th>Notes</th></tr></thead><tbody>
+        <tr><td class="row-label">What helped most</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-help-rest"> Rest</label><label><input type="checkbox" data-save="sum-help-rout"> Routines</label><label><input type="checkbox" data-save="sum-help-refl"> Reflection</label><label><input type="checkbox" data-save="sum-help-foc"> Focus</label><label><input type="checkbox" data-save="sum-help-sup"> Support</label><label><input type="checkbox" data-save="sum-help-simp"> Simplicity</label></div></td><td><textarea data-save="sum-help-notes" placeholder="Notes…"></textarea></td></tr>
+        <tr><td class="row-label">What drained most</td><td><div class="check-row"><label><input type="checkbox" data-save="sum-drain-over"> Overcommitment</label><label><input type="checkbox" data-save="sum-drain-bnd"> Poor boundaries</label><label><input type="checkbox" data-save="sum-drain-unc"> Unclear priorities</label><label><input type="checkbox" data-save="sum-drain-pres"> Pressure</label><label><input type="checkbox" data-save="sum-drain-dist"> Distractions</label></div></td><td><textarea data-save="sum-drain-notes" placeholder="Notes…"></textarea></td></tr>
+      </tbody></table></div>
     </div>
-
     <div class="q-block">
       <div class="q-text">🎯 Part 4 — Direction Going Forward (next 30–90 days)</div>
-      <div style="overflow-x:auto">
-        <table class="summary-table">
-          <thead><tr><th>Question</th><th>Select</th><th>Notes</th></tr></thead>
-          <tbody>
-            <tr><td class="row-label">Primary focus</td><td><div class="check-row"><label><input type="radio" name="fwd-focus" data-save="fwd-focus" value="Energy"> Energy</label><label><input type="radio" name="fwd-focus" data-save="fwd-focus" value="Stability"> Stability</label><label><input type="radio" name="fwd-focus" data-save="fwd-focus" value="Clarity"> Clarity</label><label><input type="radio" name="fwd-focus" data-save="fwd-focus" value="Execution"> Execution</label><label><input type="radio" name="fwd-focus" data-save="fwd-focus" value="Growth"> Growth</label></div></td><td><textarea data-save="fwd-focus-notes" placeholder="Notes…"></textarea></td></tr>
-            <tr><td class="row-label">What I will protect</td><td><div class="check-row"><label><input type="checkbox" data-save="fwd-prot-time"> Time</label><label><input type="checkbox" data-save="fwd-prot-en"> Energy</label><label><input type="checkbox" data-save="fwd-prot-bnd"> Boundaries</label><label><input type="checkbox" data-save="fwd-prot-foc"> Focus</label><label><input type="checkbox" data-save="fwd-prot-hlth"> Health</label></div></td><td><textarea data-save="fwd-prot-notes" placeholder="Notes…"></textarea></td></tr>
-            <tr><td class="row-label">What I will deprioritise</td><td><div class="check-row"><label><input type="checkbox" data-save="fwd-dep-spd"> Speed</label><label><input type="checkbox" data-save="fwd-dep-vis"> Visibility</label><label><input type="checkbox" data-save="fwd-dep-perf"> Perfection</label><label><input type="checkbox" data-save="fwd-dep-over"> Overwork</label><label><input type="checkbox" data-save="fwd-dep-plea"> Pleasing others</label></div></td><td><textarea data-save="fwd-dep-notes" placeholder="Notes…"></textarea></td></tr>
-          </tbody>
-        </table>
-      </div>
+      <div style="overflow-x:auto"><table class="summary-table"><thead><tr><th>Question</th><th>Select</th><th>Notes</th></tr></thead><tbody>
+        <tr><td class="row-label">Primary focus</td><td><div class="check-row"><label><input type="radio" name="fwd-focus" data-save="fwd-focus" value="Energy"> Energy</label><label><input type="radio" name="fwd-focus" data-save="fwd-focus" value="Stability"> Stability</label><label><input type="radio" name="fwd-focus" data-save="fwd-focus" value="Clarity"> Clarity</label><label><input type="radio" name="fwd-focus" data-save="fwd-focus" value="Execution"> Execution</label><label><input type="radio" name="fwd-focus" data-save="fwd-focus" value="Growth"> Growth</label></div></td><td><textarea data-save="fwd-focus-notes" placeholder="Notes…"></textarea></td></tr>
+        <tr><td class="row-label">What I will protect</td><td><div class="check-row"><label><input type="checkbox" data-save="fwd-prot-time"> Time</label><label><input type="checkbox" data-save="fwd-prot-en"> Energy</label><label><input type="checkbox" data-save="fwd-prot-bnd"> Boundaries</label><label><input type="checkbox" data-save="fwd-prot-foc"> Focus</label><label><input type="checkbox" data-save="fwd-prot-hlth"> Health</label></div></td><td><textarea data-save="fwd-prot-notes" placeholder="Notes…"></textarea></td></tr>
+        <tr><td class="row-label">What I will deprioritise</td><td><div class="check-row"><label><input type="checkbox" data-save="fwd-dep-spd"> Speed</label><label><input type="checkbox" data-save="fwd-dep-vis"> Visibility</label><label><input type="checkbox" data-save="fwd-dep-perf"> Perfection</label><label><input type="checkbox" data-save="fwd-dep-over"> Overwork</label><label><input type="checkbox" data-save="fwd-dep-plea"> Pleasing others</label></div></td><td><textarea data-save="fwd-dep-notes" placeholder="Notes…"></textarea></td></tr>
+      </tbody></table></div>
     </div>
-
+    <div class="q-block"><div class="q-text" style="margin-bottom:.6rem">✍️ Part 5 — Final Integration Prompt</div><p style="font-size:.88rem;color:var(--muted);margin-bottom:.8rem;font-style:italic">In one sentence, what has this reset clarified for me?</p><textarea class="q-ta" data-save="sum-final" placeholder="Write your one sentence here…"></textarea></div>
     <div class="q-block">
-      <div class="q-text" style="margin-bottom:0.6rem">✍️ Part 5 — Final Integration Prompt</div>
-      <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.8rem;font-style:italic">In one sentence, what has this reset clarified for me?</p>
-      <textarea class="q-ta" data-save="sum-final" placeholder="Write your one sentence here…"></textarea>
-    </div>
-
-    <div class="q-block">
-      <div class="q-text" style="margin-bottom:0.8rem">✅ Micro-Commitment</div>
+      <div class="q-text" style="margin-bottom:.8rem">✅ Micro-Commitment</div>
       <div class="micro-list">
         <label class="micro-item"><input type="checkbox" data-save="micro-gentle"><div class="custom-cb"></div><span class="cb-label">I will move gently but consistently</span></label>
         <label class="micro-item"><input type="checkbox" data-save="micro-protect"><div class="custom-cb"></div><span class="cb-label">I will protect my chosen gear</span></label>
         <label class="micro-item"><input type="checkbox" data-save="micro-check"><div class="custom-cb"></div><span class="cb-label">I will check alignment before adding goals</span></label>
       </div>
-      <div class="sig-row">
-        <div class="sig-field"><label>Signed</label><input type="text" data-save="sum-sig-name" placeholder="Your name"></div>
-        <div class="sig-field"><label>Date</label><input type="text" data-save="sum-sig-date" placeholder="Today's date"></div>
-      </div>
+      <div class="sig-row"><div class="sig-field"><label>Signed</label><input type="text" data-save="sum-sig-name" placeholder="Your name"></div><div class="sig-field"><label>Date</label><input type="text" data-save="sum-sig-date" placeholder="Today's date"></div></div>
     </div>
-
-    <div class="week-nav">
-      <button class="btn-back" onclick="goToWeek(3)">← Week 4</button>
-      <button class="btn-next" onclick="goToWeek(5)">Done List →</button>
-    </div>
+    <div class="week-nav"><button class="btn-back" onclick="goToWeek(3)">← Week 4</button><button class="btn-next" onclick="goToWeek(5)">Done List →</button></div>
   </div>
 
-  <!-- DONE LIST -->
   <div class="week-panel" id="week-5">
-    <div class="week-header">
-      <div class="week-eyebrow">Evidence That I Showed Up</div>
-      <h2>✅ 30-Day Done List</h2>
-      <p class="week-sub">Progress is not only what you achieve. It's what you noticed, protected, released, or chose differently. Check off as many as apply over the next 30 days.</p>
-    </div>
+    <div class="week-header"><div class="week-eyebrow">Evidence That I Showed Up</div><h2>✅ 30-Day Done List</h2><p class="week-sub">Progress is not only what you achieve. It's what you noticed, protected, released, or chose differently. Check off as many as apply over the next 30 days.</p></div>
     <div class="q-block">
       <div class="done-section"><h4>🧠 Awareness &amp; Clarity</h4><div class="done-list" id="done-awareness"></div></div>
       <div class="done-section"><h4>⚡ Energy &amp; Wellbeing</h4><div class="done-list" id="done-energy"></div></div>
@@ -498,309 +269,67 @@
       <div class="done-section"><h4>⚙️ Gear Alignment</h4><div class="done-list" id="done-gear"></div></div>
       <div class="done-section"><h4>🌱 Growth &amp; Reflection</h4><div class="done-list" id="done-growth"></div></div>
     </div>
-    <div class="week-nav">
-      <button class="btn-back" onclick="goToWeek(4)">← Summary</button>
-      <button class="btn-next" onclick="completeReset()">Complete Reset ✓</button>
-    </div>
+    <div class="week-nav"><button class="btn-back" onclick="goToWeek(4)">← Summary</button><button class="btn-next" onclick="completeReset()">Complete Reset ✓</button></div>
   </div>
 
-  <!-- completion -->
-  <div id="complete-banner">
-    <div class="cb-icon">🎉</div>
-    <h2>Reset Complete</h2>
-    <p>You've done the honest work. You now have clarity on your current gear, what drains you, what supports you, and how to move forward — sustainably.</p>
-    <a class="btn-primary" href="index.html">← Back to Home</a>
-  </div>
-
+  <div id="complete-banner"><div class="cb-icon">🎉</div><h2>Reset Complete</h2><p>You've done the honest work. You now have clarity on your current gear, what drains you, what supports you, and how to move forward — sustainably.</p><a class="btn-primary" href="index.html">← Back to Home</a></div>
 </div>
 
 <script>
-window.plausible = window.plausible || function() {
-  (window.plausible.q = window.plausible.q || []).push(arguments);
-};
-
-/* ── CALENDAR GENERATOR ── */
-function icsDate(d) {
-  return d.getFullYear().toString() +
-    String(d.getMonth()+1).padStart(2,'0') +
-    String(d.getDate()).padStart(2,'0');
-}
-
-function addDays(base, n) {
-  const d = new Date(base);
-  d.setDate(d.getDate() + n);
-  return d;
-}
-
-function makeEvent(uid, summary, description, startDate, endDate) {
-  return [
-    'BEGIN:VEVENT',
-    `UID:${uid}@resetgears`,
-    `SUMMARY:${summary}`,
-    `DESCRIPTION:${description}`,
-    `DTSTART;VALUE=DATE:${icsDate(startDate)}`,
-    `DTEND;VALUE=DATE:${icsDate(endDate)}`,
-    'END:VEVENT'
-  ].join('\r\n');
-}
-
-function downloadCalendar() {
-  const today = new Date();
-  const events = [
-    makeEvent('rg-day1',  '⚙️ 30-Day Reset – Day 1: Pause',        'What happens when I slow down long enough to notice how I am actually doing?',  addDays(today,0),  addDays(today,1)),
-    makeEvent('rg-day7',  '⚙️ 30-Day Reset – Week 1 Check-in',     'Awareness & Decompression: What currently feels heavy? Where am I forcing progress?', addDays(today,7),  addDays(today,8)),
-    makeEvent('rg-day14', '⚙️ 30-Day Reset – Week 2 Check-in',     'Identity & Constraints: How has my identity changed? What expectations no longer serve me?', addDays(today,14), addDays(today,15)),
-    makeEvent('rg-day21', '⚙️ 30-Day Reset – Week 3 Check-in',     'Direction & Gear Selection: What gear would make my life feel lighter right now?', addDays(today,21), addDays(today,22)),
-    makeEvent('rg-day28', '⚙️ 30-Day Reset – Week 4 Check-in',     'Integration & Commitment: What habits best support my chosen gear?',            addDays(today,28), addDays(today,29)),
-    makeEvent('rg-day30', '⚙️ 30-Day Reset – Day 30: Carry Forward','What gear best supports my next season? Review your summary and micro-commitment.', addDays(today,30), addDays(today,31)),
+window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)};
+function icsDate(d){return d.getFullYear().toString()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')}
+function addDays(base,n){const d=new Date(base);d.setDate(d.getDate()+n);return d}
+function makeEvent(uid,summary,description,s,e){return['BEGIN:VEVENT',`UID:${uid}@resetgears`,`SUMMARY:${summary}`,`DESCRIPTION:${description}`,`DTSTART;VALUE=DATE:${icsDate(s)}`,`DTEND;VALUE=DATE:${icsDate(e)}`,'END:VEVENT'].join('\r\n')}
+function downloadCalendar(){
+  const t=new Date();
+  const events=[
+    makeEvent('rg-d1','⚙️ 30-Day Reset – Day 1: Pause','What happens when I slow down long enough to notice how I am actually doing?',addDays(t,0),addDays(t,1)),
+    makeEvent('rg-w1','⚙️ 30-Day Reset – Week 1 Check-in','Awareness & Decompression: What currently feels heavy? Where am I forcing progress?',addDays(t,7),addDays(t,8)),
+    makeEvent('rg-w2','⚙️ 30-Day Reset – Week 2 Check-in','Identity & Constraints: How has my identity changed? What expectations no longer serve me?',addDays(t,14),addDays(t,15)),
+    makeEvent('rg-w3','⚙️ 30-Day Reset – Week 3 Check-in','Direction & Gear Selection: What gear would make my life feel lighter right now?',addDays(t,21),addDays(t,22)),
+    makeEvent('rg-w4','⚙️ 30-Day Reset – Week 4 Check-in','Integration & Commitment: What habits best support my chosen gear?',addDays(t,28),addDays(t,29)),
+    makeEvent('rg-d30','⚙️ 30-Day Reset – Day 30: Carry Forward','What gear best supports my next season? Review your summary and micro-commitment.',addDays(t,30),addDays(t,31)),
   ];
-
-  const ics = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Anne Salim//Reset Gears//EN',
-    'CALSCALE:GREGORIAN',
-    'X-WR-CALNAME:30-Day Reset Gears',
-    ...events,
-    'END:VCALENDAR'
-  ].join('\r\n');
-
-  const blob = new Blob([ics], {type: 'text/calendar;charset=utf-8'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = '30DayResetGears.ics';
-  a.click();
-  URL.revokeObjectURL(a.href);
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Anne Salim//Reset Gears//EN','CALSCALE:GREGORIAN','X-WR-CALNAME:30-Day Reset Gears',...events,'END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));a.download='30DayResetGears.ics';a.click();URL.revokeObjectURL(a.href);
   plausible('calendar_downloaded');
 }
-
-/* ── QUESTION DATA ── */
-const questions = {
-  w1q1: ['Mental overload','Emotional fatigue','Too many commitments','Unclear priorities','Pressure to perform','Carrying expectations that are not mine','Lack of rest','Feeling behind'],
-  w1q2: ['Pushing through exhaustion','Saying yes when I want to say no','Maintaining an image that feels heavy','Working without clarity','Overcommitting to prove value','Ignoring personal limits'],
-  w1q3: ['Professional success at the expense of health','Stability without fulfilment','Achievement without joy','Growth without rest','Being needed but not supported'],
-  w2q1: ['More responsibility','Less capacity than before','Clearer values','Different priorities','Shift in ambition','Increased self-awareness','Changed personal roles'],
-  w2q2: ['Expectations from past versions of myself','Family expectations','Workplace or leadership expectations','Cultural or societal pressure','Financial expectations','Unrealistic timelines'],
-  w2q3: ['Health & energy','Family responsibilities','Financial stability','Emotional capacity','Time availability','Current role obligations'],
-  w3q1: ['Health & wellbeing','Career stability','Skill development','Financial reset','Leadership effectiveness','Personal clarity','Relationships'],
-  w3q3: ['Visibility','Speed','Non-essential commitments','Perfection','External validation','Over-availability'],
-  w4q1: ['Clear boundaries','Fewer priorities','Consistent routines','Rest and recovery','Learning time','Focused execution blocks'],
-  w4q2: ['Chronic fatigue','Irritability','Procrastination','Overcommitment','Loss of clarity','Feeling disconnected'],
-  w4q3: ['Accountability partner','Coach or mentor','Clear systems','Time alone','Reflection practices','Saying no more often'],
-};
-
-const gearOptions = [
-  {value:'Recovery',      color:'var(--recovery)',      label:'🟥 Recovery',      sub:'Rest & simplify'},
-  {value:'Stabilisation', color:'var(--stabilisation)', label:'🟧 Stabilisation', sub:'Build routines'},
-  {value:'Exploration',   color:'var(--exploration)',   label:'🟨 Exploration',   sub:'Learn & reflect'},
-  {value:'Execution',     color:'var(--execution)',     label:'🟩 Execution',     sub:'Deliver & focus'},
-  {value:'Expansion',     color:'var(--expansion)',     label:'🟦 Expansion',     sub:'Scale & lead'},
-];
-
-const doneItems = {
-  awareness: ['I noticed when I was tired, instead of pushing through','I paused before reacting','I named what felt heavy','I admitted I was overwhelmed','I acknowledged a pattern I had been avoiding','I recognised when something no longer fit','I became more honest with myself','I slowed down to think','I identified what matters most right now','I stopped pretending I had unlimited capacity'],
-  energy: ['I rested without guilt','I protected my energy at least once','I chose sleep over productivity','I ate more intentionally','I took a break when I needed one','I reduced unnecessary strain','I paid attention to my body','I noticed what drained me','I noticed what restored me','I allowed myself to recover'],
-  relationships: ["I said no to something that didn't align","I asked for help instead of carrying it alone","I let someone support me","I reduced time with people who drain me","I protected a relationship that matters","I communicated a boundary clearly","I chose presence over performance in a conversation","I released an obligation that wasn't mine"],
-  gear: ['I chose my gear honestly, not ambitiously','I stayed in my gear when tempted to shift up','I noticed when I was forcing a gear that didn\'t fit','I gave myself permission to operate at my actual capacity','I checked in on my gear at least once this week','I adjusted my expectations to match my energy','I moved at a pace that felt sustainable'],
-  growth: ['I reflected without judging myself','I completed at least one week of this exercise','I wrote something honest in a reflection prompt','I sat with uncertainty instead of rushing to resolve it','I recognised a shift in how I think about pace','I shared one insight from this reset with someone','I gave myself credit for showing up'],
-};
-
-const saved = JSON.parse(localStorage.getItem('resetgears-30day') || '{}');
-function save() { localStorage.setItem('resetgears-30day', JSON.stringify(saved)); }
-
-function buildCBList(containerId, items, saveKey) {
-  const el = document.getElementById(containerId);
-  if (!el) return;
-  items.forEach((item, i) => {
-    const key = `${saveKey}-${i}`;
-    const label = document.createElement('label');
-    label.className = 'cb-item' + (saved[key] ? ' checked' : '');
-    label.innerHTML = `<input type="checkbox" ${saved[key] ? 'checked' : ''}><div class="custom-cb">${saved[key] ? '✓' : ''}</div><span class="cb-label">${item}</span>`;
-    label.addEventListener('click', () => {
-      const cb = label.querySelector('input');
-      cb.checked = !cb.checked;
-      label.classList.toggle('checked', cb.checked);
-      label.querySelector('.custom-cb').textContent = cb.checked ? '✓' : '';
-      saved[key] = cb.checked; save();
-    });
-    el.appendChild(label);
-  });
-  const otherKey = `${saveKey}-other`;
-  const otherLabel = document.createElement('label');
-  otherLabel.className = 'cb-item' + (saved[otherKey+'-checked'] ? ' checked' : '');
-  const otherInput = document.createElement('input');
-  otherInput.type = 'text'; otherInput.className = 'other-input'; otherInput.placeholder = 'Describe…';
-  otherInput.value = saved[otherKey] || '';
-  otherInput.style.display = saved[otherKey+'-checked'] ? 'block' : 'none';
-  otherLabel.innerHTML = `<input type="checkbox" ${saved[otherKey+'-checked']?'checked':''}><div class="custom-cb">${saved[otherKey+'-checked']?'✓':''}</div><span class="cb-label">Other</span>`;
-  otherLabel.addEventListener('click', (e) => {
-    if (e.target === otherInput) return;
-    const cb = otherLabel.querySelector('input[type=checkbox]');
-    cb.checked = !cb.checked;
-    otherLabel.classList.toggle('checked', cb.checked);
-    otherLabel.querySelector('.custom-cb').textContent = cb.checked ? '✓' : '';
-    otherInput.style.display = cb.checked ? 'block' : 'none';
-    saved[otherKey+'-checked'] = cb.checked; save();
-  });
-  otherInput.addEventListener('input', () => { saved[otherKey] = otherInput.value; save(); });
-  otherInput.addEventListener('click', e => e.stopPropagation());
-  el.appendChild(otherLabel);
-  otherLabel.appendChild(otherInput);
+const questions={w1q1:['Mental overload','Emotional fatigue','Too many commitments','Unclear priorities','Pressure to perform','Carrying expectations that are not mine','Lack of rest','Feeling behind'],w1q2:['Pushing through exhaustion','Saying yes when I want to say no','Maintaining an image that feels heavy','Working without clarity','Overcommitting to prove value','Ignoring personal limits'],w1q3:['Professional success at the expense of health','Stability without fulfilment','Achievement without joy','Growth without rest','Being needed but not supported'],w2q1:['More responsibility','Less capacity than before','Clearer values','Different priorities','Shift in ambition','Increased self-awareness','Changed personal roles'],w2q2:['Expectations from past versions of myself','Family expectations','Workplace or leadership expectations','Cultural or societal pressure','Financial expectations','Unrealistic timelines'],w2q3:['Health & energy','Family responsibilities','Financial stability','Emotional capacity','Time availability','Current role obligations'],w3q1:['Health & wellbeing','Career stability','Skill development','Financial reset','Leadership effectiveness','Personal clarity','Relationships'],w3q3:['Visibility','Speed','Non-essential commitments','Perfection','External validation','Over-availability'],w4q1:['Clear boundaries','Fewer priorities','Consistent routines','Rest and recovery','Learning time','Focused execution blocks'],w4q2:['Chronic fatigue','Irritability','Procrastination','Overcommitment','Loss of clarity','Feeling disconnected'],w4q3:['Accountability partner','Coach or mentor','Clear systems','Time alone','Reflection practices','Saying no more often']};
+const gearOptions=[{value:'Recovery',color:'var(--recovery)',label:'🟥 Recovery',sub:'Rest & simplify'},{value:'Stabilisation',color:'var(--stabilisation)',label:'🟧 Stabilisation',sub:'Build routines'},{value:'Exploration',color:'var(--exploration)',label:'🟨 Exploration',sub:'Learn & reflect'},{value:'Execution',color:'var(--execution)',label:'🟩 Execution',sub:'Deliver & focus'},{value:'Expansion',color:'var(--expansion)',label:'🟦 Expansion',sub:'Scale & lead'}];
+const doneItems={awareness:['I noticed when I was tired, instead of pushing through','I paused before reacting','I named what felt heavy','I admitted I was overwhelmed','I acknowledged a pattern I had been avoiding','I recognised when something no longer fit','I became more honest with myself','I slowed down to think','I identified what matters most right now','I stopped pretending I had unlimited capacity'],energy:['I rested without guilt','I protected my energy at least once','I chose sleep over productivity','I ate more intentionally','I took a break when I needed one','I reduced unnecessary strain','I paid attention to my body','I noticed what drained me','I noticed what restored me','I allowed myself to recover'],relationships:["I said no to something that didn't align","I asked for help instead of carrying it alone","I let someone support me","I reduced time with people who drain me","I protected a relationship that matters","I communicated a boundary clearly","I chose presence over performance in a conversation","I released an obligation that wasn't mine"],gear:['I chose my gear honestly, not ambitiously','I stayed in my gear when tempted to shift up',"I noticed when I was forcing a gear that didn't fit",'I gave myself permission to operate at my actual capacity','I checked in on my gear at least once this week','I adjusted my expectations to match my energy','I moved at a pace that felt sustainable'],growth:['I reflected without judging myself','I completed at least one week of this exercise','I wrote something honest in a reflection prompt','I sat with uncertainty instead of rushing to resolve it','I recognised a shift in how I think about pace','I shared one insight from this reset with someone','I gave myself credit for showing up']};
+const saved=JSON.parse(localStorage.getItem('resetgears-30day')||'{}');
+function save(){localStorage.setItem('resetgears-30day',JSON.stringify(saved))}
+function buildCBList(cid,items,sk){
+  const el=document.getElementById(cid);if(!el)return;
+  items.forEach((item,i)=>{const key=`${sk}-${i}`;const l=document.createElement('label');l.className='cb-item'+(saved[key]?' checked':'');l.innerHTML=`<input type="checkbox" ${saved[key]?'checked':''}><div class="custom-cb">${saved[key]?'✓':''}</div><span class="cb-label">${item}</span>`;l.addEventListener('click',()=>{const cb=l.querySelector('input');cb.checked=!cb.checked;l.classList.toggle('checked',cb.checked);l.querySelector('.custom-cb').textContent=cb.checked?'✓':'';saved[key]=cb.checked;save()});el.appendChild(l)});
+  const ok=`${sk}-other`;const ol=document.createElement('label');ol.className='cb-item'+(saved[ok+'-checked']?' checked':'');const oi=document.createElement('input');oi.type='text';oi.className='other-input';oi.placeholder='Describe…';oi.value=saved[ok]||'';oi.style.display=saved[ok+'-checked']?'block':'none';
+  ol.innerHTML=`<input type="checkbox" ${saved[ok+'-checked']?'checked':''}><div class="custom-cb">${saved[ok+'-checked']?'✓':''}</div><span class="cb-label">Other</span>`;
+  ol.addEventListener('click',(e)=>{if(e.target===oi)return;const cb=ol.querySelector('input[type=checkbox]');cb.checked=!cb.checked;ol.classList.toggle('checked',cb.checked);ol.querySelector('.custom-cb').textContent=cb.checked?'✓':'';oi.style.display=cb.checked?'block':'none';saved[ok+'-checked']=cb.checked;save()});
+  oi.addEventListener('input',()=>{saved[ok]=oi.value;save()});oi.addEventListener('click',e=>e.stopPropagation());el.appendChild(ol);ol.appendChild(oi);
 }
-
-function buildGearPicker(containerId, saveKey) {
-  const el = document.getElementById(containerId);
-  if (!el) return;
-  gearOptions.forEach(g => {
-    const key = `${saveKey}-${g.value}`;
-    const label = document.createElement('label');
-    label.className = 'gear-pick-item' + (saved[key] ? ' checked' : '');
-    label.style.setProperty('--gp-color', g.color);
-    label.innerHTML = `<input type="radio" name="${saveKey}" ${saved[key]?'checked':''}><div class="gear-dot"></div><span class="cb-label"><strong>${g.label}</strong> — ${g.sub}</span>`;
-    label.addEventListener('click', () => {
-      gearOptions.forEach(opt => { saved[`${saveKey}-${opt.value}`] = false; });
-      document.querySelectorAll(`[name="${saveKey}"]`).forEach(r => r.closest('.gear-pick-item')?.classList.remove('checked'));
-      label.querySelector('input').checked = true;
-      label.classList.add('checked');
-      saved[key] = true; save();
-    });
-    el.appendChild(label);
-  });
+function buildGearPicker(cid,sk){
+  const el=document.getElementById(cid);if(!el)return;
+  gearOptions.forEach(g=>{const key=`${sk}-${g.value}`;const l=document.createElement('label');l.className='gear-pick-item'+(saved[key]?' checked':'');l.style.setProperty('--gp-color',g.color);l.innerHTML=`<input type="radio" name="${sk}" ${saved[key]?'checked':''}><div class="gear-dot"></div><span class="cb-label"><strong>${g.label}</strong> — ${g.sub}</span>`;l.addEventListener('click',()=>{gearOptions.forEach(opt=>{saved[`${sk}-${opt.value}`]=false});document.querySelectorAll(`[name="${sk}"]`).forEach(r=>r.closest('.gear-pick-item')?.classList.remove('checked'));l.querySelector('input').checked=true;l.classList.add('checked');saved[key]=true;save()});el.appendChild(l)});
 }
-
-function buildDoneList(containerId, items, savePrefix) {
-  const el = document.getElementById(containerId);
-  if (!el) return;
-  items.forEach((item, i) => {
-    const key = `${savePrefix}-${i}`;
-    const label = document.createElement('label');
-    label.className = 'done-item' + (saved[key] ? ' checked' : '');
-    label.innerHTML = `<input type="checkbox" ${saved[key]?'checked':''}><div class="done-cb">${saved[key]?'✓':''}</div><span class="done-label">${item}</span>`;
-    label.addEventListener('click', () => {
-      const cb = label.querySelector('input');
-      cb.checked = !cb.checked;
-      label.classList.toggle('checked', cb.checked);
-      label.querySelector('.done-cb').textContent = cb.checked ? '✓' : '';
-      saved[key] = cb.checked; save();
-    });
-    el.appendChild(label);
-  });
+function buildDoneList(cid,items,sp){
+  const el=document.getElementById(cid);if(!el)return;
+  items.forEach((item,i)=>{const key=`${sp}-${i}`;const l=document.createElement('label');l.className='done-item'+(saved[key]?' checked':'');l.innerHTML=`<input type="checkbox" ${saved[key]?'checked':''}><div class="done-cb">${saved[key]?'✓':''}</div><span class="done-label">${item}</span>`;l.addEventListener('click',()=>{const cb=l.querySelector('input');cb.checked=!cb.checked;l.classList.toggle('checked',cb.checked);l.querySelector('.done-cb').textContent=cb.checked?'✓':'';saved[key]=cb.checked;save()});el.appendChild(l)});
 }
-
-function buildGearAlignmentTable() {
-  const rows = [
-    {label:'Gear I started the reset in',    saveKey:'gar-start'},
-    {label:'Gear I moved toward most often',  saveKey:'gar-toward'},
-    {label:'Gear that felt most sustainable', saveKey:'gar-sustain'},
-    {label:'Gear I was tempted to force',     saveKey:'gar-force'},
-  ];
-  const tbody = document.getElementById('gear-alignment-table');
-  rows.forEach(row => {
-    const tr = document.createElement('tr');
-    const radioHtml = gearOptions.map(g =>
-      `<label style="display:flex;align-items:center;gap:4px;font-size:0.82rem;color:var(--muted);cursor:pointer;white-space:nowrap"><input type="radio" name="${row.saveKey}" value="${g.value}" ${saved[row.saveKey]===g.value?'checked':''} style="accent-color:${g.color}"> ${g.label}</label>`
-    ).join('');
-    tr.innerHTML = `<td class="row-label">${row.label}</td><td><div class="check-row">${radioHtml}</div></td>`;
-    tbody.appendChild(tr);
-    tr.querySelectorAll(`input[name="${row.saveKey}"]`).forEach(r => {
-      r.addEventListener('change', () => { saved[row.saveKey] = r.value; save(); });
-    });
-  });
+function buildGearAlignmentTable(){
+  const rows=[{label:'Gear I started the reset in',saveKey:'gar-start'},{label:'Gear I moved toward most often',saveKey:'gar-toward'},{label:'Gear that felt most sustainable',saveKey:'gar-sustain'},{label:'Gear I was tempted to force',saveKey:'gar-force'}];
+  const tbody=document.getElementById('gear-alignment-table');
+  rows.forEach(row=>{const tr=document.createElement('tr');const rh=gearOptions.map(g=>`<label style="display:flex;align-items:center;gap:4px;font-size:.82rem;color:var(--muted);cursor:pointer;white-space:nowrap"><input type="radio" name="${row.saveKey}" value="${g.value}" ${saved[row.saveKey]===g.value?'checked':''} style="accent-color:${g.color}"> ${g.label}</label>`).join('');tr.innerHTML=`<td class="row-label">${row.label}</td><td><div class="check-row">${rh}</div></td>`;tbody.appendChild(tr);tr.querySelectorAll(`input[name="${row.saveKey}"]`).forEach(r=>r.addEventListener('change',()=>{saved[row.saveKey]=r.value;save()}))});
 }
-
-function bindSummaryFields() {
-  document.querySelectorAll('[data-save]').forEach(el => {
-    const key = el.dataset.save;
-    if (el.type === 'checkbox' || el.type === 'radio') {
-      if (saved[key]) el.checked = true;
-      el.addEventListener('change', () => { saved[key] = el.type==='radio' ? el.value : el.checked; save(); });
-    } else if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
-      if (saved[key]) el.value = saved[key];
-      el.addEventListener('input', () => { saved[key] = el.value; save(); });
-    }
-  });
-  document.querySelectorAll('.micro-item').forEach(label => {
-    const cb = label.querySelector('input[type=checkbox]');
-    const key = cb?.dataset.save;
-    if (!key) return;
-    if (saved[key]) { label.classList.add('checked'); cb.checked = true; }
-    label.addEventListener('click', () => {
-      cb.checked = !cb.checked;
-      label.classList.toggle('checked', cb.checked);
-      label.querySelector('.custom-cb').textContent = cb.checked ? '✓' : '';
-      saved[key] = cb.checked; save();
-    });
-    cb.addEventListener('click', e => e.stopPropagation());
-  });
+function bindSummaryFields(){
+  document.querySelectorAll('[data-save]').forEach(el=>{const key=el.dataset.save;if(el.type==='checkbox'||el.type==='radio'){if(saved[key])el.checked=true;el.addEventListener('change',()=>{saved[key]=el.type==='radio'?el.value:el.checked;save()})}else if(el.tagName==='TEXTAREA'||el.tagName==='INPUT'){if(saved[key])el.value=saved[key];el.addEventListener('input',()=>{saved[key]=el.value;save()})}});
+  document.querySelectorAll('.micro-item').forEach(l=>{const cb=l.querySelector('input[type=checkbox]');const key=cb?.dataset.save;if(!key)return;if(saved[key]){l.classList.add('checked');cb.checked=true}l.addEventListener('click',()=>{cb.checked=!cb.checked;l.classList.toggle('checked',cb.checked);l.querySelector('.custom-cb').textContent=cb.checked?'✓':'';saved[key]=cb.checked;save()});cb.addEventListener('click',e=>e.stopPropagation())});
 }
-
-function goToWeek(n) {
-  document.querySelectorAll('.week-panel').forEach((p,i) => p.classList.toggle('visible', i===n));
-  document.querySelectorAll('.week-tab').forEach((t,i) => { t.classList.remove('active'); if(i===n) t.classList.add('active'); });
-  window.scrollTo({top:0, behavior:'smooth'});
-  plausible('reset_week_view', {props:{week: n+1}});
-}
-
-function completeReset() {
-  document.getElementById('week-5').classList.remove('visible');
-  document.getElementById('week-tabs').style.display = 'none';
-  document.getElementById('complete-banner').style.display = 'block';
-  plausible('reset_30day_completed');
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-/* ── EMAIL GATE ── */
-function unlockContent() {
-  document.getElementById('gate').style.display = 'none';
-  document.getElementById('main-content').style.display = 'block';
-}
-
-if (localStorage.getItem('resetgears-email')) { unlockContent(); }
-
-document.getElementById('gate-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const emailEl = document.getElementById('gate-email');
-  const errEl   = document.getElementById('gate-error');
-  const btn     = document.getElementById('gate-submit');
-  const email   = emailEl.value.trim();
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.style.display='block'; return; }
-  errEl.style.display = 'none';
-  btn.disabled = true; btn.textContent = 'Unlocking…';
-  try {
-    const res = await fetch('https://formspree.io/f/mdavkrkv', {
-      method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({email, source:'30-day-reset'})
-    });
-    if (!res.ok) throw new Error();
-  } catch { /* allow through even on network error */ }
-  localStorage.setItem('resetgears-email', email);
-  plausible('reset_email_signup');
-  unlockContent();
-});
-
-/* ── INIT ── */
-buildCBList('w1q1', questions.w1q1, 'w1q1');
-buildCBList('w1q2', questions.w1q2, 'w1q2');
-buildCBList('w1q3', questions.w1q3, 'w1q3');
-buildCBList('w2q1', questions.w2q1, 'w2q1');
-buildCBList('w2q2', questions.w2q2, 'w2q2');
-buildCBList('w2q3', questions.w2q3, 'w2q3');
-buildCBList('w3q1', questions.w3q1, 'w3q1');
-buildGearPicker('w3q2', 'w3q2');
-buildCBList('w3q3', questions.w3q3, 'w3q3');
-buildCBList('w4q1', questions.w4q1, 'w4q1');
-buildCBList('w4q2', questions.w4q2, 'w4q2');
-buildCBList('w4q3', questions.w4q3, 'w4q3');
-buildGearAlignmentTable();
-buildDoneList('done-awareness',     doneItems.awareness,     'done-aw');
-buildDoneList('done-energy',        doneItems.energy,        'done-en');
-buildDoneList('done-relationships', doneItems.relationships, 'done-rel');
-buildDoneList('done-gear',          doneItems.gear,          'done-gr');
-buildDoneList('done-growth',        doneItems.growth,        'done-gro');
-bindSummaryFields();
-
-const sigDate = document.querySelector('input[data-save="sum-sig-date"]');
-if (sigDate && !saved['sum-sig-date']) sigDate.value = new Date().toLocaleDateString('en-GB', {day:'numeric',month:'long',year:'numeric'});
+function goToWeek(n){document.querySelectorAll('.week-panel').forEach((p,i)=>p.classList.toggle('visible',i===n));document.querySelectorAll('.week-tab').forEach((t,i)=>{t.classList.remove('active');if(i===n)t.classList.add('active')});window.scrollTo({top:0,behavior:'smooth'});plausible('reset_week_view',{props:{week:n+1}})}
+function completeReset(){document.getElementById('week-5').classList.remove('visible');document.getElementById('week-tabs').style.display='none';document.getElementById('complete-banner').style.display='block';plausible('reset_30day_completed');window.scrollTo({top:0,behavior:'smooth'})}
+if(localStorage.getItem('resetgears-email')){document.getElementById('gate').style.display='none';document.getElementById('main-content').style.display='block'}
+document.getElementById('gate-form').addEventListener('submit',async(e)=>{e.preventDefault();const emailEl=document.getElementById('gate-email');const errEl=document.getElementById('gate-error');const btn=document.getElementById('gate-submit');const email=emailEl.value.trim();if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){errEl.style.display='block';return}errEl.style.display='none';btn.disabled=true;btn.textContent='Unlocking…';try{const res=await fetch('https://formspree.io/f/mdavkrkv',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({email,source:'30-day-reset'})});if(!res.ok)throw new Error()}catch{}localStorage.setItem('resetgears-email',email);plausible('reset_email_signup');document.getElementById('gate').style.display='none';document.getElementById('main-content').style.display='block'});
+buildCBList('w1q1',questions.w1q1,'w1q1');buildCBList('w1q2',questions.w1q2,'w1q2');buildCBList('w1q3',questions.w1q3,'w1q3');buildCBList('w2q1',questions.w2q1,'w2q1');buildCBList('w2q2',questions.w2q2,'w2q2');buildCBList('w2q3',questions.w2q3,'w2q3');buildCBList('w3q1',questions.w3q1,'w3q1');buildGearPicker('w3q2','w3q2');buildCBList('w3q3',questions.w3q3,'w3q3');buildCBList('w4q1',questions.w4q1,'w4q1');buildCBList('w4q2',questions.w4q2,'w4q2');buildCBList('w4q3',questions.w4q3,'w4q3');buildGearAlignmentTable();buildDoneList('done-awareness',doneItems.awareness,'done-aw');buildDoneList('done-energy',doneItems.energy,'done-en');buildDoneList('done-relationships',doneItems.relationships,'done-rel');buildDoneList('done-gear',doneItems.gear,'done-gr');buildDoneList('done-growth',doneItems.growth,'done-gro');bindSummaryFields();
+const sd=document.querySelector('input[data-save="sum-sig-date"]');if(sd&&!saved['sum-sig-date'])sd.value=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
 </script>
 </body>
 </html>
