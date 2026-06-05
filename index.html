@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Year, New Me – Gears Simulator</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --border: #2a2d3a;
+      --text: #e8eaf0;
+      --muted: #8890a4;
+      --g1: #4a9eff;
+      --g2: #3ecf8e;
+      --g3: #f6c94e;
+      --g4: #ff8c42;
+      --g5: #e05c5c;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem 1.5rem;
+    }
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    header p {
+      margin-top: 0.6rem;
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* ── progress bar ── */
+    #progress-wrap {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 1rem 1rem 2rem;
+    }
+    .pip {
+      width: 32px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      transition: background 0.4s;
+    }
+    .pip.done { background: var(--active-color, #4a9eff); }
+
+    /* ── gear track ── */
+    #gear-track {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1rem 4rem;
+    }
+
+    .gear-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .gear-card:hover { border-color: var(--color); }
+    .gear-card.active {
+      border-color: var(--color);
+      box-shadow: 0 0 0 1px var(--color), 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .gear-card.completed .card-header::after {
+      content: '✓';
+      margin-left: auto;
+      font-size: 1rem;
+      color: var(--color);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      user-select: none;
+    }
+
+    .gear-icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+    .gear-icon svg {
+      width: 44px;
+      height: 44px;
+    }
+    .gear-icon.spinning svg {
+      animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .card-title { flex: 1; }
+    .card-title .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+    }
+    .card-title h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .chevron {
+      color: var(--muted);
+      font-size: 1.1rem;
+      transition: transform 0.3s;
+      margin-left: auto;
+    }
+    .gear-card.active .chevron { transform: rotate(180deg); }
+    .gear-card.completed .chevron { display: none; }
+
+    .card-body {
+      display: none;
+      padding: 0 1.4rem 1.4rem;
+      border-top: 1px solid var(--border);
+    }
+    .gear-card.active .card-body { display: block; }
+
+    .card-body .goal {
+      margin: 1rem 0 0.4rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+    }
+    .card-body p {
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .try-list {
+      list-style: none;
+      margin-bottom: 1.2rem;
+    }
+    .try-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.4rem 0;
+      font-size: 0.95rem;
+      color: #c8ccd8;
+    }
+    .try-list li::before {
+      content: '→';
+      color: var(--color);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .reflection-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .reflection-box .rlabel {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .reflection-box p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0 0 0.7rem;
+    }
+    textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 0.6rem 0.8rem;
+      resize: vertical;
+      min-height: 72px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    textarea:focus { border-color: var(--color); }
+
+    .btn-complete {
+      display: inline-block;
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      border: none;
+      background: var(--color);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn-complete:hover { opacity: 0.85; }
+    .btn-complete:active { transform: scale(0.97); }
+
+    /* ── completion banner ── */
+    #done-banner {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    #done-banner h2 { font-size: 1.8rem; margin-bottom: 0.6rem; }
+    #done-banner p { color: var(--muted); line-height: 1.6; }
+    .gear-row {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin: 1.4rem 0;
+    }
+    .gear-row svg { animation: spin 2s linear infinite; }
+    .gear-row svg:nth-child(2) { animation-direction: reverse; }
+    .gear-row svg:nth-child(3) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>⚙️ New Year, New Me</h1>
+  <p>You don't need to become a developer.<br>You need to understand the <em>gears</em> that make digital tools work.</p>
+</header>
+
+<div id="progress-wrap"></div>
+
+<div id="gear-track"></div>
+
+<div id="done-banner">
+  <div class="gear-row">
+    <svg width="36" height="36" viewBox="0 0 36 36"><use href="#gear-svg" fill="#4a9eff"/></svg>
+    <svg width="28" height="28" viewBox="0 0 36 36" style="margin-top:4px"><use href="#gear-svg" fill="#3ecf8e"/></svg>
+    <svg width="36" height="36" viewBox="0 0 36 36"><use href="#gear-svg" fill="#f6c94e"/></svg>
+  </div>
+  <h2>All gears turning! 🎉</h2>
+  <p>You've completed all five gears. You now have a clearer map of how digital tools are built, shared, and sustained — and where you fit in that world.</p>
+</div>
+
+<!-- reusable gear path -->
+<svg style="display:none">
+  <symbol id="gear-svg" viewBox="0 0 36 36">
+    <path d="M18 22a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm10.2-5.4-.1-.6 2-1.6-1.9-3.3-2.4.8-.5-.4-.4-.5.8-2.4-3.3-1.9-1.6 2-.6-.1-.6.1-1.6-2-3.3 1.9.8 2.4-.5.4-.4.5-2.4-.8-1.9 3.3 2 1.6-.1.6.1.6-2 1.6 1.9 3.3 2.4-.8.4.5.5.4-.8 2.4 3.3 1.9 1.6-2 .6.1.6-.1 1.6 2 3.3-1.9-.8-2.4.5-.4.4-.5 2.4.8 1.9-3.3-2-1.6.1-.6-.1-.6z"/>
+  </symbol>
+</svg>
+
+<script>
+const gears = [
+  {
+    id: 1,
+    color: '#4a9eff',
+    emoji: '🔵',
+    title: 'Awareness',
+    goal: 'See that digital products are not magic — they are systems built by people.',
+    tries: [
+      'Explore a live app',
+      'Click through its features',
+      'Identify the problem being solved',
+    ],
+    reflection: 'What is one problem in your life, church, school, or work that could be solved digitally?',
+  },
+  {
+    id: 2,
+    color: '#3ecf8e',
+    emoji: '🟢',
+    title: 'Skills',
+    goal: 'Understand that apps are built from small, practical features.',
+    tries: [
+      'Bookmark an item in an app',
+      'Add a reminder',
+      'Test the app on mobile',
+    ],
+    reflection: 'Which feature felt most useful and why?',
+  },
+  {
+    id: 3,
+    color: '#f6c94e',
+    emoji: '🟡',
+    title: 'Systems',
+    goal: 'Demystify GitHub and deployment.',
+    tries: [
+      'Open a public repository',
+      'Review the files and commit history',
+      'Understand what version control means',
+    ],
+    reflection: 'What would change if your ideas were saved and visible?',
+  },
+  {
+    id: 4,
+    color: '#ff8c42',
+    emoji: '🟠',
+    title: 'Monetization',
+    goal: 'Understand ethical digital monetization.',
+    tries: [
+      'Review an affiliate disclosure',
+      'Explore a monetized digital product',
+      'Compare free vs paid tiers of a tool',
+    ],
+    reflection: 'How could a tool you build sustain itself?',
+  },
+  {
+    id: 5,
+    color: '#e05c5c',
+    emoji: '🔴',
+    title: 'AI',
+    goal: 'Learn to collaborate with AI responsibly.',
+    tries: [
+      'Enter a prompt into an AI tool',
+      'Generate a recommendation',
+      'Review the output critically',
+    ],
+    reflection: 'Where could AI assist you without replacing your judgement?',
+  },
+];
+
+const track = document.getElementById('gear-track');
+const progressWrap = document.getElementById('progress-wrap');
+const doneBanner = document.getElementById('done-banner');
+
+// load saved state
+const saved = JSON.parse(localStorage.getItem('gears-progress') || '{}');
+
+function saveState() {
+  localStorage.setItem('gears-progress', JSON.stringify(saved));
+}
+
+function gearSVG(color, size = 40) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 36 36" fill="${color}">
+    <use href="#gear-svg"/>
+  </svg>`;
+}
+
+// build pips
+gears.forEach(g => {
+  const pip = document.createElement('div');
+  pip.className = 'pip' + (saved[g.id] ? ' done' : '');
+  pip.style.setProperty('--active-color', g.color);
+  pip.id = `pip-${g.id}`;
+  progressWrap.appendChild(pip);
+});
+
+// build cards
+gears.forEach((g, idx) => {
+  const card = document.createElement('div');
+  card.className = 'gear-card' + (saved[g.id] ? ' completed' : '');
+  card.style.setProperty('--color', g.color);
+  card.id = `card-${g.id}`;
+
+  const triesHTML = g.tries.map(t => `<li>${t}</li>`).join('');
+  const savedReflection = saved[g.id]?.reflection || '';
+
+  card.innerHTML = `
+    <div class="card-header">
+      <div class="gear-icon${saved[g.id] ? '' : (idx === 0 ? ' spinning' : '')}" id="icon-${g.id}">
+        ${gearSVG(g.color)}
+      </div>
+      <div class="card-title">
+        <div class="label">Gear ${g.id}</div>
+        <h2>${g.title}</h2>
+      </div>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="card-body">
+      <div class="goal">Goal</div>
+      <p>${g.goal}</p>
+      <div class="goal">Try This</div>
+      <ul class="try-list">${triesHTML}</ul>
+      <div class="reflection-box">
+        <div class="rlabel">Reflection</div>
+        <p>${g.reflection}</p>
+        <textarea id="ref-${g.id}" placeholder="Write your thoughts here…">${savedReflection}</textarea>
+      </div>
+      <button class="btn-complete" onclick="completeGear(${g.id}, event)">
+        ${saved[g.id] ? 'Completed ✓' : 'Mark Complete'}
+      </button>
+    </div>
+  `;
+
+  card.querySelector('.card-header').addEventListener('click', () => toggleCard(g.id));
+  track.appendChild(card);
+});
+
+// open first incomplete gear
+const firstOpen = gears.find(g => !saved[g.id]);
+if (firstOpen) toggleCard(firstOpen.id);
+
+function toggleCard(id) {
+  document.querySelectorAll('.gear-card').forEach(c => {
+    if (!c.classList.contains('completed')) c.classList.remove('active');
+    c.querySelector('.gear-icon')?.classList.remove('spinning');
+  });
+  const card = document.getElementById(`card-${id}`);
+  if (card.classList.contains('completed')) return;
+  card.classList.add('active');
+  card.querySelector('.gear-icon').classList.add('spinning');
+}
+
+function completeGear(id, e) {
+  e.stopPropagation();
+  const reflection = document.getElementById(`ref-${id}`).value;
+  saved[id] = { reflection, completedAt: new Date().toISOString() };
+  saveState();
+
+  const card = document.getElementById(`card-${id}`);
+  card.classList.remove('active');
+  card.classList.add('completed');
+  card.querySelector('.card-body').style.display = 'none';
+  card.querySelector('.btn-complete').textContent = 'Completed ✓';
+  card.querySelector('.gear-icon').classList.remove('spinning');
+  card.querySelector('.chevron').style.display = 'none';
+
+  const pip = document.getElementById(`pip-${id}`);
+  pip.classList.add('done');
+
+  // open next
+  const next = gears.find(g => !saved[g.id]);
+  if (next) {
+    toggleCard(next.id);
+  } else {
+    doneBanner.style.display = 'block';
+    doneBanner.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+// mark already-completed cards
+gears.forEach(g => {
+  if (saved[g.id]) {
+    const card = document.getElementById(`card-${g.id}`);
+    card.querySelector('.btn-complete').textContent = 'Completed ✓';
+    card.querySelector('.chevron').style.display = 'none';
+  }
+});
+
+if (gears.every(g => saved[g.id])) {
+  doneBanner.style.display = 'block';
+}
+</script>
+</body>
+</html>
