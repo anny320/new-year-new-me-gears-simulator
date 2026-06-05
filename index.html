@@ -5,9 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reset Gears – Before You Set New Goals, Choose the Right Gear</title>
   <meta name="description" content="A reset for mid-career professionals who don't need more motivation — just clarity, pace, and alignment." />
-
   <script defer data-domain="anny320.github.io" src="https://plausible.io/js/script.js"></script>
-
   <style>
     :root {
       --bg:       #ffffff;
@@ -19,516 +17,150 @@
       --accent2:  #a855f7;
       --accent3:  #ec4899;
       --max:      720px;
-
-      /* gear colours */
       --recovery:      #ef4444;
       --stabilisation: #f97316;
       --exploration:   #eab308;
       --execution:     #22c55e;
       --expansion:     #3b82f6;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
 
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-    }
-
-    /* ── nav ── */
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
       padding: 0.9rem 1.5rem;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
     }
     nav .logo { font-weight: 800; font-size: 1.05rem; letter-spacing: -0.5px; color: var(--text); }
     nav .logo span { color: var(--accent); }
-    nav a.nav-cta {
-      font-size: 0.85rem;
-      font-weight: 700;
-      padding: 0.45rem 1.1rem;
-      border-radius: 8px;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
+    nav a.nav-cta { font-size: 0.85rem; font-weight: 700; padding: 0.45rem 1.1rem; border-radius: 8px; background: var(--accent); color: #fff; text-decoration: none; transition: opacity 0.2s; }
     nav a.nav-cta:hover { opacity: 0.85; }
 
-    /* ── section shells ── */
     section { padding: 5rem 1.5rem; }
     .inner { max-width: var(--max); margin: 0 auto; }
 
-    /* ── hero ── */
-    #hero {
-      text-align: center;
-      padding-top: 6rem;
-      padding-bottom: 5rem;
-      background: linear-gradient(135deg, #f0ebff 0%, #fef3e2 50%, #e8f5ff 100%);
-    }
-    #hero .eyebrow {
-      display: inline-block;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--accent);
-      font-weight: 700;
-      margin-bottom: 1.2rem;
-    }
-    #hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -1px;
-      margin-bottom: 1.2rem;
-      color: var(--text);
-    }
+    #hero { text-align: center; padding-top: 6rem; padding-bottom: 5rem; background: linear-gradient(135deg, #f0ebff 0%, #fef3e2 50%, #e8f5ff 100%); }
+    #hero .eyebrow { display: inline-block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); font-weight: 700; margin-bottom: 1.2rem; }
+    #hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; letter-spacing: -1px; margin-bottom: 1.2rem; }
     #hero h1 em { font-style: normal; color: var(--accent); }
-    #hero p.sub {
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 520px;
-      margin: 0 auto 2.4rem;
-    }
-    .btn-primary {
-      display: inline-block;
-      padding: 0.85rem 2rem;
-      border-radius: 12px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-      color: #fff;
-      font-size: 1rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: opacity 0.2s, transform 0.1s;
-      cursor: pointer;
-      border: none;
-      box-shadow: 0 4px 20px rgba(108,63,244,0.3);
-    }
+    #hero p.sub { font-size: 1.1rem; color: var(--muted); max-width: 520px; margin: 0 auto 2.4rem; }
+
+    .btn-primary { display: inline-block; padding: 0.85rem 2rem; border-radius: 12px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); color: #fff; font-size: 1rem; font-weight: 700; text-decoration: none; transition: opacity 0.2s, transform 0.1s; cursor: pointer; border: none; box-shadow: 0 4px 20px rgba(108,63,244,0.3); }
     .btn-primary:hover { opacity: 0.88; }
     .btn-primary:active { transform: scale(0.97); }
 
-    /* ── problem ── */
     #problem { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     #problem h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 1rem; }
     #problem .lead { font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem; max-width: 520px; }
-    .feel-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-    }
-    .feel-list li {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      font-size: 1rem;
-    }
-    .feel-list li::before {
-      content: '';
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      flex-shrink: 0;
-    }
+    .feel-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+    .feel-list li { display: flex; align-items: center; gap: 0.8rem; font-size: 1rem; }
+    .feel-list li::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); flex-shrink: 0; }
     #problem .closer { color: var(--muted); font-size: 0.95rem; }
 
-    /* ── solution ── */
     #solution { text-align: center; }
     #solution h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 1rem; }
     #solution .question { font-size: 1rem; color: var(--muted); margin-bottom: 0.5rem; }
     #solution .answer { font-size: 1.15rem; font-weight: 700; color: var(--text); margin-bottom: 2rem; }
-    .no-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin-bottom: 0;
-    }
+    .no-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
     .no-list li { color: var(--muted); font-size: 0.95rem; }
     .no-list li::before { content: '— '; }
 
-    /* ── products ── */
     #products { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     #products h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 800; margin-bottom: 2rem; text-align: center; }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem;
-    }
-
-    .product-card {
-      background: var(--bg);
-      border: 1.5px solid var(--border);
-      border-radius: 16px;
-      padding: 1.6rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
-    }
-    .product-card:hover {
-      border-color: var(--card-color);
-      box-shadow: 0 8px 32px rgba(108,63,244,0.12);
-      transform: translateY(-2px);
-    }
-    .product-card .tier {
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--card-color);
-      font-weight: 700;
-    }
-    .product-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; }
+    .product-card { background: var(--bg); border: 1.5px solid var(--border); border-radius: 16px; padding: 1.6rem; display: flex; flex-direction: column; gap: 0.8rem; transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s; }
+    .product-card:hover { border-color: var(--card-color); box-shadow: 0 8px 32px rgba(108,63,244,0.12); transform: translateY(-2px); }
+    .product-card .tier { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--card-color); font-weight: 700; }
+    .product-card h3 { font-size: 1.1rem; font-weight: 700; }
     .product-card .desc { font-size: 0.9rem; color: var(--muted); flex: 1; }
-    .product-card ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-    .product-card ul li {
-      font-size: 0.85rem;
-      color: var(--muted);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
+    .product-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+    .product-card ul li { font-size: 0.85rem; color: var(--muted); display: flex; align-items: flex-start; gap: 0.5rem; }
     .product-card ul li::before { content: '✓'; color: var(--card-color); flex-shrink: 0; font-weight: 700; }
-
-    .btn-card {
-      display: block;
-      text-align: center;
-      padding: 0.65rem 1.2rem;
-      border-radius: 10px;
-      background: var(--card-color);
-      color: #fff;
-      font-size: 0.9rem;
-      font-weight: 700;
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: opacity 0.2s;
-      margin-top: auto;
-    }
+    .btn-card { display: block; text-align: center; padding: 0.65rem 1.2rem; border-radius: 10px; background: var(--card-color); color: #fff; font-size: 0.9rem; font-weight: 700; cursor: pointer; border: none; transition: opacity 0.2s; margin-top: auto; }
     .btn-card:hover { opacity: 0.85; }
 
-    /* ── simulator ── */
-    #simulator {
-      background: linear-gradient(160deg, #faf8ff 0%, #fff8f0 100%);
-      border-top: 1px solid var(--border);
-      padding: 5rem 1.5rem;
-    }
-
-    .sim-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
+    #simulator { background: linear-gradient(160deg, #faf8ff 0%, #fff8f0 100%); border-top: 1px solid var(--border); padding: 5rem 1.5rem; }
+    .sim-header { text-align: center; margin-bottom: 2.5rem; }
     .sim-header h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800; margin-bottom: 0.6rem; }
     .sim-header p { color: var(--muted); font-size: 0.95rem; max-width: 480px; margin: 0 auto; }
-
-    .sim-shell {
-      max-width: var(--max);
-      margin: 0 auto;
-      background: #fff;
-      border: 1.5px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(108,63,244,0.08);
-    }
-
-    /* step progress bar */
-    .step-bar {
-      display: flex;
-      gap: 4px;
-      padding: 1rem 1.5rem 0;
-    }
-    .step-pip {
-      flex: 1;
-      height: 5px;
-      border-radius: 3px;
-      background: var(--border);
-      transition: background 0.4s;
-    }
+    .sim-shell { max-width: var(--max); margin: 0 auto; background: #fff; border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: 0 8px 40px rgba(108,63,244,0.08); }
+    .step-bar { display: flex; gap: 4px; padding: 1rem 1.5rem 0; }
+    .step-pip { flex: 1; height: 5px; border-radius: 3px; background: var(--border); transition: background 0.4s; }
     .step-pip.active { background: var(--accent); }
     .step-pip.done { background: var(--accent2); }
-
-    .step-label {
-      padding: 0.6rem 1.5rem 1.2rem;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--muted);
-      font-weight: 700;
-    }
-
-    /* step panels */
+    .step-label { padding: 0.6rem 1.5rem 1.2rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 700; }
     .step-panel { display: none; padding: 0 1.5rem 1.5rem; }
     .step-panel.visible { display: block; }
-
-    .step-panel h3 {
-      font-size: 1.15rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      color: var(--text);
-    }
-    .step-panel .step-intro {
-      font-size: 0.95rem;
-      color: var(--muted);
-      margin-bottom: 1.5rem;
-      line-height: 1.65;
-      font-style: italic;
-      border-left: 3px solid var(--accent);
-      padding-left: 0.85rem;
-      background: var(--surface);
-      padding: 0.8rem 1rem;
-      border-radius: 0 8px 8px 0;
-    }
-
-    /* gear option cards */
+    .step-panel h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .step-panel .step-intro { font-size: 0.95rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.65; font-style: italic; border-left: 3px solid var(--accent); padding: 0.8rem 1rem; background: var(--surface); border-radius: 0 8px 8px 0; }
     .gear-options { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.5rem; }
-
-    .gear-option {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.9rem;
-      padding: 0.9rem 1rem;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
-      background: #fff;
-    }
+    .gear-option { display: flex; align-items: flex-start; gap: 0.9rem; padding: 0.9rem 1rem; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: #fff; }
     .gear-option:hover { border-color: var(--go-color); background: #faf8ff; }
-    .gear-option.selected {
-      border-color: var(--go-color);
-      background: color-mix(in srgb, var(--go-color) 8%, #fff);
-      box-shadow: 0 0 0 2px color-mix(in srgb, var(--go-color) 20%, transparent);
-    }
-    .gear-option input[type=radio], .gear-option input[type=checkbox] { display: none; }
-    .gear-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--go-color);
-      flex-shrink: 0;
-      margin-top: 4px;
-    }
+    .gear-option.selected { border-color: var(--go-color); background: color-mix(in srgb, var(--go-color) 8%, #fff); box-shadow: 0 0 0 2px color-mix(in srgb, var(--go-color) 20%, transparent); }
+    .gear-option input { display: none; }
+    .gear-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--go-color); flex-shrink: 0; margin-top: 4px; }
     .gear-option-text strong { font-weight: 700; font-size: 0.95rem; display: block; }
     .gear-option-text span { font-size: 0.85rem; color: var(--muted); }
-
-    /* checkboxes for clarity/commitment */
     .check-options { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
-    .check-option {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 0.75rem 1rem;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      background: #fff;
-    }
+    .check-option { display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: #fff; }
     .check-option:hover { border-color: var(--accent); background: #faf8ff; }
-    .check-option.checked {
-      border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 7%, #fff);
-    }
-    .check-option input[type=checkbox] { display: none; }
-    .custom-cb {
-      width: 18px;
-      height: 18px;
-      border: 2px solid var(--border);
-      border-radius: 4px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: border-color 0.2s, background 0.2s;
-      font-size: 11px;
-      color: #fff;
-    }
-    .check-option.checked .custom-cb {
-      border-color: var(--accent);
-      background: var(--accent);
-    }
+    .check-option.checked { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 7%, #fff); }
+    .check-option input { display: none; }
+    .custom-cb { width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; transition: all 0.2s; }
+    .check-option.checked .custom-cb { border-color: var(--accent); background: var(--accent); }
     .check-option.checked .custom-cb::after { content: '✓'; }
     .check-option-label { font-size: 0.92rem; color: var(--text); }
-
-    /* journal */
-    .journal-q {
-      font-size: 0.95rem;
-      color: var(--muted);
-      margin-bottom: 0.8rem;
-      font-style: italic;
-    }
-    textarea.sim-ta {
-      width: 100%;
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.92rem;
-      padding: 0.8rem 1rem;
-      resize: vertical;
-      min-height: 100px;
-      outline: none;
-      transition: border-color 0.2s;
-      margin-bottom: 1.5rem;
-    }
+    .journal-q { font-size: 0.95rem; color: var(--muted); margin-bottom: 0.8rem; font-style: italic; }
+    textarea.sim-ta { width: 100%; background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.92rem; padding: 0.8rem 1rem; resize: vertical; min-height: 100px; outline: none; transition: border-color 0.2s; margin-bottom: 1.5rem; }
     textarea.sim-ta:focus { border-color: var(--accent); }
-
-    /* signature */
-    .sig-row {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-      margin-top: 1.2rem;
-    }
-    .sig-field {
-      display: flex;
-      flex-direction: column;
-      gap: 0.3rem;
-      flex: 1;
-      min-width: 140px;
-    }
+    .sig-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; margin-top: 1.2rem; }
+    .sig-field { display: flex; flex-direction: column; gap: 0.3rem; flex: 1; min-width: 140px; }
     .sig-field label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; }
-    .sig-field input {
-      border: none;
-      border-bottom: 2px solid var(--border);
-      outline: none;
-      font-family: inherit;
-      font-size: 0.95rem;
-      padding: 0.3rem 0;
-      background: transparent;
-      color: var(--text);
-      transition: border-color 0.2s;
-    }
+    .sig-field input { border: none; border-bottom: 2px solid var(--border); outline: none; font-family: inherit; font-size: 0.95rem; padding: 0.3rem 0; background: transparent; color: var(--text); transition: border-color 0.2s; }
     .sig-field input:focus { border-color: var(--accent); }
-
-    /* nav buttons */
-    .step-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1.5rem;
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-    }
-    .btn-back {
-      background: none;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      padding: 0.5rem 1.1rem;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--muted);
-      cursor: pointer;
-      transition: border-color 0.2s, color 0.2s;
-    }
+    .step-nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-top: 1px solid var(--border); background: var(--surface); }
+    .btn-back { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 0.5rem 1.1rem; font-size: 0.88rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: border-color 0.2s, color 0.2s; font-family: inherit; }
     .btn-back:hover { border-color: var(--accent); color: var(--accent); }
-    .btn-next {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
-      border: none;
-      border-radius: 8px;
-      padding: 0.55rem 1.4rem;
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: #fff;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.1s;
-      box-shadow: 0 2px 12px rgba(108,63,244,0.25);
-    }
+    .btn-next { background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); border: none; border-radius: 8px; padding: 0.55rem 1.4rem; font-size: 0.92rem; font-weight: 700; color: #fff; cursor: pointer; transition: opacity 0.2s; box-shadow: 0 2px 12px rgba(108,63,244,0.25); font-family: inherit; }
     .btn-next:hover { opacity: 0.88; }
-    .btn-next:active { transform: scale(0.97); }
-
-    /* completion */
-    #sim-complete {
-      display: none;
-      text-align: center;
-      padding: 3rem 1.5rem;
-    }
-    .gear-row { display: flex; justify-content: center; gap: 8px; margin: 1.2rem 0; }
+    #sim-complete { display: none; text-align: center; padding: 3rem 1.5rem; }
     @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .gear-row { display: flex; justify-content: center; gap: 8px; margin: 1.2rem 0; }
     .gear-row svg { animation: spin 2.5s linear infinite; }
     .gear-row svg:nth-child(2) { animation-direction: reverse; }
     .gear-row svg:nth-child(3) { animation-delay: 0.4s; }
     #sim-complete h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.6rem; }
-    #sim-complete p { color: var(--muted); max-width: 380px; margin: 0 auto 1.8rem; font-size: 0.95rem; }
-
-    /* summary card shown in completion */
-    .summary-card {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 14px;
-      padding: 1.2rem 1.4rem;
-      text-align: left;
-      margin-bottom: 1.6rem;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+    #sim-complete p { color: var(--muted); max-width: 380px; margin: 0 auto 1.8rem; }
+    .summary-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 1.2rem 1.4rem; text-align: left; margin-bottom: 1.6rem; max-width: 480px; margin-left: auto; margin-right: auto; }
     .summary-card .sc-row { display: flex; justify-content: space-between; font-size: 0.88rem; padding: 0.35rem 0; border-bottom: 1px solid var(--border); }
     .summary-card .sc-row:last-child { border-bottom: none; }
     .summary-card .sc-label { color: var(--muted); }
     .summary-card .sc-val { font-weight: 700; }
 
-    /* ── closing ── */
-    #closing {
-      text-align: center;
-      padding: 5rem 1.5rem 6rem;
-      background: linear-gradient(135deg, #6c3ff4 0%, #a855f7 50%, #ec4899 100%);
-      color: #fff;
-    }
+    #closing { text-align: center; padding: 5rem 1.5rem 6rem; background: linear-gradient(135deg, #6c3ff4 0%, #a855f7 50%, #ec4899 100%); color: #fff; }
     #closing h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; margin-bottom: 0.6rem; color: #fff; }
     #closing p { color: rgba(255,255,255,0.8); max-width: 400px; margin: 0 auto 2rem; }
-    #closing .btn-primary {
-      background: #fff;
-      color: var(--accent);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    }
-    #closing .btn-primary:hover { opacity: 0.9; }
+    #closing .btn-primary { background: #fff; color: var(--accent); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
 
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      font-size: 0.8rem;
-      color: var(--muted);
-      border-top: 1px solid var(--border);
-    }
+    footer { text-align: center; padding: 1.5rem; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); }
 
     @media (max-width: 480px) {
       section { padding: 3.5rem 1rem; }
       #hero { padding-top: 4rem; }
-      .sim-shell { border-radius: 14px; }
       .step-panel, .step-nav { padding-left: 1rem; padding-right: 1rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
 <nav>
   <div class="logo">Reset<span>Gears</span></div>
   <a class="nav-cta" href="#simulator" onclick="plausible('nav_cta_click')">Start Free Reflection</a>
 </nav>
 
-<!-- ── HERO ── -->
 <section id="hero">
   <div class="inner">
     <span class="eyebrow">⚙️ The Reset Gears Framework</span>
@@ -538,12 +170,11 @@
   </div>
 </section>
 
-<!-- ── PROBLEM ── -->
 <section id="problem">
   <div class="inner">
     <h2>You're Not Stuck.<br>You're Overextended.</h2>
     <p class="lead">You've built skill, credibility, and responsibility. But somewhere along the way, momentum turned into pressure.</p>
-    <p style="color:var(--muted);margin-bottom:1rem;font-size:0.9rem;">This reset is for professionals who feel:</p>
+    <p style="color:var(--muted);margin-bottom:1rem;font-size:0.9rem">This reset is for professionals who feel:</p>
     <ul class="feel-list">
       <li>Capable, but tired</li>
       <li>Busy, but unclear</li>
@@ -553,13 +184,12 @@
   </div>
 </section>
 
-<!-- ── SOLUTION ── -->
 <section id="solution">
   <div class="inner">
     <h2>The Reset Gears Framework</h2>
     <p class="question">Instead of asking <em>"What should I do next?"</em>, this reset helps you answer:</p>
     <p class="answer">"What pace, focus, and operating mode best fits this season of my life?"</p>
-    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:0.95rem;">The Gears help you choose <strong>how to move</strong> — before deciding where to go.</p>
+    <p style="color:var(--muted);margin-bottom:1.5rem;font-size:0.95rem">The Gears help you choose <strong>how to move</strong> — before deciding where to go.</p>
     <ul class="no-list">
       <li>No diagnostics</li>
       <li>No hustle culture</li>
@@ -568,74 +198,48 @@
   </div>
 </section>
 
-<!-- ── PRODUCTS ── -->
 <section id="products">
   <div class="inner">
     <h2>Choose Your Reset</h2>
     <div class="product-grid">
-
       <div class="product-card" style="--card-color:#6c3ff4">
         <div class="tier">🟢 Free</div>
         <h3>Choose Your Next Gear</h3>
-        <p class="desc">A one-page reflection to help you identify your current operating gear.</p>
-        <ul>
-          <li>Takes 10–15 minutes</li>
-          <li>Immediate clarity</li>
-          <li>No pressure, no cost</li>
-        </ul>
+        <p class="desc">A one-page reflection to identify your current operating gear.</p>
+        <ul><li>Takes 10–15 minutes</li><li>Immediate clarity</li><li>No pressure, no cost</li></ul>
         <button class="btn-card" onclick="plausible('product_click',{props:{product:'free'}}); document.getElementById('simulator').scrollIntoView({behavior:'smooth'})">👉 Start Free Reflection</button>
       </div>
-
       <div class="product-card" style="--card-color:#f59e0b">
         <div class="tier">🟡 Core</div>
         <h3>The 30-Day Reset + Gears</h3>
         <p class="desc">A structured reset to slow down, reflect, and realign — without falling behind.</p>
-        <ul>
-          <li>Guided 30-day reflection journal</li>
-          <li>The Gears framework</li>
-          <li>Optional calendar reminders</li>
-        </ul>
-        <button class="btn-card" onclick="plausible('product_click',{props:{product:'30day'}})">👉 Begin the 30-Day Reset</button>
+        <ul><li>Guided 30-day reflection journal</li><li>The Gears framework</li><li>Calendar reminders (.ics)</li></ul>
+        <button class="btn-card" onclick="plausible('product_click',{props:{product:'30day'}}); window.location.href='reset.html'">👉 Begin the 30-Day Reset</button>
       </div>
-
       <div class="product-card" style="--card-color:#f97316">
         <div class="tier">🟡 Light</div>
         <h3>The One-Day Reset</h3>
         <p class="desc">A focused 60–90 minute reset for moments when you need clarity now.</p>
-        <ul>
-          <li>Perfect before goal-setting</li>
-          <li>Career decisions</li>
-          <li>Major commitments</li>
-        </ul>
-        <button class="btn-card" onclick="plausible('product_click',{props:{product:'oneday'}})">👉 Do the One-Day Reset</button>
+        <ul><li>Perfect before goal-setting</li><li>Career decisions</li><li>Major commitments</li></ul>
+        <button class="btn-card" onclick="plausible('product_click',{props:{product:'oneday'}}); document.getElementById('simulator').scrollIntoView({behavior:'smooth'})">👉 Do the One-Day Reset</button>
       </div>
-
       <div class="product-card" style="--card-color:#3b82f6">
         <div class="tier">🔵 Premium</div>
         <h3>Guided Reset</h3>
         <p class="desc">For professionals who want gentle accountability and guided reflection.</p>
-        <ul>
-          <li>Everything in the 30-Day Reset</li>
-          <li>Weekly guidance</li>
-          <li>End-of-reset integration</li>
-        </ul>
+        <ul><li>Everything in the 30-Day Reset</li><li>Weekly guidance</li><li>End-of-reset integration</li></ul>
         <button class="btn-card" onclick="plausible('product_click',{props:{product:'guided'}})">👉 Join the Guided Reset</button>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ── SIMULATOR ── -->
 <section id="simulator">
   <div class="sim-header">
     <h2>⚙️ Choose Your Next Gear</h2>
     <p>A 10–15 minute reflection to identify where you are — and the gear you actually need right now.</p>
   </div>
-
-  <div class="sim-shell" style="max-width:var(--max);margin:0 auto;">
-
-    <!-- progress pips -->
+  <div class="sim-shell">
     <div class="step-bar" id="step-bar">
       <div class="step-pip active" id="pip-0"></div>
       <div class="step-pip" id="pip-1"></div>
@@ -645,125 +249,37 @@
     </div>
     <div class="step-label" id="step-label">Step 1 of 5</div>
 
-    <!-- ── STEP 1: Pause & Check In ── -->
     <div class="step-panel visible" id="step-0">
       <h3>Pause &amp; Check In</h3>
       <p class="step-intro">Before setting new goals, take a moment to identify the gear you are currently operating in — and the gear you actually need for this season. There is no right or wrong gear. Alignment matters more than speed.</p>
-
-      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem;">Which gear are you currently operating in?</p>
-      <div class="gear-options" id="current-gear-opts">
-        <label class="gear-option" style="--go-color:var(--recovery)">
-          <input type="radio" name="current-gear" value="Recovery">
-          <div class="gear-dot"></div>
-          <div class="gear-option-text">
-            <strong>🟥 Recovery</strong>
-            <span>I need rest, simplification, and space to restore energy.</span>
-          </div>
-        </label>
-        <label class="gear-option" style="--go-color:var(--stabilisation)">
-          <input type="radio" name="current-gear" value="Stabilisation">
-          <div class="gear-dot"></div>
-          <div class="gear-option-text">
-            <strong>🟧 Stabilisation</strong>
-            <span>I need consistency, rhythm, and fewer decisions.</span>
-          </div>
-        </label>
-        <label class="gear-option" style="--go-color:var(--exploration)">
-          <input type="radio" name="current-gear" value="Exploration">
-          <div class="gear-dot"></div>
-          <div class="gear-option-text">
-            <strong>🟨 Exploration</strong>
-            <span>I need clarity, learning, and low-pressure experimentation.</span>
-          </div>
-        </label>
-        <label class="gear-option" style="--go-color:var(--execution)">
-          <input type="radio" name="current-gear" value="Execution">
-          <div class="gear-dot"></div>
-          <div class="gear-option-text">
-            <strong>🟩 Execution</strong>
-            <span>I need focus, momentum, and disciplined delivery.</span>
-          </div>
-        </label>
-        <label class="gear-option" style="--go-color:var(--expansion)">
-          <input type="radio" name="current-gear" value="Expansion">
-          <div class="gear-dot"></div>
-          <div class="gear-option-text">
-            <strong>🟦 Expansion</strong>
-            <span>I need to scale impact, lead others, and multiply results.</span>
-          </div>
-        </label>
-        <label class="gear-option" style="--go-color:var(--muted)">
-          <input type="radio" name="current-gear" value="Unsure">
-          <div class="gear-dot" style="background:var(--muted)"></div>
-          <div class="gear-option-text">
-            <strong>☐ Other / Unsure</strong>
-            <span>I'm not sure yet — and that's okay.</span>
-          </div>
-        </label>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem">Which gear are you currently operating in?</p>
+      <div class="gear-options">
+        <label class="gear-option" style="--go-color:var(--recovery)"><input type="radio" name="current-gear" value="Recovery"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟥 Recovery</strong><span>I need rest, simplification, and space to restore energy.</span></div></label>
+        <label class="gear-option" style="--go-color:var(--stabilisation)"><input type="radio" name="current-gear" value="Stabilisation"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟧 Stabilisation</strong><span>I need consistency, rhythm, and fewer decisions.</span></div></label>
+        <label class="gear-option" style="--go-color:var(--exploration)"><input type="radio" name="current-gear" value="Exploration"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟨 Exploration</strong><span>I need clarity, learning, and low-pressure experimentation.</span></div></label>
+        <label class="gear-option" style="--go-color:var(--execution)"><input type="radio" name="current-gear" value="Execution"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟩 Execution</strong><span>I need focus, momentum, and disciplined delivery.</span></div></label>
+        <label class="gear-option" style="--go-color:var(--expansion)"><input type="radio" name="current-gear" value="Expansion"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟦 Expansion</strong><span>I need to scale impact, lead others, and multiply results.</span></div></label>
+        <label class="gear-option" style="--go-color:var(--muted)"><input type="radio" name="current-gear" value="Unsure"><div class="gear-dot" style="background:var(--muted)"></div><div class="gear-option-text"><strong>☐ Other / Unsure</strong><span>I'm not sure yet — and that's okay.</span></div></label>
       </div>
     </div>
 
-    <!-- ── STEP 2: Aligned Gear ── -->
     <div class="step-panel" id="step-1">
       <h3>Reflection Prompts</h3>
-      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem;">Which gear feels most aligned for the <strong>next 30–90 days</strong>?</p>
-      <div class="gear-options" id="aligned-gear-opts">
-        <label class="gear-option" style="--go-color:var(--recovery)">
-          <input type="radio" name="aligned-gear" value="Recovery">
-          <div class="gear-dot"></div>
-          <div class="gear-option-text">
-            <strong>🟥 Recovery</strong>
-            <span>Rest, simplification, restoring energy</span>
-          </div>
-        </label>
-        <label class="gear-option" style="--go-color:var(--stabilisation)">
-          <input type="radio" name="aligned-gear" value="Stabilisation">
-          <div class="gear-dot"></div>
-          <div class="gear-option-text">
-            <strong>🟧 Stabilisation</strong>
-            <span>Consistency, rhythm, fewer decisions</span>
-          </div>
-        </label>
-        <label class="gear-option" style="--go-color:var(--exploration)">
-          <input type="radio" name="aligned-gear" value="Exploration">
-          <div class="gear-dot"></div>
-          <div class="gear-option-text">
-            <strong>🟨 Exploration</strong>
-            <span>Clarity, learning, low-pressure experimentation</span>
-          </div>
-        </label>
-        <label class="gear-option" style="--go-color:var(--execution)">
-          <input type="radio" name="aligned-gear" value="Execution">
-          <div class="gear-dot"></div>
-          <div class="gear-option-text">
-            <strong>🟩 Execution</strong>
-            <span>Focus, momentum, disciplined delivery</span>
-          </div>
-        </label>
-        <label class="gear-option" style="--go-color:var(--expansion)">
-          <input type="radio" name="aligned-gear" value="Expansion">
-          <div class="gear-dot"></div>
-          <div class="gear-option-text">
-            <strong>🟦 Expansion</strong>
-            <span>Scale impact, lead others, multiply results</span>
-          </div>
-        </label>
-        <label class="gear-option" style="--go-color:var(--muted)">
-          <input type="radio" name="aligned-gear" value="Unsure">
-          <div class="gear-dot" style="background:var(--muted)"></div>
-          <div class="gear-option-text">
-            <strong>☐ Still figuring it out</strong>
-            <span>That's fine — this exercise will help</span>
-          </div>
-        </label>
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem">Which gear feels most aligned for the <strong>next 30–90 days</strong>?</p>
+      <div class="gear-options">
+        <label class="gear-option" style="--go-color:var(--recovery)"><input type="radio" name="aligned-gear" value="Recovery"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟥 Recovery</strong><span>Rest, simplification, restoring energy</span></div></label>
+        <label class="gear-option" style="--go-color:var(--stabilisation)"><input type="radio" name="aligned-gear" value="Stabilisation"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟧 Stabilisation</strong><span>Consistency, rhythm, fewer decisions</span></div></label>
+        <label class="gear-option" style="--go-color:var(--exploration)"><input type="radio" name="aligned-gear" value="Exploration"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟨 Exploration</strong><span>Clarity, learning, low-pressure experimentation</span></div></label>
+        <label class="gear-option" style="--go-color:var(--execution)"><input type="radio" name="aligned-gear" value="Execution"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟩 Execution</strong><span>Focus, momentum, disciplined delivery</span></div></label>
+        <label class="gear-option" style="--go-color:var(--expansion)"><input type="radio" name="aligned-gear" value="Expansion"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟦 Expansion</strong><span>Scale impact, lead others, multiply results</span></div></label>
+        <label class="gear-option" style="--go-color:var(--muted)"><input type="radio" name="aligned-gear" value="Unsure"><div class="gear-dot" style="background:var(--muted)"></div><div class="gear-option-text"><strong>☐ Still figuring it out</strong><span>That's fine — this exercise will help</span></div></label>
       </div>
     </div>
 
-    <!-- ── STEP 3: Guided Clarity Check ── -->
     <div class="step-panel" id="step-2">
       <h3>Guided Clarity Check</h3>
-      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem;">This season, I feel: <em style="font-size:0.82rem">(select all that apply)</em></p>
-      <div class="check-options" id="clarity-opts">
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem">This season, I feel: <em style="font-size:0.82rem">(select all that apply)</em></p>
+      <div class="check-options">
         <label class="check-option"><input type="checkbox" value="Energised but scattered"><div class="custom-cb"></div><span class="check-option-label">Energised but scattered</span></label>
         <label class="check-option"><input type="checkbox" value="Capable but overwhelmed"><div class="custom-cb"></div><span class="check-option-label">Capable but overwhelmed</span></label>
         <label class="check-option"><input type="checkbox" value="Motivated but unclear"><div class="custom-cb"></div><span class="check-option-label">Motivated but unclear</span></label>
@@ -773,18 +289,16 @@
       </div>
     </div>
 
-    <!-- ── STEP 4: Journal Reflection ── -->
     <div class="step-panel" id="step-3">
       <h3>Journal Reflection</h3>
       <p class="journal-q">What would change if you allowed yourself to operate in the right gear — instead of the most impressive one?</p>
       <textarea class="sim-ta" id="journal-text" placeholder="Write freely. There are no wrong answers…" rows="6"></textarea>
     </div>
 
-    <!-- ── STEP 5: Micro-Commitment ── -->
     <div class="step-panel" id="step-4">
       <h3>Micro-Commitment</h3>
-      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem;">For this season, I commit to: <em style="font-size:0.82rem">(select all that apply)</em></p>
-      <div class="check-options" id="commitment-opts">
+      <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem">For this season, I commit to: <em style="font-size:0.82rem">(select all that apply)</em></p>
+      <div class="check-options">
         <label class="check-option"><input type="checkbox" value="Rest &amp; recovery"><div class="custom-cb"></div><span class="check-option-label">Rest &amp; recovery</span></label>
         <label class="check-option"><input type="checkbox" value="Consistency &amp; rhythm"><div class="custom-cb"></div><span class="check-option-label">Consistency &amp; rhythm</span></label>
         <label class="check-option"><input type="checkbox" value="Learning &amp; reflection"><div class="custom-cb"></div><span class="check-option-label">Learning &amp; reflection</span></label>
@@ -792,18 +306,11 @@
         <label class="check-option"><input type="checkbox" value="Scaled leadership"><div class="custom-cb"></div><span class="check-option-label">Scaled leadership</span></label>
       </div>
       <div class="sig-row">
-        <div class="sig-field">
-          <label>Signed</label>
-          <input type="text" id="sig-name" placeholder="Your name">
-        </div>
-        <div class="sig-field">
-          <label>Date</label>
-          <input type="text" id="sig-date" placeholder="Today's date">
-        </div>
+        <div class="sig-field"><label>Signed</label><input type="text" id="sig-name" placeholder="Your name"></div>
+        <div class="sig-field"><label>Date</label><input type="text" id="sig-date" placeholder="Today's date"></div>
       </div>
     </div>
 
-    <!-- completion -->
     <div id="sim-complete">
       <div class="gear-row">
         <svg width="34" height="34" viewBox="0 0 36 36" fill="#6c3ff4"><use href="#gear-svg"/></svg>
@@ -816,16 +323,13 @@
       <a class="btn-primary" href="#products" onclick="plausible('completion_upsell_click')">Explore the Full Reset →</a>
     </div>
 
-    <!-- nav controls -->
     <div class="step-nav" id="step-nav">
       <button class="btn-back" id="btn-back" onclick="prevStep()" style="visibility:hidden">← Back</button>
       <button class="btn-next" id="btn-next" onclick="nextStep()">Next →</button>
     </div>
-
   </div>
 </section>
 
-<!-- ── CLOSING ── -->
 <section id="closing">
   <div class="inner">
     <h2>This Is Not About Doing More.</h2>
@@ -834,11 +338,8 @@
   </div>
 </section>
 
-<footer>
-  © 2026 Reset Gears. Built for clarity, not hustle.
-</footer>
+<footer>© 2026 Reset Gears. Built for clarity, not hustle.</footer>
 
-<!-- reusable gear SVG -->
 <svg style="display:none">
   <symbol id="gear-svg" viewBox="0 0 36 36">
     <path d="M18 22a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm10.2-5.4-.1-.6 2-1.6-1.9-3.3-2.4.8-.5-.4-.4-.5.8-2.4-3.3-1.9-1.6 2-.6-.1-.6.1-1.6-2-3.3 1.9.8 2.4-.5.4-.4.5-2.4-.8-1.9 3.3 2 1.6-.1.6.1.6-2 1.6 1.9 3.3 2.4-.8.4.5.5.4-.8 2.4 3.3 1.9 1.6-2 .6.1.6-.1 1.6 2 3.3-1.9-.8-2.4.5-.4.4-.5 2.4.8 1.9-3.3-2-1.6.1-.6-.1-.6z"/>
@@ -846,105 +347,56 @@
 </svg>
 
 <script>
-window.plausible = window.plausible || function() {
-  (window.plausible.q = window.plausible.q || []).push(arguments);
-};
-
+window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments); };
 const TOTAL = 5;
 let current = 0;
-
-/* gear option interactivity */
 document.querySelectorAll('.gear-option').forEach(el => {
   el.addEventListener('click', () => {
     const radio = el.querySelector('input[type=radio]');
     if (!radio) return;
-    const name = radio.name;
-    document.querySelectorAll(`.gear-option input[name="${name}"]`).forEach(r => {
-      r.closest('.gear-option').classList.remove('selected');
-    });
-    radio.checked = true;
-    el.classList.add('selected');
+    document.querySelectorAll(`.gear-option input[name="${radio.name}"]`).forEach(r => r.closest('.gear-option').classList.remove('selected'));
+    radio.checked = true; el.classList.add('selected');
   });
 });
-
 document.querySelectorAll('.check-option').forEach(el => {
-  el.addEventListener('click', () => {
-    const cb = el.querySelector('input[type=checkbox]');
-    cb.checked = !cb.checked;
-    el.classList.toggle('checked', cb.checked);
-  });
+  el.addEventListener('click', () => { const cb = el.querySelector('input[type=checkbox]'); cb.checked = !cb.checked; el.classList.toggle('checked', cb.checked); });
 });
-
 function updateUI() {
-  document.querySelectorAll('.step-panel').forEach((p, i) => {
-    p.classList.toggle('visible', i === current);
-  });
-  document.querySelectorAll('.step-pip').forEach((p, i) => {
-    p.classList.remove('active', 'done');
-    if (i < current) p.classList.add('done');
-    else if (i === current) p.classList.add('active');
-  });
-  document.getElementById('step-label').textContent = `Step ${current + 1} of ${TOTAL}`;
-  document.getElementById('btn-back').style.visibility = current === 0 ? 'hidden' : 'visible';
-  document.getElementById('btn-next').textContent = current === TOTAL - 1 ? 'Complete ✓' : 'Next →';
+  document.querySelectorAll('.step-panel').forEach((p,i) => p.classList.toggle('visible', i===current));
+  document.querySelectorAll('.step-pip').forEach((p,i) => { p.classList.remove('active','done'); if(i<current) p.classList.add('done'); else if(i===current) p.classList.add('active'); });
+  document.getElementById('step-label').textContent = `Step ${current+1} of ${TOTAL}`;
+  document.getElementById('btn-back').style.visibility = current===0 ? 'hidden' : 'visible';
+  document.getElementById('btn-next').textContent = current===TOTAL-1 ? 'Complete ✓' : 'Next →';
 }
-
 function nextStep() {
-  if (current < TOTAL - 1) {
-    current++;
-    updateUI();
-    plausible('gear_step', {props:{step: current + 1}});
-    document.querySelector('.sim-shell').scrollIntoView({behavior:'smooth', block:'start'});
-  } else {
-    completeReflection();
-  }
+  if (current < TOTAL-1) { current++; updateUI(); plausible('gear_step',{props:{step:current+1}}); document.querySelector('.sim-shell').scrollIntoView({behavior:'smooth',block:'start'}); }
+  else { completeReflection(); }
 }
-
-function prevStep() {
-  if (current > 0) {
-    current--;
-    updateUI();
-  }
-}
-
-function getChecked(containerSelector) {
-  return [...document.querySelectorAll(`${containerSelector} input[type=checkbox]`)]
-    .filter(c => c.checked).map(c => c.value);
-}
-
+function prevStep() { if(current>0) { current--; updateUI(); } }
+function getChecked(sel) { return [...document.querySelectorAll(`${sel} input[type=checkbox]`)].filter(c=>c.checked).map(c=>c.value); }
 function completeReflection() {
-  const currentGear  = document.querySelector('input[name="current-gear"]:checked')?.value || '—';
-  const alignedGear  = document.querySelector('input[name="aligned-gear"]:checked')?.value || '—';
-  const clarity      = getChecked('#clarity-opts');
-  const commitments  = getChecked('#commitment-opts');
-  const journal      = document.getElementById('journal-text').value.trim();
-  const name         = document.getElementById('sig-name').value.trim();
-  const date         = document.getElementById('sig-date').value.trim();
-
-  localStorage.setItem('resetgears-reflection', JSON.stringify({
-    currentGear, alignedGear, clarity, commitments, journal, name, date,
-    completedAt: new Date().toISOString()
-  }));
-
-  document.getElementById('summary-card').innerHTML = `
-    <div class="sc-row"><span class="sc-label">Current gear</span><span class="sc-val">${currentGear}</span></div>
-    <div class="sc-row"><span class="sc-label">Aligned gear (next 30–90 days)</span><span class="sc-val">${alignedGear}</span></div>
-    <div class="sc-row"><span class="sc-label">This season I feel</span><span class="sc-val">${clarity.join(', ') || '—'}</span></div>
-    <div class="sc-row"><span class="sc-label">I commit to</span><span class="sc-val">${commitments.join(', ') || '—'}</span></div>
-    ${name ? `<div class="sc-row"><span class="sc-label">Signed</span><span class="sc-val">${name}${date ? ' · ' + date : ''}</span></div>` : ''}
-  `;
-
-  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('visible'));
-  document.getElementById('step-nav').style.display = 'none';
-  document.querySelector('.step-bar').style.display = 'none';
-  document.getElementById('step-label').style.display = 'none';
-  document.getElementById('sim-complete').style.display = 'block';
-
+  const currentGear = document.querySelector('input[name="current-gear"]:checked')?.value || '—';
+  const alignedGear = document.querySelector('input[name="aligned-gear"]:checked')?.value || '—';
+  const clarity = getChecked('.step-panel#step-2 .check-options');
+  const commitments = getChecked('.step-panel#step-4 .check-options');
+  const journal = document.getElementById('journal-text').value.trim();
+  const name = document.getElementById('sig-name').value.trim();
+  const date = document.getElementById('sig-date').value.trim();
+  localStorage.setItem('resetgears-reflection', JSON.stringify({currentGear,alignedGear,clarity,commitments,journal,name,date,completedAt:new Date().toISOString()}));
+  document.getElementById('summary-card').innerHTML =
+    `<div class="sc-row"><span class="sc-label">Current gear</span><span class="sc-val">${currentGear}</span></div>
+     <div class="sc-row"><span class="sc-label">Aligned gear (next 30–90 days)</span><span class="sc-val">${alignedGear}</span></div>
+     <div class="sc-row"><span class="sc-label">This season I feel</span><span class="sc-val">${clarity.join(', ')||'—'}</span></div>
+     <div class="sc-row"><span class="sc-label">I commit to</span><span class="sc-val">${commitments.join(', ')||'—'}</span></div>
+     ${name?`<div class="sc-row"><span class="sc-label">Signed</span><span class="sc-val">${name}${date?' · '+date:''}</span></div>`:''}`;
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('visible'));
+  document.getElementById('step-nav').style.display='none';
+  document.querySelector('.step-bar').style.display='none';
+  document.getElementById('step-label').style.display='none';
+  document.getElementById('sim-complete').style.display='block';
   plausible('reflection_fully_completed');
 }
-
-/* pre-fill date */
-document.getElementById('sig-date').value = new Date().toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+document.getElementById('sig-date').value = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
 </script>
 </body>
 </html>
