@@ -10,11 +10,11 @@ build confidence with digital tools — step by step.
 
 ## ⚙️ The Gears
 
-1. [🔵 Gear 1: Awareness](gear-1-awareness.md)  
-2. [🟢 Gear 2: Skills](gear-2-skills.md)  
-3. [🟡 Gear 3: Systems](gear-3-systems.md)  
-4. [🟠 Gear 4: Monetization](gear-4-monetization.md)  
-5. [🔴 Gear 5: AI](gear-5-ai.md)
+1. [🔵 Gear 1:  
+2. [🟢 Gear 2:  
+3. [🟡 Gear 3: 
+4. [🟠 Gear 4: 
+5. [🔴 Gear 5: 
 
 ---
 
