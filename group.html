@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Group Session – Reset Gears</title>
-<meta name="description" content="Facilitate a Gears reset session for a group and capture everyone's results in one summary." />
+<meta name="description" content="Facilitate a Gears reset session for a group and capture everyone's results in one combined report." />
 <script defer data-domain="anny320.github.io" src="https://plausible.io/js/script.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Q3XKY7BSC"></script>
 <script>
@@ -13,10 +13,12 @@
   gtag('js', new Date());
   gtag('config', 'G-1Q3XKY7BSC');
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 <style>
   :root {
     --bg: #ffffff; --surface: #f8f6ff; --border: #e8e2f8; --text: #1a1235; --muted: #6b6585;
-    --accent: #6c3ff4; --accent2: #a855f7; --accent3: #ec4899; --max: 760px;
+    --accent: #6c3ff4; --accent2: #a855f7; --accent3: #ec4899; --max: 800px;
     --recovery: #ef4444; --stabilisation: #f97316; --exploration: #eab308; --execution: #22c55e; --expansion: #3b82f6;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,6 +40,7 @@
   .field label { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; margin-bottom: 0.4rem; }
   .field input { width: 100%; border: 1.5px solid var(--border); border-radius: 10px; padding: 0.7rem 0.9rem; font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
   .field input:focus { border-color: var(--accent); }
+  .field .hint { font-size: 0.78rem; color: var(--muted); margin-top: 0.35rem; }
   .participant-row { display: flex; gap: 0.6rem; margin-bottom: 0.6rem; align-items: center; }
   .participant-row input { flex: 1; }
   .participant-row button { background: none; border: none; color: var(--muted); font-size: 1.1rem; cursor: pointer; padding: 0.2rem 0.5rem; }
@@ -60,7 +63,7 @@
   .queue-item.done .queue-status { color: #22c55e; }
   .queue-item.current .queue-status { color: var(--accent); }
 
-  /* --- Simulator (reused styles) --- */
+  /* --- Simulator --- */
   .sim-shell { background: #fff; border: 1.5px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: 0 8px 40px rgba(108,63,244,0.08); }
   .step-bar { display: flex; gap: 4px; padding: 1rem 1.5rem 0; }
   .step-pip { flex: 1; height: 5px; border-radius: 3px; background: var(--border); transition: background 0.4s; }
@@ -69,16 +72,22 @@
   .step-label { padding: 0.6rem 1.5rem 1.2rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 700; }
   .step-panel { display: none; padding: 0 1.5rem 1.5rem; }
   .step-panel.visible { display: block; }
-  .step-panel h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem; }
-  .gear-options { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.5rem; }
+  .step-panel h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.3rem; }
+  .step-panel .frame-tag { display: inline-block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); font-weight: 700; margin-bottom: 0.5rem; }
+  .prompt-block { margin-bottom: 1.6rem; }
+  .prompt-block:last-child { margin-bottom: 0; }
+  .prompt-block p.q { font-size: 0.92rem; color: var(--text); margin-bottom: 0.9rem; font-weight: 600; }
+  .gear-options { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 0; }
   .gear-option { display: flex; align-items: flex-start; gap: 0.9rem; padding: 0.9rem 1rem; border: 1.5px solid var(--border); border-radius: 12px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: #fff; }
   .gear-option:hover { border-color: var(--go-color); background: #faf8ff; }
   .gear-option.selected { border-color: var(--go-color); background: color-mix(in srgb, var(--go-color) 8%, #fff); box-shadow: 0 0 0 2px color-mix(in srgb, var(--go-color) 20%, transparent); }
   .gear-option input { display: none; }
   .gear-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--go-color); flex-shrink: 0; margin-top: 4px; }
-  .gear-option-text strong { font-weight: 700; font-size: 0.95rem; display: block; }
-  .gear-option-text span { font-size: 0.85rem; color: var(--muted); }
-  .check-options { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+  .gear-option-text strong { font-weight: 700; font-size: 0.95rem; display: block; margin-bottom: 0.3rem; }
+  .gear-option-text ul { list-style: none; display: flex; flex-direction: column; gap: 0.15rem; }
+  .gear-option-text ul li { font-size: 0.82rem; color: var(--muted); }
+  .gear-option-text ul li::before { content: '— '; }
+  .check-options { display: flex; flex-direction: column; gap: 0.6rem; }
   .check-option { display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s; background: #fff; }
   .check-option:hover { border-color: var(--accent); background: #faf8ff; }
   .check-option.checked { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 7%, #fff); }
@@ -87,8 +96,7 @@
   .check-option.checked .custom-cb { border-color: var(--accent); background: var(--accent); }
   .check-option.checked .custom-cb::after { content: '✓'; }
   .check-option-label { font-size: 0.92rem; color: var(--text); }
-  .journal-q { font-size: 0.95rem; color: var(--muted); margin-bottom: 0.8rem; font-style: italic; }
-  textarea.sim-ta { width: 100%; background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.92rem; padding: 0.8rem 1rem; resize: vertical; min-height: 100px; outline: none; transition: border-color 0.2s; margin-bottom: 1.5rem; }
+  textarea.sim-ta { width: 100%; background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; color: var(--text); font-family: inherit; font-size: 0.92rem; padding: 0.8rem 1rem; resize: vertical; min-height: 90px; outline: none; transition: border-color 0.2s; }
   textarea.sim-ta:focus { border-color: var(--accent); }
   .step-nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; border-top: 1px solid var(--border); background: var(--surface); }
   .btn-back { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 0.5rem 1.1rem; font-size: 0.88rem; font-weight: 600; color: var(--muted); cursor: pointer; transition: border-color 0.2s, color 0.2s; font-family: inherit; }
@@ -98,12 +106,26 @@
   .for-name { display: inline-block; padding: 0.25rem 0.7rem; border-radius: 20px; background: var(--surface); color: var(--accent); font-size: 0.78rem; font-weight: 700; margin-bottom: 1rem; }
 
   /* --- Summary table --- */
-  table.summary-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-  table.summary-table th, table.summary-table td { text-align: left; padding: 0.6rem 0.7rem; border-bottom: 1px solid var(--border); }
-  table.summary-table th { color: var(--muted); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; }
-  .gear-pill { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 20px; font-size: 0.78rem; font-weight: 700; color: #fff; }
+  table.summary-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  table.summary-table th, table.summary-table td { text-align: left; padding: 0.55rem 0.65rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  table.summary-table th { color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.5px; }
+  .gear-pill { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 20px; font-size: 0.76rem; font-weight: 700; color: #fff; white-space: nowrap; }
   .actions-row { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1.5rem; }
   footer { text-align: center; padding: 1.5rem; font-size: 0.8rem; color: var(--muted); border-top: 1px solid var(--border); }
+
+  /* --- Preview modal --- */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(26,18,53,0.55); z-index: 999; align-items: center; justify-content: center; padding: 1.5rem; }
+  .modal-overlay.visible { display: flex; }
+  .modal-box { background: #fff; border-radius: 18px; max-width: 720px; width: 100%; max-height: 86vh; overflow-y: auto; padding: 1.8rem; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+  .modal-box h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.3rem; }
+  .modal-box .modal-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.2rem; }
+  .preview-doc { background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; padding: 1.2rem 1.4rem; font-size: 0.85rem; margin-bottom: 1.4rem; }
+  .preview-doc h3 { font-size: 1rem; margin: 1rem 0 0.4rem; }
+  .preview-doc h3:first-child { margin-top: 0; }
+  .preview-doc .p-row { display: flex; justify-content: space-between; gap: 1rem; padding: 0.3rem 0; border-bottom: 1px solid var(--border); }
+  .preview-doc .p-row:last-child { border-bottom: none; }
+  .modal-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+  .modal-close { position: absolute; top: 1.2rem; right: 1.4rem; background: none; border: none; font-size: 1.3rem; color: var(--muted); cursor: pointer; }
 </style>
 </head>
 <body>
@@ -118,7 +140,7 @@
   <!-- SETUP -->
   <div class="panel visible" id="panel-setup">
     <h1>⚙️ Group Reset Session</h1>
-    <p class="sub">Facilitate the Gears reflection for a group. Add each participant by name, run them through the flow one at a time, then download or email one combined summary at the end — no Miro board needed.</p>
+    <p class="sub">Facilitate the Gears reflection for a group of leaders. Add each participant by name, run them through the guided prompts one at a time, then generate one combined PDF report at the end — no Miro board needed.</p>
     <div class="card">
       <div class="field">
         <label>Session name</label>
@@ -136,9 +158,9 @@
   <!-- QUEUE -->
   <div class="panel" id="panel-queue">
     <h1 id="queue-title">Session Queue</h1>
-    <p class="sub">Click a participant to run their reflection. Completed entries are saved to the session summary automatically.</p>
+    <p class="sub">Click a participant to run their reflection. Completed entries are saved to the session report automatically.</p>
     <div class="queue-list" id="queue-list"></div>
-    <button class="btn-primary" id="btn-finish-session">View Combined Summary →</button>
+    <button class="btn-primary" id="btn-finish-session">Generate Combined Report →</button>
   </div>
 
   <!-- SIMULATOR -->
@@ -154,61 +176,119 @@
       </div>
       <div class="step-label" id="step-label">Step 1 of 5</div>
 
+      <!-- FRAME 2: Individual Reflection -->
       <div class="step-panel visible" id="step-0">
-        <h3>Pause &amp; Check In</h3>
-        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem">Which gear are they currently operating in?</p>
-        <div class="gear-options">
-          <label class="gear-option" style="--go-color:var(--recovery)"><input type="radio" name="current-gear" value="Recovery"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟥 Recovery</strong><span>Needs rest, simplification, and space to restore energy.</span></div></label>
-          <label class="gear-option" style="--go-color:var(--stabilisation)"><input type="radio" name="current-gear" value="Stabilisation"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟧 Stabilisation</strong><span>Needs consistency, rhythm, and fewer decisions.</span></div></label>
-          <label class="gear-option" style="--go-color:var(--exploration)"><input type="radio" name="current-gear" value="Exploration"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟨 Exploration</strong><span>Needs clarity, learning, and low-pressure experimentation.</span></div></label>
-          <label class="gear-option" style="--go-color:var(--execution)"><input type="radio" name="current-gear" value="Execution"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟩 Execution</strong><span>Needs focus, momentum, and disciplined delivery.</span></div></label>
-          <label class="gear-option" style="--go-color:var(--expansion)"><input type="radio" name="current-gear" value="Expansion"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟦 Expansion</strong><span>Needs to scale impact, lead others, and multiply results.</span></div></label>
-          <label class="gear-option" style="--go-color:var(--muted)"><input type="radio" name="current-gear" value="Unsure"><div class="gear-dot" style="background:var(--muted)"></div><div class="gear-option-text"><strong>☐ Other / Unsure</strong><span>Not sure yet — that's okay.</span></div></label>
+        <span class="frame-tag">Frame 2 — Individual Reflection</span>
+        <h3>Leadership Pressure &amp; Energy</h3>
+        <div class="prompt-block">
+          <p class="q">Where does leadership feel most demanding right now? <em style="font-weight:400">(select all that apply)</em></p>
+          <div class="check-options" id="q-pressure">
+            <label class="check-option"><input type="checkbox" value="Volume of decisions"><div class="custom-cb"></div><span class="check-option-label">Volume of decisions</span></label>
+            <label class="check-option"><input type="checkbox" value="Ambiguity in direction"><div class="custom-cb"></div><span class="check-option-label">Ambiguity in direction</span></label>
+            <label class="check-option"><input type="checkbox" value="Managing competing priorities"><div class="custom-cb"></div><span class="check-option-label">Managing competing priorities</span></label>
+            <label class="check-option"><input type="checkbox" value="People-related complexity"><div class="custom-cb"></div><span class="check-option-label">People-related complexity</span></label>
+            <label class="check-option"><input type="checkbox" value="External pressure or scrutiny"><div class="custom-cb"></div><span class="check-option-label">External pressure or scrutiny</span></label>
+            <label class="check-option"><input type="checkbox" value="Pace of change"><div class="custom-cb"></div><span class="check-option-label">Pace of change</span></label>
+            <label class="check-option"><input type="checkbox" value="Responsibility without control"><div class="custom-cb"></div><span class="check-option-label">Responsibility without control</span></label>
+            <label class="check-option"><input type="checkbox" value="System friction"><div class="custom-cb"></div><span class="check-option-label">System friction</span></label>
+            <label class="check-option"><input type="checkbox" value="Capacity constraints"><div class="custom-cb"></div><span class="check-option-label">Capacity constraints</span></label>
+            <label class="check-option"><input type="checkbox" value="Stakeholder expectations"><div class="custom-cb"></div><span class="check-option-label">Stakeholder expectations</span></label>
+            <label class="check-option"><input type="checkbox" value="Other" id="q-pressure-other-toggle"><div class="custom-cb"></div><span class="check-option-label">Other</span></label>
+          </div>
+          <input type="text" id="q-pressure-other-text" placeholder="Write your own…" style="display:none;margin-top:0.6rem;width:100%;padding:0.6rem 0.8rem;border:1px solid var(--border);border-radius:8px;font-size:0.9rem;font-family:inherit">
+        </div>
+        <div class="prompt-block">
+          <p class="q">What is consuming more energy than expected? <em style="font-weight:400">(optional — select all that apply)</em></p>
+          <div class="check-options" id="q-energy">
+            <label class="check-option"><input type="checkbox" value="Rework or reversals"><div class="custom-cb"></div><span class="check-option-label">Rework or reversals</span></label>
+            <label class="check-option"><input type="checkbox" value="Emotional labour"><div class="custom-cb"></div><span class="check-option-label">Emotional labour</span></label>
+            <label class="check-option"><input type="checkbox" value="Decision escalation"><div class="custom-cb"></div><span class="check-option-label">Decision escalation</span></label>
+            <label class="check-option"><input type="checkbox" value="Lack of clarity upstream"><div class="custom-cb"></div><span class="check-option-label">Lack of clarity upstream</span></label>
+            <label class="check-option"><input type="checkbox" value="Gaps in capability or structure"><div class="custom-cb"></div><span class="check-option-label">Gaps in capability or structure</span></label>
+            <label class="check-option"><input type="checkbox" value="Constant context switching"><div class="custom-cb"></div><span class="check-option-label">Constant context switching</span></label>
+          </div>
         </div>
       </div>
 
+      <!-- FRAME 3: Gear Selection -->
       <div class="step-panel" id="step-1">
-        <h3>Reflection Prompts</h3>
-        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem">Which gear feels most aligned for the <strong>next 30–90 days</strong>?</p>
+        <span class="frame-tag">Frame 3 — Gear Selection (Core)</span>
+        <h3>Which operating gear best reflects how they are currently leading?</h3>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.2rem">Place the mark where the indicators feel most accurate right now — not where they wish to be.</p>
         <div class="gear-options">
-          <label class="gear-option" style="--go-color:var(--recovery)"><input type="radio" name="aligned-gear" value="Recovery"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟥 Recovery</strong><span>Rest, simplification, restoring energy</span></div></label>
-          <label class="gear-option" style="--go-color:var(--stabilisation)"><input type="radio" name="aligned-gear" value="Stabilisation"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟧 Stabilisation</strong><span>Consistency, rhythm, fewer decisions</span></div></label>
-          <label class="gear-option" style="--go-color:var(--exploration)"><input type="radio" name="aligned-gear" value="Exploration"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟨 Exploration</strong><span>Clarity, learning, low-pressure experimentation</span></div></label>
-          <label class="gear-option" style="--go-color:var(--execution)"><input type="radio" name="aligned-gear" value="Execution"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟩 Execution</strong><span>Focus, momentum, disciplined delivery</span></div></label>
-          <label class="gear-option" style="--go-color:var(--expansion)"><input type="radio" name="aligned-gear" value="Expansion"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟦 Expansion</strong><span>Scale impact, lead others, multiply results</span></div></label>
-          <label class="gear-option" style="--go-color:var(--muted)"><input type="radio" name="aligned-gear" value="Unsure"><div class="gear-dot" style="background:var(--muted)"></div><div class="gear-option-text"><strong>☐ Still figuring it out</strong><span>That's fine — this exercise will help</span></div></label>
+          <label class="gear-option" style="--go-color:var(--recovery)"><input type="radio" name="gear" value="Recovery"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟥 Recovery</strong><ul><li>Decision fatigue is noticeable</li><li>Clarity improves with rest</li><li>System strain is accumulating</li><li>Personal capacity needs rebuilding</li></ul></div></label>
+          <label class="gear-option" style="--go-color:var(--stabilisation)"><input type="radio" name="gear" value="Stabilisation"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟧 Stabilisation</strong><ul><li>Consistency is more valuable than speed</li><li>Teams need predictability</li><li>Boundaries need reinforcement</li><li>Rhythm matters more than change</li></ul></div></label>
+          <label class="gear-option" style="--go-color:var(--exploration)"><input type="radio" name="gear" value="Exploration"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟨 Exploration</strong><ul><li>Key questions are unresolved</li><li>Learning is required before commitment</li><li>Premature decisions would be costly</li><li>Sense-making is the priority</li></ul></div></label>
+          <label class="gear-option" style="--go-color:var(--execution)"><input type="radio" name="gear" value="Execution"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟩 Execution</strong><ul><li>Direction is clear</li><li>Focus is required</li><li>Too many priorities dilute impact</li><li>Delivery quality matters now</li></ul></div></label>
+          <label class="gear-option" style="--go-color:var(--expansion)"><input type="radio" name="gear" value="Expansion"><div class="gear-dot"></div><div class="gear-option-text"><strong>🟦 Expansion</strong><ul><li>Scope of impact is increasing</li><li>Delegation is necessary</li><li>Systems must replace effort</li><li>Leadership leverage is the focus</li></ul></div></label>
         </div>
       </div>
 
+      <!-- FRAME 4: Leadership Implications -->
       <div class="step-panel" id="step-2">
-        <h3>Guided Clarity Check</h3>
-        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem">This season, they feel: <em style="font-size:0.82rem">(select all that apply)</em></p>
-        <div class="check-options">
-          <label class="check-option"><input type="checkbox" value="Energised but scattered"><div class="custom-cb"></div><span class="check-option-label">Energised but scattered</span></label>
-          <label class="check-option"><input type="checkbox" value="Capable but overwhelmed"><div class="custom-cb"></div><span class="check-option-label">Capable but overwhelmed</span></label>
-          <label class="check-option"><input type="checkbox" value="Motivated but unclear"><div class="custom-cb"></div><span class="check-option-label">Motivated but unclear</span></label>
-          <label class="check-option"><input type="checkbox" value="Clear but overextended"><div class="custom-cb"></div><span class="check-option-label">Clear but overextended</span></label>
-          <label class="check-option"><input type="checkbox" value="Ready for more responsibility"><div class="custom-cb"></div><span class="check-option-label">Ready for more responsibility</span></label>
-          <label class="check-option"><input type="checkbox" value="Other"><div class="custom-cb"></div><span class="check-option-label">Other</span></label>
+        <span class="frame-tag">Frame 4 — Leadership Implications</span>
+        <h3>If this is the current gear, what follows?</h3>
+        <div class="prompt-block">
+          <p class="q">What follows from this gear? <em style="font-weight:400">(select all that apply)</em></p>
+          <div class="check-options" id="q-implications">
+            <label class="check-option"><input type="checkbox" value="Adjust pace"><div class="custom-cb"></div><span class="check-option-label">Adjust pace</span></label>
+            <label class="check-option"><input type="checkbox" value="Reduce scope"><div class="custom-cb"></div><span class="check-option-label">Reduce scope</span></label>
+            <label class="check-option"><input type="checkbox" value="Delay commitment"><div class="custom-cb"></div><span class="check-option-label">Delay commitment</span></label>
+            <label class="check-option"><input type="checkbox" value="Delegate differently"><div class="custom-cb"></div><span class="check-option-label">Delegate differently</span></label>
+            <label class="check-option"><input type="checkbox" value="Clarify expectations"><div class="custom-cb"></div><span class="check-option-label">Clarify expectations</span></label>
+            <label class="check-option"><input type="checkbox" value="Reinforce boundaries"><div class="custom-cb"></div><span class="check-option-label">Reinforce boundaries</span></label>
+            <label class="check-option"><input type="checkbox" value="Simplify priorities"><div class="custom-cb"></div><span class="check-option-label">Simplify priorities</span></label>
+            <label class="check-option"><input type="checkbox" value="Protect decision time"><div class="custom-cb"></div><span class="check-option-label">Protect decision time</span></label>
+            <label class="check-option"><input type="checkbox" value="Stabilise before scaling"><div class="custom-cb"></div><span class="check-option-label">Stabilise before scaling</span></label>
+          </div>
+        </div>
+        <div class="prompt-block">
+          <p class="q">What expectations may need recalibration? <em style="font-weight:400">(select all that apply)</em></p>
+          <div class="check-options" id="q-expectations">
+            <label class="check-option"><input type="checkbox" value="My own expectations"><div class="custom-cb"></div><span class="check-option-label">My own expectations</span></label>
+            <label class="check-option"><input type="checkbox" value="Board or senior stakeholder expectations"><div class="custom-cb"></div><span class="check-option-label">Board or senior stakeholder expectations</span></label>
+            <label class="check-option"><input type="checkbox" value="Team capacity assumptions"><div class="custom-cb"></div><span class="check-option-label">Team capacity assumptions</span></label>
+            <label class="check-option"><input type="checkbox" value="Timeline commitments"><div class="custom-cb"></div><span class="check-option-label">Timeline commitments</span></label>
+            <label class="check-option"><input type="checkbox" value="Availability norms"><div class="custom-cb"></div><span class="check-option-label">Availability norms</span></label>
+          </div>
         </div>
       </div>
 
+      <!-- FRAME 5: Integration & Decision Support -->
       <div class="step-panel" id="step-3">
-        <h3>Journal Reflection</h3>
-        <p class="journal-q">What would change if they allowed themselves to operate in the right gear — instead of the most impressive one?</p>
-        <textarea class="sim-ta" id="journal-text" placeholder="Notes from the discussion…" rows="6"></textarea>
+        <span class="frame-tag">Frame 5 — Integration &amp; Decision Support</span>
+        <h3>What decision does this insight affect?</h3>
+        <div class="prompt-block">
+          <p class="q">One decision this insight affects: <em style="font-weight:400">(select all that apply)</em></p>
+          <div class="check-options" id="q-decision">
+            <label class="check-option"><input type="checkbox" value="Strategic priority"><div class="custom-cb"></div><span class="check-option-label">Strategic priority</span></label>
+            <label class="check-option"><input type="checkbox" value="Resourcing decision"><div class="custom-cb"></div><span class="check-option-label">Resourcing decision</span></label>
+            <label class="check-option"><input type="checkbox" value="Timeline commitment"><div class="custom-cb"></div><span class="check-option-label">Timeline commitment</span></label>
+            <label class="check-option"><input type="checkbox" value="Leadership role focus"><div class="custom-cb"></div><span class="check-option-label">Leadership role focus</span></label>
+            <label class="check-option"><input type="checkbox" value="Communication approach"><div class="custom-cb"></div><span class="check-option-label">Communication approach</span></label>
+            <label class="check-option"><input type="checkbox" value="What not to pursue"><div class="custom-cb"></div><span class="check-option-label">What not to pursue</span></label>
+          </div>
+        </div>
+        <div class="prompt-block">
+          <p class="q">Signals it's time to change gears: <em style="font-weight:400">(select all that apply)</em></p>
+          <div class="check-options" id="q-signals">
+            <label class="check-option"><input type="checkbox" value="Sustained fatigue"><div class="custom-cb"></div><span class="check-option-label">Sustained fatigue</span></label>
+            <label class="check-option"><input type="checkbox" value="Repeated friction"><div class="custom-cb"></div><span class="check-option-label">Repeated friction</span></label>
+            <label class="check-option"><input type="checkbox" value="Loss of clarity"><div class="custom-cb"></div><span class="check-option-label">Loss of clarity</span></label>
+            <label class="check-option"><input type="checkbox" value="Team instability"><div class="custom-cb"></div><span class="check-option-label">Team instability</span></label>
+            <label class="check-option"><input type="checkbox" value="External context shift"><div class="custom-cb"></div><span class="check-option-label">External context shift</span></label>
+            <label class="check-option"><input type="checkbox" value="Capacity recovery"><div class="custom-cb"></div><span class="check-option-label">Capacity recovery</span></label>
+            <label class="check-option"><input type="checkbox" value="Strategic inflection point"><div class="custom-cb"></div><span class="check-option-label">Strategic inflection point</span></label>
+          </div>
+        </div>
       </div>
 
+      <!-- Facilitator notes -->
       <div class="step-panel" id="step-4">
-        <h3>Micro-Commitment</h3>
-        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1.2rem">For this season, they commit to: <em style="font-size:0.82rem">(select all that apply)</em></p>
-        <div class="check-options">
-          <label class="check-option"><input type="checkbox" value="Rest &amp; recovery"><div class="custom-cb"></div><span class="check-option-label">Rest &amp; recovery</span></label>
-          <label class="check-option"><input type="checkbox" value="Consistency &amp; rhythm"><div class="custom-cb"></div><span class="check-option-label">Consistency &amp; rhythm</span></label>
-          <label class="check-option"><input type="checkbox" value="Learning &amp; reflection"><div class="custom-cb"></div><span class="check-option-label">Learning &amp; reflection</span></label>
-          <label class="check-option"><input type="checkbox" value="Focused execution"><div class="custom-cb"></div><span class="check-option-label">Focused execution</span></label>
-          <label class="check-option"><input type="checkbox" value="Scaled leadership"><div class="custom-cb"></div><span class="check-option-label">Scaled leadership</span></label>
-        </div>
+        <span class="frame-tag">Facilitator Notes</span>
+        <h3>Anything else worth capturing?</h3>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.8rem">Optional — context, quotes, or observations from the discussion.</p>
+        <textarea class="sim-ta" id="journal-text" placeholder="Notes from the discussion…" rows="6"></textarea>
       </div>
 
       <div class="step-nav" id="step-nav">
@@ -220,18 +300,22 @@
 
   <!-- SUMMARY -->
   <div class="panel" id="panel-summary">
-    <h1>📋 Combined Session Summary</h1>
+    <h1>📋 Combined Session Report</h1>
     <p class="sub" id="summary-sub"></p>
     <div class="card">
       <div style="overflow-x:auto">
         <table class="summary-table" id="summary-table">
-          <thead><tr><th>Participant</th><th>Current Gear</th><th>Aligned Gear</th><th>Feels</th><th>Commits To</th><th>Notes</th></tr></thead>
+          <thead><tr><th>Participant</th><th>Gear</th><th>Pressure Points</th><th>Implications</th><th>Change Signals</th></tr></thead>
           <tbody id="summary-tbody"></tbody>
         </table>
       </div>
+      <div class="field" style="margin-top:1.4rem">
+        <label>Send report to (email address)</label>
+        <input type="email" id="recipient-email" placeholder="e.g. sponsor@company.com">
+        <p class="hint">This is a static site with no backend, so we can't auto-attach a PDF to an email. Generate the PDF, then "Open Email Draft" will pre-fill a message to this address — attach the downloaded PDF before sending. A text copy is also sent to Wakara Technologies for your records.</p>
+      </div>
       <div class="actions-row">
-        <button class="btn-primary" id="btn-download-csv">⬇ Download CSV</button>
-        <button class="btn-primary" id="btn-email-summary">✉ Email Summary</button>
+        <button class="btn-primary" id="btn-preview">👁 Preview Report</button>
         <button class="btn-secondary" id="btn-new-session">Start New Session</button>
       </div>
     </div>
@@ -241,10 +325,25 @@
 
 <footer>© 2026 Reset Gears. Built for clarity, not hustle. | Wakara Technologies Limited</footer>
 
+<!-- PREVIEW MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box" style="position:relative">
+    <button class="modal-close" id="modal-close">✕</button>
+    <h2 id="modal-title">Report Preview</h2>
+    <p class="modal-sub" id="modal-sub"></p>
+    <div class="preview-doc" id="preview-doc"></div>
+    <div class="modal-actions">
+      <button class="btn-primary" id="btn-download-pdf">⬇ Download PDF</button>
+      <button class="btn-secondary" id="btn-download-csv">⬇ Download CSV</button>
+      <button class="btn-primary" id="btn-email-draft">✉ Open Email Draft</button>
+    </div>
+  </div>
+</div>
+
 <script>
 window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments); };
 
-const GEAR_COLORS = { Recovery:'#ef4444', Stabilisation:'#f97316', Exploration:'#eab308', Execution:'#22c55e', Expansion:'#3b82f6', Unsure:'#6b6585', '—':'#6b6585' };
+const GEAR_COLORS = { Recovery:'#ef4444', Stabilisation:'#f97316', Exploration:'#eab308', Execution:'#22c55e', Expansion:'#3b82f6', '—':'#6b6585' };
 
 let sessionName = '';
 let participants = []; // {name, status: 'pending'|'done', result: {...}}
@@ -293,7 +392,6 @@ function renderQueue() {
     row.addEventListener('click', () => startParticipant(i));
     list.appendChild(row);
   });
-  const allDone = participants.every(p => p.status === 'done');
   document.getElementById('btn-finish-session').disabled = false;
 }
 
@@ -302,6 +400,8 @@ function startParticipant(i) {
   current = 0;
   document.querySelectorAll('input[type=radio]').forEach(r => { r.checked = false; r.closest('.gear-option')?.classList.remove('selected'); });
   document.querySelectorAll('input[type=checkbox]').forEach(c => { c.checked = false; c.closest('.check-option')?.classList.remove('checked'); });
+  document.getElementById('q-pressure-other-text').value = '';
+  document.getElementById('q-pressure-other-text').style.display = 'none';
   document.getElementById('journal-text').value = '';
   document.getElementById('sim-for-name').textContent = `For: ${participants[i].name}`;
   updateSimUI();
@@ -334,6 +434,16 @@ function updateSimUI() {
   document.getElementById('btn-next').textContent = current===TOTAL-1 ? 'Save & Finish ✓' : 'Next →';
 }
 function getChecked(sel) { return [...document.querySelectorAll(`${sel} input[type=checkbox]`)].filter(c=>c.checked).map(c=>c.value); }
+document.getElementById('q-pressure-other-toggle').addEventListener('change', (e) => {
+  document.getElementById('q-pressure-other-text').style.display = e.target.checked ? 'block' : 'none';
+});
+function getPressure() {
+  const values = getChecked('#q-pressure').filter(v => v !== 'Other');
+  const otherChecked = document.getElementById('q-pressure-other-toggle').checked;
+  const otherText = document.getElementById('q-pressure-other-text').value.trim();
+  if (otherChecked && otherText) values.push(otherText);
+  return values;
+}
 
 document.getElementById('btn-next').addEventListener('click', () => {
   if (current < TOTAL-1) { current++; updateSimUI(); document.querySelector('.sim-shell').scrollIntoView({behavior:'smooth',block:'start'}); }
@@ -342,46 +452,127 @@ document.getElementById('btn-next').addEventListener('click', () => {
 document.getElementById('btn-back').addEventListener('click', () => { if(current>0){ current--; updateSimUI(); } });
 
 function saveParticipantResult() {
-  const currentGear = document.querySelector('input[name="current-gear"]:checked')?.value || '—';
-  const alignedGear = document.querySelector('input[name="aligned-gear"]:checked')?.value || '—';
-  const clarity = getChecked('.step-panel#step-2 .check-options');
-  const commitments = getChecked('.step-panel#step-4 .check-options');
-  const journal = document.getElementById('journal-text').value.trim();
+  const gear = document.querySelector('input[name="gear"]:checked')?.value || '—';
+  const pressure = getPressure();
+  const energy = getChecked('#q-energy');
+  const implications = getChecked('#q-implications');
+  const expectations = getChecked('#q-expectations');
+  const decision = getChecked('#q-decision');
+  const signals = getChecked('#q-signals');
+  const notes = document.getElementById('journal-text').value.trim();
   participants[activeIndex].status = 'done';
-  participants[activeIndex].result = { currentGear, alignedGear, clarity, commitments, journal };
+  participants[activeIndex].result = { gear, pressure, energy, implications, expectations, decision, signals, notes };
   plausible('group_participant_done', { props: { name: participants[activeIndex].name } });
   renderQueue();
   showPanel('panel-queue');
 }
 
-/* --- Summary --- */
+/* --- Summary table --- */
+function emptyResult() { return { gear:'—', pressure:[], energy:[], implications:[], expectations:[], decision:[], signals:[], notes:'' }; }
+
 function renderSummary() {
   document.getElementById('summary-sub').textContent = `${sessionName} — ${participants.length} participant${participants.length===1?'':'s'} · ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`;
   const tbody = document.getElementById('summary-tbody');
   tbody.innerHTML = '';
   participants.forEach(p => {
-    const r = p.result || { currentGear:'—', alignedGear:'—', clarity:[], commitments:[], journal:'' };
+    const r = p.result || emptyResult();
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${p.name}</td>
-      <td><span class="gear-pill" style="background:${GEAR_COLORS[r.currentGear]||'#6b6585'}">${r.currentGear}</span></td>
-      <td><span class="gear-pill" style="background:${GEAR_COLORS[r.alignedGear]||'#6b6585'}">${r.alignedGear}</span></td>
-      <td>${r.clarity.join(', ') || '—'}</td>
-      <td>${r.commitments.join(', ') || '—'}</td>
-      <td>${(r.journal||'').slice(0,80)}${r.journal && r.journal.length>80 ? '…' : ''}</td>`;
+      <td><span class="gear-pill" style="background:${GEAR_COLORS[r.gear]||'#6b6585'}">${r.gear}</span></td>
+      <td>${r.pressure.join(', ') || '—'}</td>
+      <td>${r.implications.join(', ') || '—'}</td>
+      <td>${r.signals.join(', ') || '—'}</td>`;
     tbody.appendChild(tr);
   });
   plausible('group_summary_viewed');
 }
 
+/* --- CSV --- */
 function buildCSV() {
-  const rows = [['Participant','Current Gear','Aligned Gear','Feels','Commits To','Notes']];
+  const rows = [['Participant','Gear','Pressure Points','Energy Drains','Implications','Expectations to Recalibrate','Decisions Affected','Change Signals','Notes']];
   participants.forEach(p => {
-    const r = p.result || { currentGear:'—', alignedGear:'—', clarity:[], commitments:[], journal:'' };
-    rows.push([p.name, r.currentGear, r.alignedGear, r.clarity.join('; '), r.commitments.join('; '), (r.journal||'').replace(/\n/g,' ')]);
+    const r = p.result || emptyResult();
+    rows.push([p.name, r.gear, r.pressure.join('; '), r.energy.join('; '), r.implications.join('; '), r.expectations.join('; '), r.decision.join('; '), r.signals.join('; '), (r.notes||'').replace(/\n/g,' ')]);
   });
   return rows.map(row => row.map(cell => `"${String(cell).replace(/"/g,'""')}"`).join(',')).join('\n');
 }
+
+/* --- Preview modal --- */
+function openPreview() {
+  document.getElementById('modal-title').textContent = `${sessionName}`;
+  document.getElementById('modal-sub').textContent = `Combined report · ${participants.length} participant${participants.length===1?'':'s'} · ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`;
+  const doc = document.getElementById('preview-doc');
+  doc.innerHTML = participants.map(p => {
+    const r = p.result || emptyResult();
+    return `<h3>${p.name}</h3>
+      <div class="p-row"><span>Gear</span><strong>${r.gear}</strong></div>
+      <div class="p-row"><span>Pressure points</span><span>${r.pressure.join(', ')||'—'}</span></div>
+      <div class="p-row"><span>Energy drains</span><span>${r.energy.join(', ')||'—'}</span></div>
+      <div class="p-row"><span>Implications</span><span>${r.implications.join(', ')||'—'}</span></div>
+      <div class="p-row"><span>Expectations to recalibrate</span><span>${r.expectations.join(', ')||'—'}</span></div>
+      <div class="p-row"><span>Decisions affected</span><span>${r.decision.join(', ')||'—'}</span></div>
+      <div class="p-row"><span>Change signals</span><span>${r.signals.join(', ')||'—'}</span></div>
+      ${r.notes ? `<div class="p-row"><span>Notes</span><span>${r.notes}</span></div>` : ''}`;
+  }).join('');
+  document.getElementById('modal-overlay').classList.add('visible');
+  plausible('group_report_preview');
+}
+document.getElementById('btn-preview').addEventListener('click', openPreview);
+document.getElementById('modal-close').addEventListener('click', () => document.getElementById('modal-overlay').classList.remove('visible'));
+document.getElementById('modal-overlay').addEventListener('click', (e) => { if (e.target.id === 'modal-overlay') e.currentTarget.classList.remove('visible'); });
+
+/* --- PDF --- */
+function buildPDF() {
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF();
+  pdf.setFontSize(16);
+  pdf.text(sessionName, 14, 18);
+  pdf.setFontSize(10);
+  pdf.setTextColor(110,100,135);
+  pdf.text(`Combined Gears Report · ${participants.length} participant(s) · ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}`, 14, 25);
+  pdf.setTextColor(0,0,0);
+  const rows = participants.map(p => {
+    const r = p.result || emptyResult();
+    return [p.name, r.gear, r.pressure.join(', ')||'—', r.implications.join(', ')||'—', r.signals.join(', ')||'—'];
+  });
+  pdf.autoTable({
+    startY: 32,
+    head: [['Participant','Gear','Pressure Points','Implications','Change Signals']],
+    body: rows,
+    styles: { fontSize: 8, cellPadding: 2.5 },
+    headStyles: { fillColor: [108,63,244] },
+    columnStyles: { 0: { cellWidth: 26 }, 1: { cellWidth: 22 } }
+  });
+  let y = pdf.lastAutoTable.finalY + 12;
+  participants.forEach(p => {
+    const r = p.result || emptyResult();
+    if (y > 260) { pdf.addPage(); y = 18; }
+    pdf.setFontSize(12); pdf.setTextColor(108,63,244);
+    pdf.text(p.name, 14, y); y += 6;
+    pdf.setFontSize(9); pdf.setTextColor(40,30,60);
+    const lines = [
+      `Gear: ${r.gear}`,
+      `Energy drains: ${r.energy.join(', ')||'—'}`,
+      `Expectations to recalibrate: ${r.expectations.join(', ')||'—'}`,
+      `Decisions affected: ${r.decision.join(', ')||'—'}`,
+      r.notes ? `Notes: ${r.notes}` : null
+    ].filter(Boolean);
+    lines.forEach(line => {
+      const wrapped = pdf.splitTextToSize(line, 180);
+      pdf.text(wrapped, 14, y);
+      y += wrapped.length * 5 + 1.5;
+    });
+    y += 4;
+  });
+  return pdf;
+}
+
+document.getElementById('btn-download-pdf').addEventListener('click', () => {
+  const pdf = buildPDF();
+  pdf.save(`${sessionName.replace(/[^a-z0-9]+/gi,'-')}-report.pdf`);
+  plausible('group_pdf_download');
+});
 
 document.getElementById('btn-download-csv').addEventListener('click', () => {
   const csv = buildCSV();
@@ -397,46 +588,31 @@ document.getElementById('btn-download-csv').addEventListener('click', () => {
 
 function buildSummaryText() {
   return participants.map(p => {
-    const r = p.result || {};
-    return `${p.name}: current=${r.currentGear||'—'}, aligned=${r.alignedGear||'—'}, feels=${(r.clarity||[]).join('/')||'—'}, commits=${(r.commitments||[]).join('/')||'—'}, notes=${r.journal||'—'}`;
+    const r = p.result || emptyResult();
+    return `${p.name}: gear=${r.gear}, pressure=${r.pressure.join('/')||'—'}, implications=${r.implications.join('/')||'—'}, signals=${r.signals.join('/')||'—'}, notes=${r.notes||'—'}`;
   }).join('\n');
 }
 
-function emailFallback() {
-  const body = `Session: ${sessionName}\nDate: ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}\nParticipants: ${participants.length}\n\n${buildSummaryText()}`;
-  const subject = `Group Reset Summary – ${sessionName}`;
-  window.location.href = `mailto:wakaratech@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-}
+document.getElementById('btn-email-draft').addEventListener('click', () => {
+  const recipient = document.getElementById('recipient-email').value.trim();
+  const body = `Session: ${sessionName}\nDate: ${new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}\nParticipants: ${participants.length}\nSent by: Wakara Technologies Limited\n\n${buildSummaryText()}\n\n(Please attach the downloaded PDF report to this email before sending.)`;
+  const subject = `Group Reset Report – ${sessionName}`;
+  window.location.href = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  plausible('group_email_draft_opened', { props: { hasRecipient: !!recipient } });
 
-document.getElementById('btn-email-summary').addEventListener('click', async () => {
-  const btn = document.getElementById('btn-email-summary');
-  btn.disabled = true; btn.textContent = 'Sending…';
-  try {
-    const fd = new FormData();
-    fd.append('session', sessionName);
-    fd.append('date', new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}));
-    fd.append('participantCount', participants.length);
-    fd.append('summary_csv', buildCSV());
-    fd.append('summary', buildSummaryText());
-    const res = await fetch('https://formspree.io/f/mdavkrkv', {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: fd
-    });
-    plausible('group_email_summary', { props: { ok: res.ok } });
-    if (res.ok) { btn.textContent = '✓ Sent'; }
-    else { btn.textContent = 'Opening email instead…'; emailFallback(); }
-  } catch (e) {
-    btn.textContent = 'Opening email instead…';
-    plausible('group_email_summary', { props: { ok: false } });
-    emailFallback();
-  }
-  setTimeout(() => { btn.disabled = false; btn.textContent = '✉ Email Summary'; }, 3000);
+  // Also send a text copy to Wakara's Formspree inbox for records
+  const fd = new FormData();
+  fd.append('session', sessionName);
+  fd.append('requested_recipient', recipient || '(not provided)');
+  fd.append('participantCount', participants.length);
+  fd.append('summary', buildSummaryText());
+  fetch('https://formspree.io/f/mdavkrkv', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd }).catch(()=>{});
 });
 
 document.getElementById('btn-new-session').addEventListener('click', () => {
   sessionName = ''; participants = []; activeIndex = null;
   document.getElementById('session-name').value = '';
+  document.getElementById('recipient-email').value = '';
   document.getElementById('participant-rows').innerHTML = '';
   addParticipantRow(); addParticipantRow(); addParticipantRow();
   showPanel('panel-setup');
