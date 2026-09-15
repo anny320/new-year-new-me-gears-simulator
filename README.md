@@ -28,6 +28,22 @@ Gated with an email signup (Formspree). After unlocking:
 - Summary table, micro-commitment, and Done List
 - All responses saved to `localStorage`
 
+### `venture.html` — Green Service Build (Facilitator)
+A 26-week build plan for a green service line, run through the Gears framework. Six phases, one gear each:
+
+| Phase | Weeks | Recommended gear |
+|-------|-------|------------------|
+| Choose the wedge | 1–3 | Execution |
+| Discovery interviews | 2–6 | Exploration |
+| Design and pre-sell the flagship | 6–10 | Execution |
+| Deliver the paid pilot | 8–14 | Execution |
+| Case study and first DFI conversation | 12–20 | Expansion |
+| Go / no-go on the evidence | 20–26 | Stabilisation |
+
+Each phase captures the gear actually chosen, evidence produced, live risks, phase owner and budget owner, and closes on a gate question. Choosing a gear other than the recommended one is flagged in the report. The Week 26 gate scores three tests — are corporates paying, is the margin real, is the programme repeatable — and returns a verdict (Go / Hold / No-go). Exports to PDF, CSV, and a pre-filled email draft.
+
+Defaults are pre-filled for an "ISSB-Ready Finance & Board" programme sold into Kenyan banks and listed PIEs, but the service line and wedge are both editable.
+
 ---
 
 ## The Five Gears
