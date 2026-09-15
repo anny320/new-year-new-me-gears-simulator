@@ -50,6 +50,32 @@
   .btn-secondary { display: inline-block; padding: 0.7rem 1.4rem; border-radius: 10px; background: none; border: 1.5px solid var(--border); color: var(--text); font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: border-color 0.2s; font-family: inherit; }
   .btn-secondary:hover { border-color: var(--accent); }
 
+  /* --- Plan preview (setup screen) --- */
+  .preview-block { border-top: 1px solid var(--border); margin-top: 1.7rem; padding-top: 1.4rem; }
+  .preview-head { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 700; margin-bottom: 0.45rem; }
+  .preview-brief { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.2rem; }
+  .tl { display: flex; flex-direction: column; gap: 0.5rem; }
+  .tl-row { display: flex; align-items: center; gap: 0.9rem; }
+  .tl-label { width: 40%; min-width: 0; display: flex; flex-direction: column; }
+  .tl-title { font-size: 0.85rem; font-weight: 700; line-height: 1.35; }
+  .tl-meta { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+  .tl-track { flex: 1; position: relative; height: 22px; background: var(--surface); border-radius: 20px; }
+  .tl-bar { position: absolute; top: 0; height: 100%; border-radius: 20px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .tl-bar span { font-size: 0.62rem; font-weight: 800; color: #fff; letter-spacing: 0.3px; white-space: nowrap; padding: 0 0.4rem; }
+  .tl-bar-out { position: absolute; top: 0; height: 100%; display: flex; align-items: center; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.3px; white-space: nowrap; }
+  .tl-scale { display: flex; gap: 0.9rem; margin-top: 0.5rem; }
+  .tl-scale-spacer { width: 40%; }
+  .tl-scale-ends { flex: 1; display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--muted); font-weight: 700; }
+  @media (max-width: 560px) {
+    .tl { gap: 1rem; }
+    .tl-row { flex-direction: column; align-items: stretch; gap: 0.3rem; }
+    .tl-label { width: 100%; }
+    /* flex:1 would fight the fixed height once the row stacks */
+    .tl-track { flex: 0 0 22px; }
+    .tl-scale-spacer { display: none; }
+    .tl-scale { gap: 0; }
+  }
+
   /* --- Phase queue --- */
   .queue-list { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
   .queue-item { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.9rem 1.1rem; border: 1.5px solid var(--border); border-left-width: 5px; border-radius: 10px; font-size: 0.9rem; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
@@ -191,7 +217,16 @@
           <input type="text" id="lead-name" placeholder="Who is facilitating">
         </div>
       </div>
-      <button class="btn-primary" id="btn-start-session">Open the Build Plan →</button>
+      <div class="preview-block">
+        <div class="preview-head">What you're about to run</div>
+        <p class="preview-brief">Six phases, one gear each. Every phase captures the gear you actually ran in, the evidence it produced, the risks still live, and who owns the budget — then closes on a gate question. Week 26 scores three tests and returns Go, Hold or No-go. Bars overlap where the phases do.</p>
+        <div class="tl" id="tl-rows"></div>
+        <div class="tl-scale">
+          <div class="tl-scale-spacer"></div>
+          <div class="tl-scale-ends"><span id="tl-start">Week 1</span><span id="tl-end">Week 26</span></div>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn-start-session" style="margin-top:1.6rem">Open the Build Plan →</button>
     </div>
   </div>
 
@@ -478,6 +513,80 @@ function phaseDates(p) {
   return a.toLocaleDateString('en-GB', { day:'numeric', month:'short' }) + ' – ' +
          b.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
 }
+
+/* --- Plan preview on the setup screen --- */
+const PLAN_WEEKS = Math.max(...PHASES.map(p => p.to));
+
+// A bar too short to hold its own label gets the label beside it instead —
+// measured rather than guessed, since the same bar fits on desktop and not on a phone.
+function fitPlanLabels() {
+  document.querySelectorAll('#tl-rows .tl-row').forEach(row => {
+    const bar = row.querySelector('.tl-bar');
+    const span = bar.querySelector('span');
+    if (!span || span.scrollWidth <= bar.clientWidth - 2) return;
+
+    const left = parseFloat(bar.dataset.left);
+    const width = parseFloat(bar.dataset.width);
+    const out = document.createElement('span');
+    out.className = 'tl-bar-out';
+    out.textContent = span.textContent;
+    out.style.color = bar.style.backgroundColor;
+    // Sit it to the left when the bar runs too close to the right edge.
+    if (left + width > 70) out.style.right = 'calc(' + (100 - left) + '% + 6px)';
+    else out.style.left = 'calc(' + (left + width) + '% + 6px)';
+    span.remove();
+    row.querySelector('.tl-track').appendChild(out);
+  });
+}
+
+function renderPlanPreview() {
+  const raw = document.getElementById('start-date').value;
+  const start = raw ? new Date(raw + 'T00:00:00') : null;
+  const dateForWeek = wk => {
+    if (!start) return null;
+    const d = new Date(start.getTime());
+    d.setDate(d.getDate() + (wk - 1) * 7);
+    return d;
+  };
+  const short = d => d.toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+
+  document.getElementById('tl-rows').innerHTML = PHASES.map(p => {
+    const left = ((p.from - 1) / PLAN_WEEKS) * 100;
+    const width = ((p.to - p.from + 1) / PLAN_WEEKS) * 100;
+    const a = dateForWeek(p.from), b = dateForWeek(p.to);
+    const meta = p.weeks + (a && b ? ' · ' + short(a) + ' – ' + short(b) : '');
+    return '<div class="tl-row">' +
+      '<div class="tl-label">' +
+        '<span class="tl-title">' + esc(p.title) + '</span>' +
+        '<span class="tl-meta">' + esc(meta) + '</span>' +
+      '</div>' +
+      '<div class="tl-track">' +
+        '<div class="tl-bar" data-left="' + left + '" data-width="' + width + '" ' +
+          'style="left:' + left + '%;width:' + width + '%;background:' + gearColor(p.recommended) + '">' +
+          '<span>' + esc(p.recommended) + '</span>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  fitPlanLabels();
+
+  const first = dateForWeek(1), last = dateForWeek(PLAN_WEEKS);
+  document.getElementById('tl-start').textContent = first ? short(first) : 'Week 1';
+  document.getElementById('tl-end').textContent = last
+    ? last.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })
+    : 'Week ' + PLAN_WEEKS;
+}
+
+document.getElementById('start-date').addEventListener('change', renderPlanPreview);
+document.getElementById('start-date').addEventListener('input', renderPlanPreview);
+// Label fit depends on track width, so re-measure when the window changes size.
+let planResizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(planResizeTimer);
+  planResizeTimer = setTimeout(renderPlanPreview, 150);
+});
+renderPlanPreview();
 
 /* --- Setup --- */
 document.getElementById('btn-start-session').addEventListener('click', () => {

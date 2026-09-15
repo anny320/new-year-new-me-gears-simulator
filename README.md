@@ -42,6 +42,8 @@ A 26-week build plan for a green service line, run through the Gears framework. 
 
 Each phase captures the gear actually chosen, evidence produced, live risks, phase owner and budget owner, and closes on a gate question. Choosing a gear other than the recommended one is flagged in the report. The Week 26 gate scores three tests — are corporates paying, is the margin real, is the programme repeatable — and returns a verdict (Go / Hold / No-go). Exports to PDF, CSV, and a pre-filled email draft.
 
+The setup screen carries a live preview of the 26 weeks: a timeline showing each phase as a gear-coloured bar, with the overlaps visible. Setting the Week 1 start date fills in real calendar dates for every phase. The preview is rendered from the same phase data the session uses, so it can't drift.
+
 Defaults are pre-filled for an "ISSB-Ready Finance & Board" programme sold into Kenyan banks and listed PIEs, but the service line and wedge are both editable.
 
 ---
